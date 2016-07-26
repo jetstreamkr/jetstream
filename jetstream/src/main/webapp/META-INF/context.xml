@@ -35,7 +35,7 @@
     <Resource name="jdbc/myspring" auth="Container"
               type="javax.sql.DataSource" driverClassName="oracle.jdbc.driver.OracleDriver"
               url="jdbc:oracle:thin:@104.199.187.62:1521:xe"
-              username="jstest" password="jstest" maxTotal="20" maxIdle="10"
+              username="jsnew" password="jsnew" maxTotal="20" maxIdle="10"
               maxWaitMillis="-1"/>
 </Context>
 

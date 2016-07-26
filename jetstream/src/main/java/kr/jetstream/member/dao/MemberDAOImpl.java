@@ -16,7 +16,6 @@ public class MemberDAOImpl implements MemberDAO {
 	// ·Î±×ÀÎ
 	@Override
 	public MemberDTO login(String email, String password) {
-		System.out.println("dao" + email + password);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("email", email);
 		map.put("password", password);
@@ -25,7 +24,6 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public void insert(MemberDTO dto) {
-		System.out.println(dto.toString());
 		sqlsession.insert("jetstream.member.insert", dto);
 	}
 }

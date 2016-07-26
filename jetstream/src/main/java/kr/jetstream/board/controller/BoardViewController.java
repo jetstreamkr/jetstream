@@ -4,20 +4,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.jetstream.board.dto.BoardDTO;
 import kr.jetstream.board.service.BoardService;
+
 @Controller
-public class BoardInsertController {
+public class BoardViewController {
 	@Autowired
 	BoardService service;
 	
-	@RequestMapping(value="/board/boardCreate.do", method=RequestMethod.POST)
-	public String insert(BoardDTO document){
-		System.out.println(document.toString());
+	@RequestMapping(value="/board/board_main.do", method=RequestMethod.GET)
+	public ModelAndView getBoardView(String board_id){
+		BoardDTO board = service.viewBoard(board_id);
+		return new ModelAndView("board/main", "board", board);
 		
-		service.insertDocument(document);
-		return "redirect:/dashboard.do";
 	}
 
 }
+
+
+
+
+
+

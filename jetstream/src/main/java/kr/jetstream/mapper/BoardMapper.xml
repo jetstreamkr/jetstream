@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jetstream.board">
+	<!-- 대시보드 조회 -->
+	<select id="dashboard" parameterType="String" resultType="board">
+		select b.*, d.MEMBER_PERMIT, d.BOARD_FAV from TB_DASHBOARD d, TB_BOARD b
+    	where d.BOARD_ID = b.BOARD_ID and d.MEMBER_ID = #{member_id}	
+	</select>
+
+	<!-- 보드 생성 -->
+	<insert id="createBoard" parameterType="board">
+		<selectKey keyProperty="board_id" resultType="String" order="BEFORE">
+			SELECT 'B'||to_char(SEQ_BOARD.NEXTVAL) AS board_id FROM DUAL
+		</selectKey>
+		insert all
+		into TB_BOARD(BOARD_ID, MEMBER_ID, BOARD_NM) values(BOARD_ID, #{member_id}, #{board_nm})
+		into TB_DASHBOARD values(BOARD_ID, #{member_id}, '0', 'N')
+		select #{board_id} as BOARD_ID from dual
+	</insert>
+	
+	<!-- 보드 생성 후 바로 보드로 들어가기 위한 보드번호 따기 -->
+	<select id="getBoardId" parameterType="String" resultType="String">
+		select MAX(BOARD_ID) from TB_DASHBOARD where MEMBER_ID = #{member_id} 
+	</select>
+	
+	<!-- 보드 보기 -->
+	<select id="viewBoard" parameterType="String" resultType="board">
+		select b.*, d.MEMBER_PERMIT, d.BOARD_FAV from TB_DASHBOARD d, TB_BOARD b
+    	where d.BOARD_ID = b.BOARD_ID and d.BOARD_ID = #{board_id}
+	</select>
+</mapper>

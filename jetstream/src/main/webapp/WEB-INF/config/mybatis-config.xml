@@ -4,10 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias alias="member" type="kr.jetstream.member.dto.MemberDTO"/>
+		<typeAlias alias="member" type="kr.jetstream.member.dto.MemberDTO" />
+		<typeAlias alias="board" type="kr.jetstream.board.dto.BoardDTO" />
+
 	</typeAliases>
-	
+
 	<mappers>
-		<mapper resource="kr/jetstream/mapper/MemberMapper.xml"/>
+		<mapper resource="kr/jetstream/mapper/MemberMapper.xml" />
+		<mapper resource="kr/jetstream/mapper/BoardMapper.xml" />
 	</mappers>
 </configuration>

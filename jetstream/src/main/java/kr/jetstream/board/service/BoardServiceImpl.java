@@ -11,25 +11,29 @@ import kr.jetstream.board.dto.BoardDTO;
 public class BoardServiceImpl implements BoardService {
 	@Autowired
 	BoardDAO dao;
-		
+	
+	// 대시보드 조회
 	@Override
-	public BoardDTO findByID(String key, String value) {
-		return dao.findByID(key, value);
+	public List<BoardDTO> dashboard(String member_id) {
+		return dao.dashboard(member_id);
 	}
 
+	// 보드 생성
 	@Override
-	public void update(BoardDTO document) {
-		dao.update(document);
+	public void createBoard(BoardDTO board) {
+		dao.createBoard(board);
 	}
 
+	// 보드 생성 후 바로 보드로 들어가기 위한 보드번호 따기
 	@Override
-	public void insertDocument(BoardDTO doc) {
-		dao.insertDocument(doc);
+	public String getBoardId(String member_id) {
+		return dao.getBoardId(member_id);
 	}
 
+	// 보드 보기
 	@Override
-	public List<BoardDTO> findAll() {
-		return dao.findAll();
+	public BoardDTO viewBoard(String board_id) {
+		return dao.viewBoard(board_id);
 	}
 
 }

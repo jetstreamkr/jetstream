@@ -3,39 +3,47 @@ package kr.jetstream.member.dto;
 
 public class MemberDTO{
 	
-	private String memberid_pk;
+	private String member_id;
+	private String member_st;
 	private String email;
 	private String password;
-	private String name;
-	private String grade_st;
+	private String member_nm;
 	private String photo;
 	
 	public MemberDTO(){}
 
-	public MemberDTO(String email, String password, String name) {
+	public MemberDTO(String email, String password, String member_nm) {
 		super();
 		this.email = email;
 		this.password = password;
-		this.name = name;
-
+		this.member_nm = member_nm;
 	}
-	
-	public MemberDTO(String memberid_pk, String email, String password, String name, String grade_st, String photo) {
+
+	public MemberDTO(String member_id, String member_st, String email, String password, String member_nm,
+			String photo) {
 		super();
-		this.memberid_pk = memberid_pk;
+		this.member_id = member_id;
+		this.member_st = member_st;
 		this.email = email;
 		this.password = password;
-		this.name = name;
-		this.grade_st = grade_st;
+		this.member_nm = member_nm;
 		this.photo = photo;
 	}
 
-	public String getMemberid_pk() {
-		return memberid_pk;
+	public String getMember_id() {
+		return member_id;
 	}
 
-	public void setMemberid_pk(String memberid_pk) {
-		this.memberid_pk = memberid_pk;
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
+	}
+
+	public String getMember_st() {
+		return member_st;
+	}
+
+	public void setMember_st(String member_st) {
+		this.member_st = member_st;
 	}
 
 	public String getEmail() {
@@ -46,14 +54,6 @@ public class MemberDTO{
 		this.email = email;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getPassword() {
 		return password;
 	}
@@ -62,12 +62,12 @@ public class MemberDTO{
 		this.password = password;
 	}
 
-	public String getGrade_st() {
-		return grade_st;
+	public String getMember_nm() {
+		return member_nm;
 	}
 
-	public void setGrade_st(String grade_st) {
-		this.grade_st = grade_st;
+	public void setMember_nm(String member_nm) {
+		this.member_nm = member_nm;
 	}
 
 	public String getPhoto() {
@@ -80,9 +80,10 @@ public class MemberDTO{
 
 	@Override
 	public String toString() {
-		return "MemberDTO [memberid_pk=" + memberid_pk + ", email=" + email + ", name=" + name + ", password="
-				+ password + ", grade_st=" + grade_st + ", photo=" + photo + "]";
+		return "MemberDTO [member_id=" + member_id + ", member_st=" + member_st + ", email=" + email + ", password="
+				+ password + ", member_nm=" + member_nm + ", photo=" + photo + "]";
 	}
+
 
 	
 	

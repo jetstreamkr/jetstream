@@ -6,6 +6,6 @@
 		select * from TB_MEMBER where EMAIL = #{email, jdbcType=VARCHAR} and PASSWORD = #{password, jdbcType=VARCHAR}
 	</select>
 	<insert id="insert" parameterType="member">
-		insert into TB_MEMBER values(#{email}, #{email}, #{password}, #{name}, '0', 'default')
+		insert into TB_MEMBER values( 'M'||to_char(SEQ_MEMBER.NEXTVAL), '0', #{email}, #{password}, #{member_nm}, 'default')
 	</insert>
 </mapper>

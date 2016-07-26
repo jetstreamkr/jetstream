@@ -15,7 +15,6 @@ public class MemberServiceImpl implements MemberService {
 	// ·Î±×ÀÎ
 	@Override
 	public MemberDTO login(String email, String password) {
-		System.out.println("service" + email + password);
 		return dao.login(email, password);
 	}
 

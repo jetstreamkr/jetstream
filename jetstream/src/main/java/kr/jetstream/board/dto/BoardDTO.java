@@ -1,105 +1,132 @@
 package kr.jetstream.board.dto;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-@Document(collection="board")
 public class BoardDTO {
-	@Id
-	String _id;
-	String boardID;
-	String boardName;
-	String boardURL;
-	String boardPermission;
-	String boardStart;
-	String boardDue;
-	String boardClosed;
+	private String board_id;
+	private String member_id;
+	private String board_nm;
+	private String board_uri;
+	private String board_permit;
+	private String board_st;
+	private String board_start;
+	private String board_due;
+	private int board_prog;
+	private String member_permit;
+	private String board_fav;
 	
-	public BoardDTO(){
-		
+	public BoardDTO(){}
+
+	public BoardDTO(String board_id, String member_id, String board_nm, String board_uri, String board_permit,
+			String board_st, String board_start, String board_due, int board_prog, String member_permit,
+			String board_fav) {
+		super();
+		this.board_id = board_id;
+		this.member_id = member_id;
+		this.board_nm = board_nm;
+		this.board_uri = board_uri;
+		this.board_permit = board_permit;
+		this.board_st = board_st;
+		this.board_start = board_start;
+		this.board_due = board_due;
+		this.board_prog = board_prog;
+		this.member_permit = member_permit;
+		this.board_fav = board_fav;
 	}
 
-	public BoardDTO(String _id, String boardID, String boardName, String boardURL, String boardPermission,
-			String boardStart, String boardDue, String boardClosed) {
-		super();
-		this._id = _id;
-		this.boardID = boardID;
-		this.boardName = boardName;
-		this.boardURL = boardURL;
-		this.boardPermission = boardPermission;
-		this.boardStart = boardStart;
-		this.boardDue = boardDue;
-		this.boardClosed = boardClosed;
+	public String getBoard_id() {
+		return board_id;
+	}
+
+	public void setBoard_id(String board_id) {
+		this.board_id = board_id;
+	}
+
+	public String getMember_id() {
+		return member_id;
+	}
+
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
+	}
+
+	public String getBoard_nm() {
+		return board_nm;
+	}
+
+	public void setBoard_nm(String board_nm) {
+		this.board_nm = board_nm;
+	}
+
+	public String getBoard_uri() {
+		return board_uri;
+	}
+
+	public void setBoard_uri(String board_uri) {
+		this.board_uri = board_uri;
+	}
+
+	public String getBoard_permit() {
+		return board_permit;
+	}
+
+	public void setBoard_permit(String board_permit) {
+		this.board_permit = board_permit;
+	}
+
+	public String getBoard_st() {
+		return board_st;
+	}
+
+	public void setBoard_st(String board_st) {
+		this.board_st = board_st;
+	}
+
+	public String getBoard_start() {
+		return board_start;
+	}
+
+	public void setBoard_start(String board_start) {
+		this.board_start = board_start;
+	}
+
+	public String getBoard_due() {
+		return board_due;
+	}
+
+	public void setBoard_due(String board_due) {
+		this.board_due = board_due;
+	}
+
+	public int getBoard_prog() {
+		return board_prog;
+	}
+
+	public void setBoard_prog(int board_prog) {
+		this.board_prog = board_prog;
+	}
+
+	public String getMember_permit() {
+		return member_permit;
+	}
+
+	public void setMember_permit(String member_permit) {
+		this.member_permit = member_permit;
+	}
+
+	public String getBoard_fav() {
+		return board_fav;
+	}
+
+	public void setBoard_fav(String board_fav) {
+		this.board_fav = board_fav;
 	}
 
 	@Override
 	public String toString() {
-		return "BoardDTO [_id=" + _id + ", boardID=" + boardID + ", boardName=" + boardName + ", boardURL=" + boardURL
-				+ ", boardPermission=" + boardPermission + ", boardStart=" + boardStart + ", boardDue=" + boardDue
-				+ ", boardClosed=" + boardClosed + "]";
+		return "BoardDTO [board_id=" + board_id + ", member_id=" + member_id + ", board_nm=" + board_nm + ", board_uri="
+				+ board_uri + ", board_permit=" + board_permit + ", board_st=" + board_st + ", board_start="
+				+ board_start + ", board_due=" + board_due + ", board_prog=" + board_prog + ", member_permit="
+				+ member_permit + ", board_fav=" + board_fav + "]";
 	}
 
-	public String get_id() {
-		return _id;
-	}
 
-	public void set_id(String _id) {
-		this._id = _id;
-	}
-
-	public String getBoardID() {
-		return boardID;
-	}
-
-	public void setBoardID(String boardID) {
-		this.boardID = boardID;
-	}
-
-	public String getBoardName() {
-		return boardName;
-	}
-
-	public void setBoardName(String boardName) {
-		this.boardName = boardName;
-	}
-
-	public String getBoardURL() {
-		return boardURL;
-	}
-
-	public void setBoardURL(String boardURL) {
-		this.boardURL = boardURL;
-	}
-
-	public String getBoardPermission() {
-		return boardPermission;
-	}
-
-	public void setBoardPermission(String boardPermission) {
-		this.boardPermission = boardPermission;
-	}
-
-	public String getBoardStart() {
-		return boardStart;
-	}
-
-	public void setBoardStart(String boardStart) {
-		this.boardStart = boardStart;
-	}
-
-	public String getBoardDue() {
-		return boardDue;
-	}
-
-	public void setBoardDue(String boardDue) {
-		this.boardDue = boardDue;
-	}
-
-	public String getBoardClosed() {
-		return boardClosed;
-	}
-
-	public void setBoardClosed(String boardClosed) {
-		this.boardClosed = boardClosed;
-	}
 }

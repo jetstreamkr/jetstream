@@ -53,7 +53,7 @@
 							<!-- 보드리스트 반복 시작 -->
 							<c:forEach var="board" items="${boardList}">
 							<div class="col-md-12 panel panel-default">
-								<h3>${board.boardName}
+								<h3><a href="board/board_main.do?board_id=${board.board_id}">${board.board_nm}</a>
 									<small> 
 										<span class="label label-default">(시작일자)</span>
 										<span class="label label-default">(종료일자)</span>
@@ -85,7 +85,7 @@
 					<div class="col-md-12 well well-sm">
 						<img src="https://pbs.twimg.com/profile_images/553572195390091265/IeHWVVMX.png"
 							class="center-block img-circle img-responsive" width="100" height="100">
-						<h4 class="text-center">${member.name}</h4>
+						<h4 class="text-center">${member.member_nm}</h4>
 						<p class="text-center text-muted">${member.email}</p>
 						<a class="btn btn-block btn-warning" href="#">정보수정</a>
 					</div>
@@ -118,14 +118,12 @@
 					<h4 class="modal-title" id="myModalLabel">보드생성</h4>
 				</div>
 				<div class="modal-body">
-					<form role="form" action="board/boardCreate.do" method="POST">
+					<form role="form" action="board/board_create.do" method="POST">
 						<div class="form-group">
-							<label class="control-label" for="boardName">보드명을 입력하세요</label>
-							<input class="form-control input-lg" id="boardName" name="boardName" placeholder="영문 3~20자 이내" type="text">
+							<label class="control-label" for="board_nm">보드명을 입력하세요</label>
+							<input class="form-control input-lg" id="board_nm" name="board_nm" placeholder="영문 3~20자 이내" type="text">
 			
-							<input type="hidden" id="boardID" name="boardID" value="" />
-							
-							<input type="hidden" id="boardPermission" name="boardPermission" value="public" />
+							<input type="hidden" id="member_id" name="member_id" value="${member.member_id}" />
 						</div>
 						<div class="form-group">
 							<button type="submit" class="btn btn-lg btn-block btn-info">만들기!</button>
@@ -136,6 +134,3 @@
 		</div>
 	</div>
 	<!-- 보드 생성 모달 끝 -->
-</body>
-
-</html>

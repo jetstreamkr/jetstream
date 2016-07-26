@@ -9,10 +9,10 @@
 						<form class="form-horizontal" role="form" id="signInForm" method="post" action="signin.do">
 							<div class="form-group">
 								<div class="col-sm-4 text-right">
-									<label for="name" class="control-label" contenteditable="true">Name</label>
+									<label for="member_nm" class="control-label" contenteditable="true">Name</label>
 								</div>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" id="name" name="name" placeholder="Name">
+									<input type="text" class="form-control" id="member_nm" name="member_nm" placeholder="Name">
 								</div>
 							</div>
 							<div class="form-group">

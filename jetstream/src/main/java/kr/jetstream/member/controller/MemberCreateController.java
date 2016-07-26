@@ -10,7 +10,7 @@ import kr.jetstream.member.dto.MemberDTO;
 import kr.jetstream.member.service.MemberService;
 
 @Controller
-public class MemberInsertController {
+public class MemberCreateController {
 	@Autowired
 	MemberService service;
 
@@ -22,8 +22,8 @@ public class MemberInsertController {
 	}
 	
 	@RequestMapping(value = "/signin.do", method = RequestMethod.POST)
-	public String runInsert(String email, String password, String name) {
-		MemberDTO member = new MemberDTO(email, password, name);
+	public String runInsert(String email, String password, String member_nm) {
+		MemberDTO member = new MemberDTO(email, password, member_nm);
 		service.insert(member);
 		return "index";
 	}

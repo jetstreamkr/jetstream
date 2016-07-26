@@ -2,56 +2,40 @@ package kr.jetstream.board.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import kr.jetstream.board.dto.BoardDTO;
-import kr.jetstream.board.dto.BoardRepository;
-@Repository
+
+@Repository("boarddao")
 public class BoardDAOImpl implements BoardDAO {
 	@Autowired
-	MongoTemplate mongoTemplate;
-
-	@Autowired
-	BoardRepository repository;
+	SqlSession sqlsession;
 	
+	// 대시보드 조회
 	@Override
-	public BoardDTO findByID(String key, String value) {
-		Criteria criteria = new Criteria(key);
-		criteria.is(value);
-		Query query = new Query(criteria);
-		BoardDTO data = mongoTemplate.findOne(query, BoardDTO.class, "board");
-		return data;
+	public List<BoardDTO> dashboard(String member_id) {
+		return sqlsession.selectList("jetstream.board.dashboard", member_id);
 	}
 
+	// 보드 생성
 	@Override
-	public void update(BoardDTO document) {
-		Criteria criteria = new Criteria("boardID");
-		criteria.is(document.getBoardID());
-		Query query = new Query(criteria);
-		
-		Update update = new Update();
-		update.set("boardName", document.getBoardName());
-		update.set("boardPermission", document.getBoardPermission());
-		update.set("boardStart", document.getBoardStart());
-		update.set("boardDue", document.getBoardDue());
-		
-		mongoTemplate.updateMulti(query, update, "board");
+	public void createBoard(BoardDTO board) {
+		sqlsession.insert("jetstream.board.createBoard", board);
 	}
 
+	// 보드 생성 후 바로 보드로 들어가기 위한 보드번호 따기
 	@Override
-	public void insertDocument(BoardDTO doc) {
-		mongoTemplate.insert(doc);
-		
+	public String getBoardId(String member_id) {
+		return sqlsession.selectOne("jetstream.board.getBoardId", member_id);
 	}
 	
-	public List<BoardDTO> findAll(){
-		List<BoardDTO> boardList = (List<BoardDTO>) repository.findAll();
-		return boardList;
+	// 보드 보기
+	@Override
+	public BoardDTO viewBoard(String board_id) {
+		return sqlsession.selectOne("jetstream.board.viewBoard", board_id);
 	}
+
 
 }

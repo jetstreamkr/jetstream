@@ -4,11 +4,18 @@
        "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 <tiles-definitions>
 
+	<!-- 메인 템플릿 -->
 	<definition name="mainTemplate" template="/WEB-INF/layout/main_template.jsp">
 		<put-attribute name="header" value="/WEB-INF/layout/header.jsp" />
 	</definition>
+	<!-- 보드 템플릿(사이드바 포함) -->
+	<definition name="boardTemplate" template="/WEB-INF/layout/board_template.jsp">
+		<put-attribute name="header" value="/WEB-INF/layout/header.jsp" />
+		<put-attribute name="sidebar" value="/WEB-INF/layout/sidebar.jsp" />
+	</definition>
+	
 	<definition name="index" extends="mainTemplate">
-		<put-attribute name="content" value="/WEB-INF/index.jsp" />
+		<put-attribute name="content" value="/WEB-INF/layout/home.jsp" />
 	</definition>
 	<definition name="member/login" extends="mainTemplate">
 		<put-attribute name="content" value="/WEB-INF/member/login.jsp" />
@@ -20,5 +27,10 @@
 	<definition name="dashboard" extends="mainTemplate">
 		<put-attribute name="content" value="/WEB-INF/board/dashboard.jsp" />
 	</definition>
+
+	<definition name="board/main" extends="boardTemplate">
+		<put-attribute name="content" value="/WEB-INF/board/board_main.jsp" />
+	</definition>
+
 
 </tiles-definitions>
