@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jetstream.member">
+	<select id="login" resultType="member" parameterType="hashmap">
+		select * from TB_MEMBER where EMAIL = #{email, jdbcType=VARCHAR} and PASSWORD = #{password, jdbcType=VARCHAR}
+	</select>
+	<insert id="insert" parameterType="member">
+		insert into TB_MEMBER values(#{email}, #{email}, #{password}, #{name}, '0', 'default')
+	</insert>
+</mapper>
