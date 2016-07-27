@@ -10,7 +10,7 @@ import kr.jetstream.board.dto.BoardDTO;
 import kr.jetstream.board.service.BoardService;
 
 @Controller
-public class BoardViewController {
+public class BoardMainController {
 	@Autowired
 	BoardService service;
 	

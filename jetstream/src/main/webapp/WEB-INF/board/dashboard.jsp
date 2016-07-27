@@ -60,7 +60,7 @@
 										<div class="btn-group btn-group-xs">
 											<a href="#" class="btn btn-default"><span class="fa fa-fw fa-star-o"></span></a>
 											<a href="#" class="btn btn-success"><span class="fa fa-fw fa-cog"></span></a>
-											<a href="#" class="btn btn-danger"><span class="fa fa-fw fa-close"></span></a>
+											<a href="board/board_close.do?board_id=${board.board_id}" class="btn btn-danger"><span class="fa fa-fw fa-close"></span></a>
 										</div>
 									</small>
 								</h3>

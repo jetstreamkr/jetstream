@@ -7,11 +7,12 @@ import org.springframework.stereotype.Service;
 
 import kr.jetstream.board.dao.BoardDAO;
 import kr.jetstream.board.dto.BoardDTO;
+
 @Service
 public class BoardServiceImpl implements BoardService {
 	@Autowired
 	BoardDAO dao;
-	
+
 	// 대시보드 조회
 	@Override
 	public List<BoardDTO> dashboard(String member_id) {
@@ -36,4 +37,16 @@ public class BoardServiceImpl implements BoardService {
 		return dao.viewBoard(board_id);
 	}
 
+	// 보드 클로즈
+	@Override
+	public void closeBoard(String board_id) {
+		dao.closeBoard(board_id);
+	}
+
+	// 보드 리네임
+	@Override
+	public void renameBoard(BoardDTO board) {
+		dao.renameBoard(board);
+
+	}
 }
