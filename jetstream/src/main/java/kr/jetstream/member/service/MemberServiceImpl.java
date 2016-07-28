@@ -22,4 +22,9 @@ public class MemberServiceImpl implements MemberService {
 	public void insert(MemberDTO dto) {
 		dao.insert(dto);
 	}
+
+	@Override
+	public void update(String member_nm, String password, String photo, String email) {
+		dao.update(member_nm, password, photo, email);
+	}
 }

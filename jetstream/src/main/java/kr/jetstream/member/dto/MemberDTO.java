@@ -11,10 +11,16 @@ public class MemberDTO{
 	private String photo;
 	
 	public MemberDTO(){}
-
+	
 	public MemberDTO(String email, String password, String member_nm) {
-		super();
 		this.email = email;
+		this.password = password;
+		this.member_nm = member_nm;
+	}
+	
+	public MemberDTO(String member_nm, String password, String photo, String email){
+		this.email = email;
+		this.photo = photo;
 		this.password = password;
 		this.member_nm = member_nm;
 	}

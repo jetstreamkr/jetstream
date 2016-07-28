@@ -26,4 +26,10 @@ public class MemberDAOImpl implements MemberDAO {
 	public void insert(MemberDTO dto) {
 		sqlsession.insert("jetstream.member.insert", dto);
 	}
+	
+	@Override
+	public void update(String member_nm, String password, String photo, String email) {
+		MemberDTO dto = new MemberDTO(member_nm, password, photo, email);
+		sqlsession.update("jetstream.member.update", dto);
+	}
 }

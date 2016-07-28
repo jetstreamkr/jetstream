@@ -25,5 +25,9 @@ public interface BoardDAO {
 	// 보드 세팅
 	
 	// 보드 삭제
+	public void closeBoard(String board_id);
+
+	//보드 리네임
+	public void renameBoard(BoardDTO board);
 	
 }

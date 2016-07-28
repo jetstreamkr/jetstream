@@ -4,16 +4,16 @@
 <div class="col-md-1" id="sideMenu">
 	<ul class="nav nav-pills nav-stacked">
 		<li class="text-center">
-			<a href=""><i class="fa fa-3x fa-home"></i><br>Home</a>
+			<a href="/jetstream/board/board_main.do?board_id=${board.board_id}"><span class="fa fa-3x fa-home"></span><br>Main</a>
 		</li>
 		<li class="text-center">
-			<a href=""><i class="fa fa-3x fa-list"></i><br>List</a>
+			<a href="/jetstream/board/board_list.do?board_id=${board.board_id}"><span class="fa fa-3x fa-list"></span><br>List</a>
 		</li>
 		<li class="text-center">
-			<a href=""><i class="fa fa-3x fa-calendar"></i><br>Calendar</a>
+			<a href="/jetstream/board/board_cal.do?board_id=${board.board_id}"><span class="fa fa-3x fa-calendar"></span><br>Calendar</a>
 		</li>
 		<li class="text-center">
-			<a href=""><i class="fa fa-3x fa-gear"></i><br>Setting</a>
+			<a href="/jetstream/board/board_set.do?board_id=${board.board_id}"><span class="fa fa-3x fa-gear"></span><br>Setting</a>
 		</li>
 	</ul>
 </div>

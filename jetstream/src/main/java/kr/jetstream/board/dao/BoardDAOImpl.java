@@ -12,7 +12,7 @@ import kr.jetstream.board.dto.BoardDTO;
 public class BoardDAOImpl implements BoardDAO {
 	@Autowired
 	SqlSession sqlsession;
-	
+
 	// 대시보드 조회
 	@Override
 	public List<BoardDTO> dashboard(String member_id) {
@@ -30,12 +30,23 @@ public class BoardDAOImpl implements BoardDAO {
 	public String getBoardId(String member_id) {
 		return sqlsession.selectOne("jetstream.board.getBoardId", member_id);
 	}
-	
+
 	// 보드 보기
 	@Override
 	public BoardDTO viewBoard(String board_id) {
 		return sqlsession.selectOne("jetstream.board.viewBoard", board_id);
 	}
 
+	// 보드 삭제
+	@Override
+	public void closeBoard(String board_id) {
+		sqlsession.update("jetstream.board.closeBoard", board_id);
+	}
+
+	// 보드 리네임
+	@Override
+	public void renameBoard(BoardDTO board) {
+		sqlsession.update("jetstream.board.renameBoard", board);
+	}
 
 }

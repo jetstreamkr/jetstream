@@ -1,5 +1,7 @@
 package kr.jetstream.member.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,9 +17,15 @@ public class MemberCreateController {
 	MemberService service;
 
 	@RequestMapping(value = "/signin.do", method = RequestMethod.GET)
-	public ModelAndView insertForm() {
+	public ModelAndView insertForm(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("member/insert");
+		MemberDTO member = (MemberDTO) session.getAttribute("member");
+		if(member!=null){
+			mav.setViewName("dashboard");
+		}else{
+			mav.setViewName("member/insert");
+		}
+		
 		return mav;
 	}
 	

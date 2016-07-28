@@ -13,7 +13,7 @@
 		<put-attribute name="header" value="/WEB-INF/layout/header.jsp" />
 		<put-attribute name="sidebar" value="/WEB-INF/layout/sidebar.jsp" />
 	</definition>
-	
+
 	<definition name="index" extends="mainTemplate">
 		<put-attribute name="content" value="/WEB-INF/layout/home.jsp" />
 	</definition>
@@ -28,9 +28,26 @@
 		<put-attribute name="content" value="/WEB-INF/board/dashboard.jsp" />
 	</definition>
 
+	<definition name="member/update" extends="mainTemplate">
+		<put-attribute name="content" value="/WEB-INF/member/update.jsp" />
+	</definition>
+
 	<definition name="board/main" extends="boardTemplate">
 		<put-attribute name="content" value="/WEB-INF/board/board_main.jsp" />
 	</definition>
+
+	<definition name="board/list" extends="boardTemplate">
+		<put-attribute name="content" value="/WEB-INF/board/board_list.jsp" />
+	</definition>
+	
+	<definition name="error/update" extends="mainTemplate">
+		<put-attribute name="content" value="/WEB-INF/error/memberupdatefail.jsp" />
+	</definition>
+	
+	<definition name="error/login" extends="mainTemplate">
+		<put-attribute name="content" value="/WEB-INF/error/loginfail.jsp" />
+	</definition>
+
 
 
 </tiles-definitions>
