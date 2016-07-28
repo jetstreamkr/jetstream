@@ -1,10 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=euc-kr"
-	pageEncoding="euc-kr" session="true"%>
+<%@ page language="java" contentType="text/html; charset=euc-kr" pageEncoding="euc-kr" session="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <head>
-
 	<style type="text/css">
 		#initial{
 			color : white;
@@ -31,22 +29,25 @@
 
 						<!-- 즐겨찾기 반복 시작 -->
 						<div class="col-md-12 panel panel-warning">
-							<h3>
-								JetStream Project <small> <span
-									class="label label-default">(시작일자)</span> <span
-									class="label label-default">(종료일자)</span>
+							<h3>JetStream Project 
+								<small>
+									<span class="label label-default">(시작일자)</span>
+									<span class="label label-default">(종료일자)</span>
 									<div class="btn-group btn-group-xs">
-										<a href="#" class="btn btn-warning"><span
-											class="fa fa-fw fa-star"></span></a> <a href="#"
-											class="btn btn-success"><span class="fa fa-fw fa-cog"></span></a>
-										<a href="#" class="btn btn-danger"><span
-											class="fa fa-fw fa-close"></span></a>
+										<a href="#" class="btn btn-warning">
+											<span class="fa fa-fw fa-star"></span>
+										</a>
+										<a href="#" class="btn btn-success">
+											<span class="fa fa-fw fa-cog"></span>
+										</a>
+										<a href="#" class="btn btn-danger">
+											<span class="fa fa-fw fa-close"></span>
+										</a>
 									</div>
 								</small>
 							</h3>
 							<div class="progress progress-striped">
-								<div class="progress-bar progress-bar-info" role="progressbar"
-									style="width: 60%;">60% Complete</div>
+								<div class="progress-bar progress-bar-info" role="progressbar" style="width: 60%;">60% Complete</div>
 							</div>
 						</div>
 						<!-- 즐겨찾기 리스트 끝 -->

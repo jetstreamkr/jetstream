@@ -21,7 +21,7 @@ public class MemberCreateController {
 		ModelAndView mav = new ModelAndView();
 		MemberDTO member = (MemberDTO) session.getAttribute("member");
 		if(member!=null){
-			mav.setViewName("dashboard");
+			mav.setViewName("redirect:/dashboard.do");
 		}else{
 			mav.setViewName("member/insert");
 		}
@@ -33,6 +33,6 @@ public class MemberCreateController {
 	public String runInsert(String email, String password, String member_nm) {
 		MemberDTO member = new MemberDTO(email, password, member_nm);
 		service.insert(member);
-		return "index";
+		return "redirect:/index.do";
 	}
 }

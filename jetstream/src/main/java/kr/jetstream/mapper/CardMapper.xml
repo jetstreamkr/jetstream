@@ -7,19 +7,19 @@
 		<selectKey keyProperty="card_id" resultType="String" order="BEFORE">
 			SELECT 'C'||to_char(SEQ_CARD.NEXTVAL) AS card_id FROM DUAL
 		</selectKey>
-		insert into TB_CARD(BOARD_ID, LIST_ID, CARD_ID, CARD_ST, CARD_NM)
-		values (#{board_id}, #{list_id}, #{card_id}, 'O', #{card_nm})
+		insert into TB_CARD(BOARD_ID, LIST_ID, CARD_ID, MEMBER_ID, CARD_ST, CARD_ORDER, CARD_NM)
+		values (#{board_id}, #{list_id}, #{card_id}, #{member_id}, 'O', '2', #{card_nm})
 	</insert>
 
 	<!-- 카드 클로즈 -->
 	<update id="closeCard">
-		update TB_CARD set CART_ST = 'C' where CARD_ID =
-		#{card_id}
+		update TB_CARD set CART_ST = 'C' where CARD_ID = #{card_id}
 	</update>
 	
 	<!-- 카드 목록 조회 -->
 	<select id="cardList" parameterType="String" resultType="card">
-		select c.* from TB_CARD c, TB_BOARD b where c.BOARD_ID = b.BOARD_ID and c.BOARD_ID = #{board_id}
+		select c.* from TB_CARD c, TB_BOARD b where c.BOARD_ID = b.BOARD_ID 
+		and c.BOARD_ID = #{board_id} and c.CARD_ST = 'O' order by c.CARD_ORDER ASC
 	</select>
 	
 
