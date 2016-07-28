@@ -28,12 +28,24 @@
 		<put-attribute name="content" value="/WEB-INF/board/dashboard.jsp" />
 	</definition>
 
+	<definition name="member/update" extends="mainTemplate">
+		<put-attribute name="content" value="/WEB-INF/member/update.jsp" />
+	</definition>
+
 	<definition name="board/main" extends="boardTemplate">
 		<put-attribute name="content" value="/WEB-INF/board/board_main.jsp" />
 	</definition>
 
 	<definition name="board/list" extends="boardTemplate">
 		<put-attribute name="content" value="/WEB-INF/board/board_list.jsp" />
+	</definition>
+	
+	<definition name="error/update" extends="mainTemplate">
+		<put-attribute name="content" value="/WEB-INF/error/memberupdatefail.jsp" />
+	</definition>
+	
+	<definition name="error/login" extends="mainTemplate">
+		<put-attribute name="content" value="/WEB-INF/error/loginfail.jsp" />
 	</definition>
 
 

@@ -16,14 +16,14 @@ public class BoardUpdateController {
 	
 	@RequestMapping(value="/board/insert",method=RequestMethod.POST)
 	public String insert(BoardDTO document){
-		service.insertDocument(document);
+		//service.insertDocument(document);
 		return "redirect:/board/list";
 		
 	}
 	
 	@RequestMapping(value="/board/update", method=RequestMethod.POST)
 	public String update(BoardDTO document){
-		service.update(document);
+		//service.update(document);
 		return "redirect:/board/list";
 		
 	}

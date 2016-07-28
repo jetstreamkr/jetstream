@@ -26,8 +26,11 @@ public class MemberLoginController {
 		MemberDTO member = service.login(email, password);
 		if (member != null) {
 			session.setAttribute("member", member);
+			session.setAttribute("initial", member.getMember_nm().substring(0, 1));
+			return "dashboard";
+		}else{
+			return "error/login";
 		}
-		return "redirect:dashboard.do";
 	}
 	@RequestMapping("/logout.do")
 	public String logout(HttpSession session) {
