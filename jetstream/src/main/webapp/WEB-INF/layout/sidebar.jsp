@@ -12,8 +12,11 @@
 		<li class="text-center">
 			<a href="/jetstream/board/board_cal.do?board_id=${board.board_id}"><span class="fa fa-3x fa-calendar"></span><br>Calendar</a>
 		</li>
+		<!-- 내 보드일 경우에만 세팅메뉴 표시 -->
+		<c:if test="${set_ok eq 'Y'}">
 		<li class="text-center">
 			<a href="/jetstream/board/board_set.do?board_id=${board.board_id}"><span class="fa fa-3x fa-gear"></span><br>Setting</a>
 		</li>
+		</c:if>
 	</ul>
 </div>

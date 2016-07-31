@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.jetstream.board.dao.BoardDAO;
 import kr.jetstream.board.dto.BoardDTO;
+import kr.jetstream.member.dto.MemberDTO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -36,6 +37,12 @@ public class BoardServiceImpl implements BoardService {
 	public BoardDTO viewBoard(String board_id) {
 		return dao.viewBoard(board_id);
 	}
+	
+	// 내 보드 보기
+	@Override
+	public BoardDTO viewMyBoard(BoardDTO board) {
+		return dao.viewMyBoard(board);
+	}
 
 	// 보드 클로즈
 	@Override
@@ -49,4 +56,28 @@ public class BoardServiceImpl implements BoardService {
 		dao.renameBoard(board);
 
 	}
+	// 보드 세팅
+		// 보드 멤버 보기
+		@Override
+		public List<MemberDTO> viewBoardMember(String board_id) {
+			return dao.viewBoardMember(board_id);
+		}
+		
+		// 보드 멤버 추가를 위한 멤버 검색
+		@Override
+		public List<MemberDTO> searchBoardMember(String keyword) {
+			return dao.searchBoardMember(keyword);
+		}
+
+		// 보드 멤버 추가
+		@Override
+		public void addBoardMember(BoardDTO board) {
+			dao.addBoardMember(board);
+		}
+
+		// 보드 멤버 권한 수정, 삭제
+		@Override
+		public void setBoardMember(BoardDTO board) {
+			dao.setBoardMember(board);
+		}
 }

@@ -3,7 +3,7 @@
        "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
        "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 <tiles-definitions>
-
+<!-- 템플릿 -->
 	<!-- 메인 템플릿 -->
 	<definition name="mainTemplate" template="/WEB-INF/layout/main_template.jsp">
 		<put-attribute name="header" value="/WEB-INF/layout/header.jsp" />
@@ -13,41 +13,64 @@
 		<put-attribute name="header" value="/WEB-INF/layout/header.jsp" />
 		<put-attribute name="sidebar" value="/WEB-INF/layout/sidebar.jsp" />
 	</definition>
+<!-- 템플릿 끝 -->
 
+
+	<!-- 인덱스 -->
 	<definition name="index" extends="mainTemplate">
 		<put-attribute name="content" value="/WEB-INF/layout/home.jsp" />
 	</definition>
+
+<!-- 멤버 -->
 	<definition name="member/login" extends="mainTemplate">
 		<put-attribute name="content" value="/WEB-INF/member/login.jsp" />
 	</definition>
 	<definition name="member/insert" extends="mainTemplate">
 		<put-attribute name="content" value="/WEB-INF/member/signin.jsp" />
 	</definition>
-
-	<definition name="dashboard" extends="mainTemplate">
-		<put-attribute name="content" value="/WEB-INF/board/dashboard.jsp" />
-	</definition>
-
 	<definition name="member/update" extends="mainTemplate">
 		<put-attribute name="content" value="/WEB-INF/member/update.jsp" />
 	</definition>
 
+
+<!-- 보드 -->
+	<!-- 대시보드 -->
+	<definition name="dashboard" extends="mainTemplate">
+		<put-attribute name="content" value="/WEB-INF/board/dashboard.jsp" />
+	</definition>
+
+	<!-- 보드 메인 -->
 	<definition name="board/main" extends="boardTemplate">
 		<put-attribute name="content" value="/WEB-INF/board/board_main.jsp" />
 	</definition>
 
+	<!-- 보드 리스트 -->
 	<definition name="board/list" extends="boardTemplate">
 		<put-attribute name="content" value="/WEB-INF/board/board_list.jsp" />
 	</definition>
-	
-	<definition name="error/update" extends="mainTemplate">
-		<put-attribute name="content" value="/WEB-INF/error/memberupdatefail.jsp" />
+
+	<!-- 보드 캘린더 -->
+	<definition name="board/calendar" extends="boardTemplate">
+		<put-attribute name="content" value="/WEB-INF/board/board_calendar.jsp" />
 	</definition>
 	
+	<!-- 보드 세팅 -->
+	<definition name="board/set" extends="boardTemplate">
+		<put-attribute name="content" value="/WEB-INF/board/board_set.jsp" />
+	</definition>
+<!-- 보드 끝 -->
+	
+	
+
+<!-- 에러 -->
+	<definition name="error/update" extends="mainTemplate">
+		<put-attribute name="content"
+			value="/WEB-INF/error/memberupdatefail.jsp" />
+	</definition>
+
 	<definition name="error/login" extends="mainTemplate">
 		<put-attribute name="content" value="/WEB-INF/error/loginfail.jsp" />
 	</definition>
-
 
 
 </tiles-definitions>

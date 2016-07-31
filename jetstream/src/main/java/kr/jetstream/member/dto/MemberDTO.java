@@ -9,6 +9,8 @@ public class MemberDTO{
 	private String password;
 	private String member_nm;
 	private String photo;
+	private String board_id;
+	private String member_permit;
 	
 	public MemberDTO(){}
 	
@@ -34,6 +36,35 @@ public class MemberDTO{
 		this.password = password;
 		this.member_nm = member_nm;
 		this.photo = photo;
+	}
+
+	public String getBoard_id() {
+		return board_id;
+	}
+
+	public void setBoard_id(String board_id) {
+		this.board_id = board_id;
+	}
+
+	public MemberDTO(String member_id, String member_st, String email, String password, String member_nm, String photo,
+			String board_id, String member_permit) {
+		super();
+		this.member_id = member_id;
+		this.member_st = member_st;
+		this.email = email;
+		this.password = password;
+		this.member_nm = member_nm;
+		this.photo = photo;
+		this.board_id = board_id;
+		this.member_permit = member_permit;
+	}
+
+	public String getMember_permit() {
+		return member_permit;
+	}
+
+	public void setMember_permit(String member_permit) {
+		this.member_permit = member_permit;
 	}
 
 	public String getMember_id() {
@@ -87,9 +118,11 @@ public class MemberDTO{
 	@Override
 	public String toString() {
 		return "MemberDTO [member_id=" + member_id + ", member_st=" + member_st + ", email=" + email + ", password="
-				+ password + ", member_nm=" + member_nm + ", photo=" + photo + "]";
+				+ password + ", member_nm=" + member_nm + ", photo=" + photo + ", board_id=" + board_id
+				+ ", member_permit=" + member_permit + "]";
 	}
 
+	
 
 	
 	

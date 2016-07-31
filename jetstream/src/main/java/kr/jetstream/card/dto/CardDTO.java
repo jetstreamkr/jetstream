@@ -13,6 +13,7 @@ public class CardDTO {
 	private String card_attach;
 	private String card_order;
 	private String card_nm;
+	private String list_nm;
 
 	public CardDTO(){
 		
@@ -34,6 +35,25 @@ public class CardDTO {
 		this.card_attach = card_attach;
 		this.card_order = card_order;
 		this.card_nm = card_nm;
+	}
+
+	public CardDTO(String board_id, String list_id, String card_id, String member_id, int card_loc, String card_st,
+			String card_txt, String card_start, String card_due, String card_attach, String card_order, String card_nm,
+			String list_nm) {
+		super();
+		this.board_id = board_id;
+		this.list_id = list_id;
+		this.card_id = card_id;
+		this.member_id = member_id;
+		this.card_loc = card_loc;
+		this.card_st = card_st;
+		this.card_txt = card_txt;
+		this.card_start = card_start;
+		this.card_due = card_due;
+		this.card_attach = card_attach;
+		this.card_order = card_order;
+		this.card_nm = card_nm;
+		this.list_nm = list_nm;
 	}
 
 	public String getBoard_id() {
@@ -132,12 +152,22 @@ public class CardDTO {
 		this.card_nm = card_nm;
 	}
 
+	public String getList_nm() {
+		return list_nm;
+	}
+
+	public void setList_nm(String list_nm) {
+		this.list_nm = list_nm;
+	}
+
 	@Override
 	public String toString() {
 		return "CardDTO [board_id=" + board_id + ", list_id=" + list_id + ", card_id=" + card_id + ", member_id="
 				+ member_id + ", card_loc=" + card_loc + ", card_st=" + card_st + ", card_txt=" + card_txt
 				+ ", card_start=" + card_start + ", card_due=" + card_due + ", card_attach=" + card_attach
-				+ ", card_order=" + card_order + ", card_nm=" + card_nm + "]";
+				+ ", card_order=" + card_order + ", card_nm=" + card_nm + ", list_nm=" + list_nm + "]";
 	}
 
+	
+	
 }

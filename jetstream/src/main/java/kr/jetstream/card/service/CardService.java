@@ -13,11 +13,14 @@ public interface CardService {
 	public void closeCard (String card_id);
 	
 	// 카드 목록 조회
-	public List<CardDTO> cardList(String board_id);
+	public List<CardDTO> cardList(String board_id, String option);
 	
 	//카드 이름, 내용 수정
 	public void updateCard (CardDTO card);
 	
 	//카드 검색
 	public CardDTO searchCard (String member_id, String card_nm);
+	
+	public CardDTO cardView(String card_id);
+
 }

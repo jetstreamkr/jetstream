@@ -1,5 +1,6 @@
 package kr.jetstream.card.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -27,10 +28,14 @@ public class CardDAOImpl implements CardDAO {
 	
 	// 카드 목록 조회
 	@Override
-	public List<CardDTO> cardList(String board_id) {
-		return sqlsession.selectList("cardList", board_id);
-	}
-	
+	public List<CardDTO> cardList(String board_id, String option) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("board_id", board_id);
+		map.put("option", option);
+		
+		return sqlsession.selectList("cardList", map);
+	}	
 	
 	//카드 이름, 내용 수정
 	public void updateCard (CardDTO card){
@@ -42,6 +47,11 @@ public class CardDAOImpl implements CardDAO {
 	public CardDTO searchCard(String member_id, String card_nm) {
 		
 		return (CardDTO) sqlsession.selectMap("searchCard", member_id, card_nm);
+	}
+
+	@Override
+	public CardDTO cardView(String card_id) {
+		return sqlsession.selectOne("cardView", card_id);
 	}
 
 }

@@ -2,26 +2,45 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="jetstream.card">
-		<!-- 카드 생성 -->
+	<!-- 카드 생성 -->
 	<insert id="createCard" parameterType="card">
 		<selectKey keyProperty="card_id" resultType="String" order="BEFORE">
 			SELECT 'C'||to_char(SEQ_CARD.NEXTVAL) AS card_id FROM DUAL
 		</selectKey>
-		insert into TB_CARD(BOARD_ID, LIST_ID, CARD_ID, MEMBER_ID, CARD_ST, CARD_ORDER, CARD_NM)
-		values (#{board_id}, #{list_id}, #{card_id}, #{member_id}, 'O', '2', #{card_nm})
+		insert into TB_CARD(BOARD_ID, LIST_ID, CARD_ID, MEMBER_ID, CARD_ST,
+		CARD_ORDER, CARD_NM)
+		values (#{board_id}, #{list_id}, #{card_id},
+		#{member_id}, 'O', '2', #{card_nm})
 	</insert>
 
 	<!-- 카드 클로즈 -->
 	<update id="closeCard">
-		update TB_CARD set CART_ST = 'C' where CARD_ID = #{card_id}
+		update TB_CARD set CART_ST = 'C' where CARD_ID =
+		#{card_id}
 	</update>
-	
+
 	<!-- 카드 목록 조회 -->
-	<select id="cardList" parameterType="String" resultType="card">
-		select c.* from TB_CARD c, TB_BOARD b where c.BOARD_ID = b.BOARD_ID 
-		and c.BOARD_ID = #{board_id} and c.CARD_ST = 'O' order by c.CARD_ORDER ASC
+	<select id="cardList" parameterType="hashmap" resultType="card">
+		select c.*, l.LIST_NM from TB_CARD c, TB_LIST l, TB_BOARD b where c.BOARD_ID = b.BOARD_ID
+		and c.LIST_ID = l.LIST_ID and l.BOARD_ID = b.BOARD_ID 
+		and c.BOARD_ID = #{board_id} and c.CARD_ST = 'O'
+		<choose>
+			<when test="option == 'list'">
+				order by c.CARD_ORDER ASC
+			</when>
+			<when test="option == 'main'">
+				order by c.CARD_DUE ASC, c.CARD_ORDER ASC
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
 	</select>
-	
+
+	<!-- 카드 내용 조회 -->
+	<select id="cardView" parameterType="String" resultType="card">
+		select * from TB_CARD where CARD_ID = #{card_id}
+	</select>
+
 
 	<!-- 카드 이름, 내용 수정 -->
 	<update id="updateCard">
@@ -35,6 +54,7 @@
 		from TB_DASHBOARD d, TB_BOARD b, TB_CARD c
 		where c.MEMBER_ID
 		= #{member_id} or (d.MEMBER_ID = #{member_id} and
-		d.BOARD_ID = c.BOARD_ID and c.CARD_NM = #{card_nm}
+		d.BOARD_ID =
+		c.BOARD_ID and c.CARD_NM = #{card_nm}
 	</select>
 </mapper>
