@@ -52,6 +52,13 @@
 
 
 <!-- 보드세팅 -->
+	<!-- 보드 정보 수정 -->
+	<update id="setBoard" parameterType="board">
+		update TB_BOARD
+		set BOARD_NM = #{board_nm}, BOARD_PERMIT = #{board_permit}, BOARD_START = #{board_start}, BOARD_DUE = #{board_due}
+		where BOARD_ID = #{board_id}
+	</update>
+
 	<!-- 보드 멤버 보기 -->
 	<select id="viewBoardMember" parameterType="String" resultType="member">
 		select m.*, d.BOARD_ID, d.MEMBER_PERMIT from TB_DASHBOARD d, TB_MEMBER m where d.MEMBER_ID = m.MEMBER_ID 

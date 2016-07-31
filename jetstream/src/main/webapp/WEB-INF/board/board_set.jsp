@@ -35,6 +35,25 @@
 	  	alert('클립보드로 복사되었습니다');
 	  	$temp.remove();
 	}
+
+	//삭제는 중요하니 POST로 넘기는 스크립트
+	function del(board_id) {
+	    if (confirm("삭제하시겠습니까?") == true) {
+		    var delform = document.createElement("form");
+		    delform.setAttribute("method", "POST");
+		    delform.setAttribute("action", "/jetstream/board/board_close.do");
+	        var field = document.createElement("input");
+			field.setAttribute("type", "hidden");
+			field.setAttribute("name", "board_id");
+			field.setAttribute("value", board_id);
+	        delform.appendChild(field);
+		    document.body.appendChild(delform);
+		    delform.submit();
+	    } else {
+	        alert('취소되었습니다.');
+	    }
+	}
+
 </script>
 
 <div class="col-md-11">
@@ -46,14 +65,14 @@
 	</div>
 	<!-- 보드정보 끝 -->
 
-	<!-- set 왼쪽 시작 -->
+	<!-- 보드설정 시작 -->
 	<div class="col-md-4">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<span class="panel-title">보드 설정</span>
 			</div>
 			<div class="panel-body">
-				<form role="form">
+				<form role="form" action="/jetstream/board/board_set.do" method="POST">
 					<div class="form-group col-md-12">
 						<label class="control-label" for="board_nm">보드이름</label>
 						<input class="form-control" id="board_nm" name="board_nm" placeholder="보드 이름(영문 30자, 한글 20자 이내)" type="text" value="${board.board_nm}">
@@ -92,13 +111,16 @@
 						<input class="form-control datepicker2" id="board_due" name="board_due" type="text" value="${boardDueDate}" placeholder="종료일 지정">
 					</div>
 					<div class="form-group col-md-12">
-						<button type="submit" class="btn btn-block btn-success btn-lg">수정하기</button>
+						<input type="hidden" id="board_id" name="board_id" value="${board.board_id}">
+						<button type="submit" class="btn btn-block btn-warning btn-lg">수정하기</button>
+						<a href="javascript:del('${board.board_id}')" class="btn btn-block btn-danger btn-lg">삭제하기</a>
+						
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-	<!-- set 왼쪽 끝 -->
+	<!-- 보드 설정 끝 -->
 	
 	<!-- set 멤버 시작 -->
 	<div class="col-md-4">

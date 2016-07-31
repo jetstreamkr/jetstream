@@ -22,8 +22,6 @@ public interface BoardService {
 	// 내 보드 보기
 	public BoardDTO viewMyBoard(BoardDTO board);
 
-	// 보드 세팅
-
 	// 보드 클로즈
 	public void closeBoard(String board_id);
 
@@ -32,6 +30,9 @@ public interface BoardService {
 
 	
 // 보드 세팅
+	// 보드 정보 수정
+	public void setBoard(BoardDTO board);
+	
 	// 보드 멤버 보기
 	public List<MemberDTO> viewBoardMember(String board_id);
 	

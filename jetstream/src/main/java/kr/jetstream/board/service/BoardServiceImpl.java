@@ -56,28 +56,35 @@ public class BoardServiceImpl implements BoardService {
 		dao.renameBoard(board);
 
 	}
-	// 보드 세팅
-		// 보드 멤버 보기
-		@Override
-		public List<MemberDTO> viewBoardMember(String board_id) {
-			return dao.viewBoardMember(board_id);
-		}
-		
-		// 보드 멤버 추가를 위한 멤버 검색
-		@Override
-		public List<MemberDTO> searchBoardMember(String keyword) {
-			return dao.searchBoardMember(keyword);
-		}
+// 보드 세팅
+	// 보드 정보 수정
+	@Override
+	public void setBoard(BoardDTO board) {
+		dao.setBoard(board);
+	}
 
-		// 보드 멤버 추가
-		@Override
-		public void addBoardMember(BoardDTO board) {
-			dao.addBoardMember(board);
-		}
+	// 보드 멤버 보기
+	@Override
+	public List<MemberDTO> viewBoardMember(String board_id) {
+		return dao.viewBoardMember(board_id);
+	}
+	
+	// 보드 멤버 추가를 위한 멤버 검색
+	@Override
+	public List<MemberDTO> searchBoardMember(String keyword) {
+		return dao.searchBoardMember(keyword);
+	}
 
-		// 보드 멤버 권한 수정, 삭제
-		@Override
-		public void setBoardMember(BoardDTO board) {
-			dao.setBoardMember(board);
-		}
+	// 보드 멤버 추가
+	@Override
+	public void addBoardMember(BoardDTO board) {
+		dao.addBoardMember(board);
+	}
+
+	// 보드 멤버 권한 수정, 삭제
+	@Override
+	public void setBoardMember(BoardDTO board) {
+		dao.setBoardMember(board);
+	}
+
 }

@@ -1,6 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=euc-kr" pageEncoding="euc-kr" session="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<script type="text/javascript">
+	//삭제는 중요하니 POST로 넘기는 스크립트
+	function del(board_id) {
+	    if (confirm("삭제하시겠습니까?") == true) {
+		    var delform = document.createElement("form");
+		    delform.setAttribute("method", "POST");
+		    delform.setAttribute("action", "/jetstream/board/board_close.do");
+	        var field = document.createElement("input");
+			field.setAttribute("type", "hidden");
+			field.setAttribute("name", "board_id");
+			field.setAttribute("value", board_id);
+	        delform.appendChild(field);
+		    document.body.appendChild(delform);
+		    delform.submit();
+	    } else {
+	        alert('취소되었습니다.');
+	    }
+	}
+</script>
+
 
 <head>
 	<style type="text/css">
@@ -73,23 +95,40 @@
 							<c:otherwise>
 								<!-- 보드리스트 반복 시작 -->
 								<c:forEach var="board" items="${boardList}">
+									<fmt:parseDate var="boardStart" value="${board.board_start}" pattern="yyyy-MM-dd HH:mm:ss" />
+									<fmt:parseDate var="boardDue" value="${board.board_due}" pattern="yyyy-MM-dd HH:mm:ss" />
+									<fmt:formatDate var="boardStartDate" value="${boardStart}" type="date" pattern="yyyy-MM-dd" />
+									<fmt:formatDate var="boardDueDate" value="${boardDue}" type="date" pattern="yyyy-MM-dd" />
 									<div class="col-md-12 panel panel-default">
 										<h3>
 											<a href="board/board_main.do?board_id=${board.board_id}">${board.board_nm}</a>
-											<small> <span class="label label-default">(시작일자)</span>
-												<span class="label label-default">(종료일자)</span>
+											<small> <span class="label label-default">${boardStartDate}</span>
+												<span class="label label-default">${boardDueDate}</span>
 												<div class="btn-group btn-group-xs">
-													<a href="#" class="btn btn-default"><span
-														class="fa fa-fw fa-star-o"></span></a> <a href="#"
-														class="btn btn-success"><span class="fa fa-fw fa-cog"></span></a>
-													<a href="board/board_close.do?board_id=${board.board_id}"
-														class="btn btn-danger"><span class="fa fa-fw fa-close"></span></a>
+													<a href="#" class="btn btn-default">
+														<span class="fa fa-fw fa-star-o"></span>
+													</a>
+													<a href="/jetstream/board/board_set.do?board_id=${board.board_id}" class="btn btn-success">
+														<span class="fa fa-fw fa-cog"></span>
+													</a>
+													<a href="javascript:del('${board.board_id}')" class="btn btn-danger">
+														<span class="fa fa-fw fa-close"></span>
+													</a>
 												</div>
 											</small>
 										</h3>
 										<div class="progress progress-striped">
+											<c:choose>
+												<c:when test="${board.board_prog eq null}">
+													<c:set var="board_prog_value" value="0" />
+												</c:when>
+												<c:otherwise>
+													<c:set var="board_prog_value" value="${board.board_prog}" />
+												</c:otherwise>
+											</c:choose>
 											<div class="progress-bar progress-bar-info"
-												role="progressbar" style="width: 60%;">60% Complete</div>
+												role="progressbar" style="width: ${board_prog_value}%;">${board_prog_value}% Complete</div>
+
 										</div>
 									</div>
 								</c:forEach>

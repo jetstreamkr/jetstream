@@ -22,5 +22,8 @@ public interface CardDAO {
 	public CardDTO searchCard(String member_id, String card_nm);
 	
 	// 카드 보기(card_view.do)
-	public CardDTO cardView(String card_id);
+	public CardDTO viewCard(String card_id);
+	
+	// 카드 수정
+	public void setCard(CardDTO card);
 }

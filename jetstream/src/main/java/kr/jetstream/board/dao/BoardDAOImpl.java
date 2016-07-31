@@ -57,13 +57,17 @@ public class BoardDAOImpl implements BoardDAO {
 		sqlsession.update("jetstream.board.renameBoard", board);
 	}
 
-	@Override
-	public void setBoard(BoardDTO board) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 // 보드 세팅
+	
+	// 보드 정보 수
+	@Override
+	public void setBoard(BoardDTO board) {
+		sqlsession.update("jetstream.board.setBoard", board);
+		
+	}
+	
 	// 보드 멤버 보기
 	@Override
 	public List<MemberDTO> viewBoardMember(String board_id) {

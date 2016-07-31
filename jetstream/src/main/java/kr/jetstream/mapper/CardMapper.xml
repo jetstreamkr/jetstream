@@ -36,12 +36,6 @@
 		</choose>
 	</select>
 
-	<!-- 카드 내용 조회 -->
-	<select id="cardView" parameterType="String" resultType="card">
-		select * from TB_CARD where CARD_ID = #{card_id}
-	</select>
-
-
 	<!-- 카드 이름, 내용 수정 -->
 	<update id="updateCard">
 		update TB_CARD set CARD_NM = #{card_nm}, CARD_TXT =
@@ -57,4 +51,18 @@
 		d.BOARD_ID =
 		c.BOARD_ID and c.CARD_NM = #{card_nm}
 	</select>
+	
+	
+	<!-- 카드 보기 -->
+	<select id="viewCard" parameterType="String" resultType="card">
+		select * from TB_CARD where CARD_ID = #{card_id}
+	</select>
+	
+	<!-- 카드 수정 -->
+	<update id="setCard" parameterType="card">
+		update TB_CARD set CARD_NM = #{card_nm}, CARD_TXT = #{card_txt}, CARD_START = #{card_start}, CARD_DUE = #{card_due} where CARD_ID = #{card_id}
+	</update>
+	
+	
+	
 </mapper>

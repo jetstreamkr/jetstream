@@ -41,9 +41,16 @@ public class CardServiceImpl implements CardService {
 		return dao.searchCard(member_id, card_nm);
 	}
 
+	// 카드 보기
 	@Override
-	public CardDTO cardView(String card_id) {
-		return dao.cardView(card_id);
+	public CardDTO viewCard(String card_id) {
+		return dao.viewCard(card_id);
+	}
+	
+	// 카드 수정
+	@Override
+	public void setCard(CardDTO card) {
+		dao.setCard(card);
 	}
 
 }

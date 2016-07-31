@@ -49,9 +49,16 @@ public class CardDAOImpl implements CardDAO {
 		return (CardDTO) sqlsession.selectMap("searchCard", member_id, card_nm);
 	}
 
+	// 카드 보기
 	@Override
-	public CardDTO cardView(String card_id) {
-		return sqlsession.selectOne("cardView", card_id);
+	public CardDTO viewCard(String card_id) {
+		return sqlsession.selectOne("viewCard", card_id);
+	}
+	
+	// 카드 수정
+	@Override
+	public void setCard(CardDTO card) {
+		sqlsession.update("setCard", card);
 	}
 
 }

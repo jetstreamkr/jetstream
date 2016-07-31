@@ -21,8 +21,7 @@ public interface BoardDAO {
 	// 내 보드 보기
 	public BoardDTO viewMyBoard(BoardDTO board);
 	
-	// 보드 세팅
-	public void setBoard(BoardDTO board);
+
 		
 	// 보드 삭제
 	public void closeBoard(String board_id);
@@ -32,6 +31,10 @@ public interface BoardDAO {
 	
 	
 // 보드 세팅
+	
+	// 보드 정보 수정
+	public void setBoard(BoardDTO board);
+	
 	// 보드 멤버 보기
 	public List<MemberDTO> viewBoardMember(String board_id);
 	

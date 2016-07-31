@@ -10,17 +10,16 @@ import kr.jetstream.card.dto.CardDTO;
 import kr.jetstream.card.service.CardService;
 
 @Controller
-public class CardViewController {
+public class CardSetController {
 	@Autowired
 	CardService cardService;
 	
-	@RequestMapping(value="/board/card_view.do", method=RequestMethod.GET)
-	public ModelAndView viewCard(String card_id){
+	@RequestMapping(value="/board/card_set.do", method=RequestMethod.POST)
+	public ModelAndView cardSet(CardDTO card){
 		ModelAndView mav = new ModelAndView();
-		System.out.println(card_id);
-		CardDTO card = cardService.viewCard(card_id);
+
+		cardService.setCard(card);
 		
-		System.out.println(card);
 		mav.addObject("card", card);
 		mav.setViewName("card/card_view");
 		return mav;

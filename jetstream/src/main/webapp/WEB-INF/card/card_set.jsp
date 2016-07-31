@@ -24,7 +24,7 @@
 						
 						<div class="form-group col-md-6">
 							<label class="control-label" for="card--${card.card_id}">담당자</label>
-							
+							<input class="form-control datepicker1" id="card-start-${card.card_id}" name="card_start" type="text" value="${cardStartDate}" placeholder="시작일 지정">
 						</div>
 						
 						

@@ -7,7 +7,7 @@
 			<div class="col-md-12">
 				<h1>${board.board_nm}</h1>
 				<hr>
-				<h3>보드 진행도(추가예정)</h3>
+				<h3></h3>
 			</div>
 			<!-- 보드정보 끝 -->
 

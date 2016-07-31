@@ -65,10 +65,9 @@ public class BoardSetController {
 	@RequestMapping(value="/board/board_set.do",method=RequestMethod.POST)
 	public ModelAndView boardSet(BoardDTO board){
 		ModelAndView mav = new ModelAndView();
-//		BoardDTO board = boardService.setBoard(board_id);
+		boardService.setBoard(board);
 		
-		mav.addObject("board", board);
-		mav.setViewName("board/set");
+		mav.setViewName("redirect:/board/board_set.do?board_id=" + board.getBoard_id());
 		return mav;
 	}
 
