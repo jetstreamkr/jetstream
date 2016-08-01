@@ -2,41 +2,90 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="jetstream.board">
+
 	<!-- 대시보드 조회 -->
-	<select id="dashboard" parameterType="String" resultType="board">
-		select b.*, d.MEMBER_PERMIT, d.BOARD_FAV from TB_DASHBOARD d, TB_BOARD b
-    	where d.BOARD_ID = b.BOARD_ID and d.MEMBER_ID = #{member_id} and b.BOARD_ST = 'O'	
+	<select resultType="board" parameterType="String" id="dashboard">
+		select b.*, d.MEMBER_PERMIT, d.BOARD_FAV
+		from TB_DASHBOARD d, TB_BOARD b
+		where d.BOARD_ID = b.BOARD_ID and d.MEMBER_ID = #{member_id} and b.BOARD_ST
+		= 'O'
 	</select>
 
 	<!-- 보드 생성 -->
-	<insert id="createBoard" parameterType="board">
-		<selectKey keyProperty="board_id" resultType="String" order="BEFORE">
+	<insert parameterType="board" id="createBoard">
+		<selectKey resultType="String" order="BEFORE" keyProperty="board_id">
 			SELECT 'B'||to_char(SEQ_BOARD.NEXTVAL) AS board_id FROM DUAL
 		</selectKey>
-		insert all
-		into TB_BOARD(BOARD_ID, MEMBER_ID, BOARD_NM, BOARD_ST) values(BOARD_ID, #{member_id}, #{board_nm}, 'O')
-		into TB_DASHBOARD values(BOARD_ID, #{member_id}, '0', 'N')
-		select #{board_id} as BOARD_ID from dual
+		insert all into TB_BOARD(BOARD_ID, MEMBER_ID, BOARD_NM, BOARD_ST)
+		values(BOARD_ID, #{member_id}, #{board_nm}, 'O') into TB_DASHBOARD
+		values(BOARD_ID, #{member_id}, '0', 'N') select #{board_id} as
+		BOARD_ID from dual
 	</insert>
-	
+
 	<!-- 보드 생성 후 바로 보드로 들어가기 위한 보드번호 따기 -->
-	<select id="getBoardId" parameterType="String" resultType="String">
-		select MAX(BOARD_ID) from TB_DASHBOARD where MEMBER_ID = #{member_id} 
+
+
+	<select resultType="String" parameterType="String" id="getBoardId"> select
+		MAX(BOARD_ID) from TB_DASHBOARD where MEMBER_ID = #{member_id}
 	</select>
-	
+
 	<!-- 보드 보기 -->
-	<select id="viewBoard" parameterType="String" resultType="board">
-		select b.*, d.MEMBER_PERMIT, d.BOARD_FAV from TB_DASHBOARD d, TB_BOARD b
-    	where d.BOARD_ID = b.BOARD_ID and d.BOARD_ID = #{board_id}
+
+
+	<select resultType="board" parameterType="String" id="viewBoard"> select
+		b.*, d.MEMBER_PERMIT, d.BOARD_FAV from TB_DASHBOARD d, TB_BOARD b
+		where d.BOARD_ID = b.BOARD_ID and d.BOARD_ID = #{board_id}
 	</select>
-	
+
+	<!-- 보드셋팅화면 -->
+
+
+	<select resultType="board" parameterType="string" id="setBoard"> select
+		BOARD_ID , BOARD_NM, BOARD_PERMIT, BOARD_START, BOARD_DUE from
+		TB_BOARD where BOARD_ID = #{board_id}
+	</select>
+
+	<!-- 보드수정 -->
+
+
+	<update id="UpdateBoard"> update TB_BOARD set board_nm = #{board_nm},
+		board_permit = #{board_permit}, board_start =
+		to_date(#{board_start},'YYYY/MM/DD'), board_due =
+		to_date(#{board_due},'YYYY/MM/DD') where board_id = #{board_id}
+	</update>
+
 	<!-- 보드 닫기 -->
-	<update id="closeBoard">
-		update TB_BOARD set BOARD_ST = 'C' where BOARD_ID = #{board_id}
+
+
+	<update id="closeBoard"> update TB_BOARD set BOARD_ST = 'C' where BOARD_ID =
+		#{board_id}
 	</update>
-	
+
 	<!-- 보드 이름 바꾸기 -->
-	<update id="renameBoard">
-		update TB_BOARD set BOARD_NM = #{board_nm} where BOARD_ID = #{board_id}
+
+
+	<update id="renameBoard"> update TB_BOARD set BOARD_NM = #{board_nm} where
+		BOARD_ID = #{board_id}
 	</update>
+
+	<!-- -->
+
+
+	<select resultType="String" parameterType="String" id="findBoardfav"> select
+		BOARD_FAV from TB_DASHBOARD where BOARD_ID = #{board_id}
+	</select>
+
+	<update id="setBoardfavToY"> update TB_DASHBOARD set BOARD_FAV = 'Y' where
+		BOARD_ID = #{board_id}
+	</update>
+
+	<update id="setBoardfavToN"> update TB_DASHBOARD set BOARD_FAV = 'N' where
+		BOARD_ID = #{board_id}
+	</update>
+
+	<select resultType="board" parameterType="String" id="favdashboard"> select
+		b.*, d.MEMBER_PERMIT, d.BOARD_FAV from TB_DASHBOARD d, TB_BOARD b
+		where d.BOARD_ID = b.BOARD_ID and d.MEMBER_ID = #{member_id} and
+		b.BOARD_ST = 'O' and d.BOARD_FAV ='Y'
+	</select>
 </mapper>

@@ -32,4 +32,16 @@ public class MemberDAOImpl implements MemberDAO {
 		MemberDTO dto = new MemberDTO(member_nm, password, photo, email);
 		sqlsession.update("jetstream.member.update", dto);
 	}
+
+	@Override
+	public int idcheck(String email) {
+		MemberDTO dto= sqlsession.selectOne("jetstream.member.idcheck",email);
+		if(dto==null){
+			return 0;
+		}else{
+			return 1;
+		}
+	}
+	
+	
 }

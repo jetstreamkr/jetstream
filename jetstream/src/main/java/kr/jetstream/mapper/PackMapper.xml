@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jetstream.pack">
+	<!-- 리스트 생성-->
+	<insert id="createPack" parameterType="pack">
+		<selectKey keyProperty="list_id" resultType="String" order="BEFORE">
+			SELECT 'L'||to_char(SEQ_LIST.NEXTVAL) AS list_id FROM DUAL
+		</selectKey>
+		insert into TB_LIST(BOARD_ID, LIST_ID, LIST_NM, LIST_ST) values (#{board_id}, #{list_id}, #{list_nm}, 'O')
+	</insert>
+	
+	<!-- 리스트 수정(이름부분) -->
+	<update id="updatePack">
+		update TB_LIST
+		set LIST_NM = #{list_nm}
+		where LIST_ID = #{list_id}
+	</update>
+	
+	<!-- 리스트 삭제 (LIST_ST : 'O' => 'C') -->
+	<update id="deletePack">
+		update TB_LIST
+		set LIST_ST = 'C'
+		where LIST_ID = #{list_id}
+	</update>
+	
+	<!-- 리스트목록 -->
+	<select id="packList" parameterType="String" resultType="pack">
+		select l.* from TB_LIST l, TB_BOARD b where l.BOARD_ID = b.BOARD_ID and l.BOARD_ID = #{board_id}
+	</select>
+</mapper>

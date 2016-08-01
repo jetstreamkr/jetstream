@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jetstream.card">
+	<!-- 댓글 생성 -->
+	<insert id="createComment" parameterType="card">
+		<selectKey keyProperty="comment_id" resultType="String" order="BEFORE">
+			SELECT 'C'||to_char(SEQ_COMMENT.NEXTVAL) AS comment_id FROM DUAL
+		</selectKey>
+		insert into TB_COMMENT(COMMENT_ID, BOARD_ID, LIST_ID, CARD_ID, CARD_ST, 
+		MEMBER_ID, COMMENT_TXT, COMMENT_DT, COMMENT_ST)
+		values (#{comment_id}, #{board_id}, #{list_id}, #{card_id}, #{member_id}, #{comment_txt}, #{comment_dt}, 'O')
+	</insert>
+
+	<!-- 댓글 클로즈 -->
+	<update id="closeComment">
+		update TB_COMMENT set COMMENT_ST = 'C' where COMMENT_ID =
+		#{comment_id}
+	</update>
+
+	<!-- 댓글 이름, 내용 수정 -->
+	<update id="updateComment">
+		update TB_COMMENT set COMMENT_TXT = #{comment_txt}, COMMENT_DT =
+		#{comment_dt} from TB_COMMENT where COMMENT_ID = #{comment_id}
+	</update>
+</mapper>

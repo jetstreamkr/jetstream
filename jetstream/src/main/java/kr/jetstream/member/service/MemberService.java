@@ -10,5 +10,7 @@ public interface MemberService {
 	void insert(MemberDTO dto);
 	//회원 업데이트
 	void update(String member_nm, String password, String photo, String email);
+	//idcheck
+	int idcheck(String email);
 	
 }

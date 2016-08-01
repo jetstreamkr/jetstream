@@ -9,6 +9,7 @@
 		<typeAlias alias="pack" type="kr.jetstream.pack.dto.PackDTO"/>
 		<typeAlias alias="card" type="kr.jetstream.card.dto.CardDTO" />
 		<typeAlias alias="comment" type="kr.jetstream.comment.dto.CommentDTO" />
+		<typeAlias alias="attach" type="kr.jetstream.card.attach.dto.FileDTO"/>
 	</typeAliases>
 
 	<mappers>

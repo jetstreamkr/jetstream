@@ -27,4 +27,9 @@ public class MemberServiceImpl implements MemberService {
 	public void update(String member_nm, String password, String photo, String email) {
 		dao.update(member_nm, password, photo, email);
 	}
+
+	@Override
+	public int idcheck(String email) {
+		return dao.idcheck(email);
+	}
 }

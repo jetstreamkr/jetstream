@@ -47,6 +47,10 @@
 	<definition name="error/login" extends="mainTemplate">
 		<put-attribute name="content" value="/WEB-INF/error/loginfail.jsp" />
 	</definition>
+	
+	<definition name="error/signin" extends="mainTemplate">
+		<put-attribute name="content" value="/WEB-INF/error/signinfail.jsp" />
+	</definition>
 
 
 

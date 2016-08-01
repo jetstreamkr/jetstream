@@ -36,6 +36,8 @@
 		id="multipartResolver">
 	</beans:bean>
 
+	<!-- file download 처리 -->
+
 	<!-- tiles 작업할 수 있도록 설정 -->
 	<beans:bean id="tilesConfigurer"
 		class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">

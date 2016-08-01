@@ -1,16 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=euc-kr"
-	pageEncoding="euc-kr" session="true"%>
+<%@ page language="java" contentType="text/html; charset=euc-kr" pageEncoding="euc-kr" session="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <head>
-
 	<style type="text/css">
+		#imagebox{
+			position: relative;
+			width: 300px;
+			height: 100px;
+			margin-left: auto;
+			margin-right: auto;
+		}
 		#initial{
 			color : white;
 			position: absolute;
-			top: 15px;
-			right: 160px;
+			top: 45px;
+			left: 145px;
+			z-index: 2;
+
+		}
+		#image{
+			z-index: 1;
 		}	
 	</style>
 </head>
@@ -31,22 +41,25 @@
 
 						<!-- 즐겨찾기 반복 시작 -->
 						<div class="col-md-12 panel panel-warning">
-							<h3>
-								JetStream Project <small> <span
-									class="label label-default">(시작일자)</span> <span
-									class="label label-default">(종료일자)</span>
+							<h3>JetStream Project 
+								<small>
+									<span class="label label-default">(시작일자)</span>
+									<span class="label label-default">(종료일자)</span>
 									<div class="btn-group btn-group-xs">
-										<a href="#" class="btn btn-warning"><span
-											class="fa fa-fw fa-star"></span></a> <a href="#"
-											class="btn btn-success"><span class="fa fa-fw fa-cog"></span></a>
-										<a href="#" class="btn btn-danger"><span
-											class="fa fa-fw fa-close"></span></a>
+										<a href="#" class="btn btn-warning">
+											<span class="fa fa-fw fa-star"></span>
+										</a>
+										<a href="#" class="btn btn-success">
+											<span class="fa fa-fw fa-cog"></span>
+										</a>
+										<a href="#" class="btn btn-danger">
+											<span class="fa fa-fw fa-close"></span>
+										</a>
 									</div>
 								</small>
 							</h3>
 							<div class="progress progress-striped">
-								<div class="progress-bar progress-bar-info" role="progressbar"
-									style="width: 60%;">60% Complete</div>
+								<div class="progress-bar progress-bar-info" role="progressbar" style="width: 60%;">60% Complete</div>
 							</div>
 						</div>
 						<!-- 즐겨찾기 리스트 끝 -->
@@ -79,7 +92,8 @@
 												<span class="label label-default">(종료일자)</span>
 												<div class="btn-group btn-group-xs">
 													<a href="#" class="btn btn-default"><span
-														class="fa fa-fw fa-star-o"></span></a> <a href="#"
+														class="fa fa-fw fa-star-o"></span></a> 
+													<a href="#"
 														class="btn btn-success"><span class="fa fa-fw fa-cog"></span></a>
 													<a href="board/board_close.do?board_id=${board.board_id}"
 														class="btn btn-danger"><span class="fa fa-fw fa-close"></span></a>
@@ -106,13 +120,15 @@
 			<div class="col-md-4">
 				<!-- 프로필 박스 시작 -->
 				<div class="col-md-12 well well-sm">
-					<img src="/jetstream/resources/images/${member.photo}"
-						class="center-block img-circle img-responsive" width="100"
-						height="100">
-					<c:set var="photo" value="${member.photo}" />
-					<c:if test="${photo eq 'default.png'}">
-						<h1 id="initial" class="text-center text-muted">${initial}</h1>
-					</c:if>
+					<div id="imagebox">
+						<img id="image" src="/jetstream/resources/images/${member.photo}"
+							class="center-block img-circle img-responsive" width="100"
+							height="100">
+						<c:set var="photo" value="${member.photo}" />
+						<c:if test="${photo eq 'default.png'}">
+							<span id="initial" class="text-center text-muted">${member.member_init}</span>
+						</c:if>
+					</div>
 					<h4 class="text-center">${member.member_nm}</h4>
 					<p class="text-center text-muted">${member.email}</p>
 					<a class="btn btn-block btn-warning" href="memberupdate.do">정보수정</a>

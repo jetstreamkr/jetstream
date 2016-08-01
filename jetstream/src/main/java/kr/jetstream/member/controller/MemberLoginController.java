@@ -27,7 +27,7 @@ public class MemberLoginController {
 		if (member != null) {
 			session.setAttribute("member", member);
 			session.setAttribute("initial", member.getMember_nm().substring(0, 1));
-			return "dashboard";
+			return "redirect:/dashboard.do";
 		}else{
 			return "error/login";
 		}
@@ -35,7 +35,7 @@ public class MemberLoginController {
 	@RequestMapping("/logout.do")
 	public String logout(HttpSession session) {
 		session.removeAttribute("member");
-		return "index";
+		return "redirect:/index.do";
 	}
 	
 }

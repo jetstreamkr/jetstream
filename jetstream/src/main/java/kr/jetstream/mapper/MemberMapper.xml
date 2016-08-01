@@ -6,9 +6,12 @@
 		select * from TB_MEMBER where EMAIL = #{email, jdbcType=VARCHAR} and PASSWORD = #{password, jdbcType=VARCHAR}
 	</select>
 	<insert id="insert" parameterType="member">
-		insert into TB_MEMBER values( 'M'||to_char(SEQ_MEMBER.NEXTVAL), '0', #{email}, #{password}, #{member_nm}, 'default.png')
+		insert into TB_MEMBER values( 'M'||to_char(SEQ_MEMBER.NEXTVAL), '0', #{email}, #{password}, #{member_nm}, 'default.png', sysdate, #{member_init})
 	</insert>
 	<update parameterType="member" id="update"> 
-	update TB_MEMBER set member_nm=#{member_nm}, password=#{password}, photo = #{photo} where EMAIL=#{email} 
+	update TB_MEMBER set member_nm=#{member_nm}, password=#{password}, photo = #{photo}, member_init=#{member_init} where EMAIL=#{email} 
 	</update>
+	<select id="idcheck" parameterType="String" resultType="member">
+		select * from TB_MEMBER where EMAIL=#{email,jdbcType=VARCHAR}
+	</select>
 </mapper>

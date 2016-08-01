@@ -21,7 +21,7 @@
 				<ul class="nav navbar-nav navbar-right">
 					<c:choose>
 						<c:when test="${sessionScope.member.email != null}">
-							<li class="active"><a href="#"><b>${member.member_nm}(${member.email})´Ô <span class="fa fa-fw fa-heart text-danger"></span></b></a></li>
+							<li class="active"><a href="/jetstream/dashboard.do"><b>${member.member_nm}(${member.email})´Ô <span class="fa fa-fw fa-heart text-danger"></span></b></a></li>
 							<li><a href="/jetstream/logout.do">·Î±×¾Æ¿ô</a></li>
 						</c:when>
 						<c:otherwise>
