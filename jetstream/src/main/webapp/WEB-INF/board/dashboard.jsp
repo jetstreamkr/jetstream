@@ -35,8 +35,8 @@ function fav(board_id){
 		"success":function(data) {
 			//console.log(data)
 			var html = $.parseHTML(data);
-			var list = $(html).find('#ajax-board1')
-			var list2 = $(html).find('#ajax-board2')
+			var list = $(html).find('#favBoardList')
+			var list2 = $(html).find('#boardList')
 			$("#favBoardList").html(list)
 			$("#boardList").html(list2)
             
@@ -86,7 +86,7 @@ function fav(board_id){
 									<fmt:parseDate var="boardDue" value="${board.board_due}" pattern="yyyy-MM-dd HH:mm:ss" />
 									<fmt:formatDate var="boardStartDate" value="${boardStart}" type="date" pattern="yyyy-MM-dd" />
 									<fmt:formatDate var="boardDueDate" value="${boardDue}" type="date" pattern="yyyy-MM-dd" />
-									<div class="col-md-12 panel panel-default">
+									<div class="col-md-12 panel panel-warning">
 										<h3>
 											<a href="board/board_main.do?board_id=${board.board_id}">${board.board_nm}</a>
 											<small> <span class="label label-default">${boardStartDate}</span>
@@ -97,7 +97,7 @@ function fav(board_id){
 															<a id="fav" class="btn btn-warning" onClick="fav('${board.board_id}');"><span class="fa fa-fw fa-star"></span></a>
 														</c:when>
 														<c:otherwise>
-															<a id="fav" class="btn btn-default" onClick="fva('${board.board_id}');"><span class="fa fa-fw fa-star-o"></span></a>
+															<a id="fav" class="btn btn-default" onClick="fav('${board.board_id}');"><span class="fa fa-fw fa-star-o"></span></a>
 														</c:otherwise>
 													</c:choose>
 													<a href="/jetstream/board/board_set.do?board_id=${board.board_id}" class="btn btn-success">
@@ -164,7 +164,7 @@ function fav(board_id){
 															<a id="fav" class="btn btn-warning" onClick="fav('${board.board_id}');"><span class="fa fa-fw fa-star"></span></a>
 														</c:when>
 														<c:otherwise>
-															<a id="fav" class="btn btn-default" onClick="fva('${board.board_id}');"><span class="fa fa-fw fa-star-o"></span></a>
+															<a id="fav" class="btn btn-default" onClick="fav('${board.board_id}');"><span class="fa fa-fw fa-star-o"></span></a>
 														</c:otherwise>
 													</c:choose>
 													<a href="/jetstream/board/board_set.do?board_id=${board.board_id}" class="btn btn-success">
