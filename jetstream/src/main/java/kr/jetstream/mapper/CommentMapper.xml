@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="jetstream.card">
+<mapper namespace="jetstream.comment">
 	<!-- 댓글 생성 -->
-	<insert id="createComment" parameterType="card">
+	<insert id="createComment" parameterType="comment">
 		<selectKey keyProperty="comment_id" resultType="String" order="BEFORE">
-			SELECT 'C'||to_char(SEQ_COMMENT.NEXTVAL) AS comment_id FROM DUAL
+			SELECT 'CM'||to_char(SEQ_COMMENT.NEXTVAL) AS comment_id FROM DUAL
 		</selectKey>
-		insert into TB_COMMENT(COMMENT_ID, BOARD_ID, LIST_ID, CARD_ID, CARD_ST, 
-		MEMBER_ID, COMMENT_TXT, COMMENT_DT, COMMENT_ST)
-		values (#{comment_id}, #{board_id}, #{list_id}, #{card_id}, #{member_id}, #{comment_txt}, #{comment_dt}, 'O')
+		insert into TB_COMMENT
+		values (#{comment_id}, #{board_id}, #{list_id}, #{card_id}, #{member_id}, #{comment_txt}, sysdate, 'O')
 	</insert>
 
+	<!-- 댓글 보기 -->
+	<select id="viewComment" parameterType="String" resultType="comment">
+		select c.*, m.MEMBER_NM MEMBER_NM, m.PHOTO PHOTO, m.MEMBER_INIT MEMBER_INIT from TB_COMMENT c, TB_MEMBER m 
+		where c.MEMBER_ID = m.MEMBER_ID and c.CARD_ID = #{card_id} order by c.COMMENT_ID ASC
+	</select>
+
 	<!-- 댓글 클로즈 -->
-	<update id="closeComment">
-		update TB_COMMENT set COMMENT_ST = 'C' where COMMENT_ID =
-		#{comment_id}
+	<update id="closeComment" parameterType="String">
+		update TB_COMMENT set COMMENT_ST = 'C' where COMMENT_ID = #{comment_id}
 	</update>
 
 	<!-- 댓글 이름, 내용 수정 -->
-	<update id="updateComment">
-		update TB_COMMENT set COMMENT_TXT = #{comment_txt}, COMMENT_DT =
-		#{comment_dt} from TB_COMMENT where COMMENT_ID = #{comment_id}
+	<update id="setComment" parameterType="comment">
+		update TB_COMMENT set COMMENT_TXT = #{comment_txt}, COMMENT_DT = sysdate 
+		from TB_COMMENT where COMMENT_ID = #{comment_id}
 	</update>
 </mapper>

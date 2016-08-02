@@ -48,6 +48,26 @@
 	<update id="renameBoard">
 		update TB_BOARD set BOARD_NM = #{board_nm} where BOARD_ID = #{board_id}
 	</update>
+	
+		<!--  -->
+	<select id="findBoardfav" parameterType="String" resultType="String">
+		select BOARD_FAV from TB_DASHBOARD where BOARD_ID = #{board_id}	
+	</select>
+	
+	<update id="setBoardfavToY">
+		update TB_DASHBOARD set BOARD_FAV = 'Y' where BOARD_ID = #{board_id}
+	</update>
+	
+	<update id="setBoardfavToN">
+		update TB_DASHBOARD set BOARD_FAV = 'N' where BOARD_ID = #{board_id}
+	</update>
+	
+	<select id="favdashboard" parameterType="String" resultType="board">
+		select b.*, d.MEMBER_PERMIT, d.BOARD_FAV from TB_DASHBOARD d, TB_BOARD b
+    	where d.BOARD_ID = b.BOARD_ID and d.MEMBER_ID = #{member_id} and b.BOARD_ST = 'O' and d.BOARD_FAV ='Y'
+	</select>
+	
+	
 <!-- 대시보드 끝 -->
 
 

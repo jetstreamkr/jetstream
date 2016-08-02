@@ -1,5 +1,7 @@
 package kr.jetstream.comment.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,19 +18,23 @@ public class CommentServiceImpl implements CommentService {
 	public void createComment(CommentDTO comment) {
 		dao.createComment(comment);
 	}
+	
+	//´ñ±Û º¸±â 
+	@Override
+	public List<CommentDTO> viewComment(String card_id) {
+		return dao.viewComment(card_id);
+	}	
 
 	//´ñ±Û Å¬·ÎÁî
 	@Override
 	public void closeComment(String comment_id) {
 		dao.closeComment(comment_id);
-
 	}
 
 	//´ñ±Û ³»¿ë¼öÁ¤
 	@Override
-	public void updateComment(CommentDTO comment) {
-		dao.updateComment(comment);
-
+	public void setComment(CommentDTO comment) {
+		dao.setComment(comment);
 	}
 
 }

@@ -56,6 +56,27 @@ public class BoardDAOImpl implements BoardDAO {
 	public void renameBoard(BoardDTO board) {
 		sqlsession.update("jetstream.board.renameBoard", board);
 	}
+	
+	@Override
+	public String findBoardfav(String board_id) {
+		return sqlsession.selectOne("jetstream.board.findBoardfav", board_id);
+	}
+
+	@Override
+	public void setBoardfavToY(String board_id) {
+		sqlsession.update("jetstream.board.setBoardfavToY", board_id);
+	}
+
+	@Override
+	public void setBoardfavToN(String board_id) {
+		sqlsession.update("jetstream.board.setBoardfavToN", board_id);
+	}
+
+	@Override
+	public List<BoardDTO> favdashboard(String member_id) {
+		return sqlsession.selectList("jetstream.board.favdashboard", member_id);
+	}
+	
 
 
 

@@ -20,14 +20,21 @@ public interface BoardDAO {
 
 	// 내 보드 보기
 	public BoardDTO viewMyBoard(BoardDTO board);
-	
-
-		
+			
 	// 보드 삭제
 	public void closeBoard(String board_id);
 
 	//보드 리네임
 	public void renameBoard(BoardDTO board);
+	
+	
+	public String findBoardfav(String board_id);
+
+	public void setBoardfavToY(String board_id);
+	
+	public void setBoardfavToN(String board_id);
+
+	public List<BoardDTO> favdashboard(String member_id);
 	
 	
 // 보드 세팅

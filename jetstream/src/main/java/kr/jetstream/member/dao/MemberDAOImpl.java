@@ -1,6 +1,7 @@
 package kr.jetstream.member.dao;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,4 +33,11 @@ public class MemberDAOImpl implements MemberDAO {
 		MemberDTO dto = new MemberDTO(member_nm, password, photo, email);
 		sqlsession.update("jetstream.member.update", dto);
 	}
+	
+	@Override
+	public List<String> findMember(String searchData) {
+		return sqlsession.selectList("jetstream.member.findMember", searchData);
+	}
+	
 }
+

@@ -1,5 +1,7 @@
 package kr.jetstream.member.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -26,5 +28,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void update(String member_nm, String password, String photo, String email) {
 		dao.update(member_nm, password, photo, email);
+	}
+	
+	//회원 검색	
+	@Override
+	public List<String> findMember(String searchData) {
+		return dao.findMember(searchData);
 	}
 }

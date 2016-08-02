@@ -28,6 +28,15 @@ public interface BoardService {
 	// 보드 리네임
 	public void renameBoard(BoardDTO board);
 
+	// 보드즐겨찾기 상태 조회
+	public String findBoardfav(String board_id);
+
+	public void setBoardfavToY(String board_id);
+	
+	public void setBoardfavToN(String board_id);
+
+	public List<BoardDTO> favdashboard(String member_id);
+
 	
 // 보드 세팅
 	// 보드 정보 수정

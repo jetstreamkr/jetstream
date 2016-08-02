@@ -21,6 +21,31 @@
 	        alert('취소되었습니다.');
 	    }
 	}
+	
+	// 즐겨찾기
+	
+	var x
+
+function fav(board_id){
+	$.ajax({
+		"url":"/jetstream/board/board_fav.do",
+		"type":"POST",
+		"data":"board_id="+board_id,
+		//"datatype":"html",
+		"success":function(data) {
+			//console.log(data)
+			var html = $.parseHTML(data);
+			var list = $(html).find('#ajax-board1')
+			var list2 = $(html).find('#ajax-board2')
+			$("#favBoardList").html(list)
+			$("#boardList").html(list2)
+            
+		}
+			
+	});
+}
+	
+	
 </script>
 
 
@@ -47,32 +72,61 @@
 							<span class="fa fa-star fa-fw"></span>즐겨찾기
 						</h3>
 					</div>
-					<div class="panel-body">
+					<div class="panel-body" id="favBoardList">
 
-						<!-- 즐겨찾기 반복 시작 -->
-						<div class="col-md-12 panel panel-warning">
-							<h3>JetStream Project 
-								<small>
-									<span class="label label-default">(시작일자)</span>
-									<span class="label label-default">(종료일자)</span>
-									<div class="btn-group btn-group-xs">
-										<a href="#" class="btn btn-warning">
-											<span class="fa fa-fw fa-star"></span>
-										</a>
-										<a href="#" class="btn btn-success">
-											<span class="fa fa-fw fa-cog"></span>
-										</a>
-										<a href="#" class="btn btn-danger">
-											<span class="fa fa-fw fa-close"></span>
-										</a>
+						<%-- 보드가 없을 경우 --%>
+						<c:choose>
+							<c:when test="${fn:length(favBoardList) eq 0}">
+								<p>즐겨찾기가 없습니다.</p>
+							</c:when>
+							<c:otherwise>
+								<!-- 보드리스트 반복 시작 -->
+								<c:forEach var="board" items="${favBoardList}">
+									<fmt:parseDate var="boardStart" value="${board.board_start}" pattern="yyyy-MM-dd HH:mm:ss" />
+									<fmt:parseDate var="boardDue" value="${board.board_due}" pattern="yyyy-MM-dd HH:mm:ss" />
+									<fmt:formatDate var="boardStartDate" value="${boardStart}" type="date" pattern="yyyy-MM-dd" />
+									<fmt:formatDate var="boardDueDate" value="${boardDue}" type="date" pattern="yyyy-MM-dd" />
+									<div class="col-md-12 panel panel-default">
+										<h3>
+											<a href="board/board_main.do?board_id=${board.board_id}">${board.board_nm}</a>
+											<small> <span class="label label-default">${boardStartDate}</span>
+												<span class="label label-default">${boardDueDate}</span>
+												<div class="btn-group btn-group-xs">
+													<c:choose>
+														<c:when test="${board.board_fav eq 'Y'}">
+															<a id="fav" class="btn btn-warning" onClick="fav('${board.board_id}');"><span class="fa fa-fw fa-star"></span></a>
+														</c:when>
+														<c:otherwise>
+															<a id="fav" class="btn btn-default" onClick="fva('${board.board_id}');"><span class="fa fa-fw fa-star-o"></span></a>
+														</c:otherwise>
+													</c:choose>
+													<a href="/jetstream/board/board_set.do?board_id=${board.board_id}" class="btn btn-success">
+														<span class="fa fa-fw fa-cog"></span>
+													</a>
+													<a href="javascript:del('${board.board_id}')" class="btn btn-danger">
+														<span class="fa fa-fw fa-close"></span>
+													</a>
+												</div>
+											</small>
+										</h3>
+										<div class="progress progress-striped">
+											<c:choose>
+												<c:when test="${board.board_prog eq null}">
+													<c:set var="board_prog_value" value="0" />
+												</c:when>
+												<c:otherwise>
+													<c:set var="board_prog_value" value="${board.board_prog}" />
+												</c:otherwise>
+											</c:choose>
+											<div class="progress-bar progress-bar-info"
+												role="progressbar" style="width: ${board_prog_value}%;">${board_prog_value}% Complete</div>
+
+										</div>
 									</div>
-								</small>
-							</h3>
-							<div class="progress progress-striped">
-								<div class="progress-bar progress-bar-info" role="progressbar" style="width: 60%;">60% Complete</div>
-							</div>
-						</div>
-						<!-- 즐겨찾기 리스트 끝 -->
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
+						<!-- 보드리스트 반복 끝 -->
 
 					</div>
 				</div>
@@ -85,7 +139,7 @@
 							<span class="fa fa-fw fa-clipboard"></span>내 보드
 						</h3>
 					</div>
-					<div class="panel-body">
+					<div class="panel-body" id="boardList">
 
 						<%-- 보드가 없을 경우 --%>
 						<c:choose>
@@ -105,9 +159,14 @@
 											<small> <span class="label label-default">${boardStartDate}</span>
 												<span class="label label-default">${boardDueDate}</span>
 												<div class="btn-group btn-group-xs">
-													<a href="#" class="btn btn-default">
-														<span class="fa fa-fw fa-star-o"></span>
-													</a>
+													<c:choose>
+														<c:when test="${board.board_fav eq 'Y'}">
+															<a id="fav" class="btn btn-warning" onClick="fav('${board.board_id}');"><span class="fa fa-fw fa-star"></span></a>
+														</c:when>
+														<c:otherwise>
+															<a id="fav" class="btn btn-default" onClick="fva('${board.board_id}');"><span class="fa fa-fw fa-star-o"></span></a>
+														</c:otherwise>
+													</c:choose>
 													<a href="/jetstream/board/board_set.do?board_id=${board.board_id}" class="btn btn-success">
 														<span class="fa fa-fw fa-cog"></span>
 													</a>

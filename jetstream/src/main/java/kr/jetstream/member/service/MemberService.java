@@ -1,5 +1,7 @@
 package kr.jetstream.member.service;
 
+import java.util.List;
+
 import kr.jetstream.member.dto.MemberDTO;
 
 public interface MemberService {
@@ -11,4 +13,6 @@ public interface MemberService {
 	//회원 업데이트
 	void update(String member_nm, String password, String photo, String email);
 	
+	//회원 검색	
+	public List<String> findMember(String searchData);
 }

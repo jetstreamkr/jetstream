@@ -56,6 +56,30 @@ public class BoardServiceImpl implements BoardService {
 		dao.renameBoard(board);
 
 	}
+	
+
+	@Override
+	public String findBoardfav(String board_id) {
+		return dao.findBoardfav(board_id);
+	}
+
+	@Override
+	public void setBoardfavToY(String board_id) {
+		dao.setBoardfavToY(board_id);
+		
+	}
+
+	@Override
+	public void setBoardfavToN(String board_id) {
+		dao.setBoardfavToN(board_id);
+	}
+
+	@Override
+	public List<BoardDTO> favdashboard(String member_id) {
+		return dao.favdashboard(member_id);
+	}
+	
+	
 // 보드 세팅
 	// 보드 정보 수정
 	@Override
