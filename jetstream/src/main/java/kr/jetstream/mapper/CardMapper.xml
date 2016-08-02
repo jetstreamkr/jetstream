@@ -58,4 +58,18 @@
 		delete from TB_ATTACHMENT where CARD_ID=#{card_id} and FILE_PATH=#{file_path}
 	</delete>
 	
+	<!-- checklist -->
+	<insert id="checkcreate" parameterType="checklist">
+		<selectKey keyProperty="chklist_id" resultType="String" order="BEFORE">
+			SELECT 'CH'||to_char(SEQ_CHKLIST.NEXTVAL) AS chklist_id FROM DUAL
+		</selectKey>
+		insert into TB_CHKLIST values (#{board_id},#{list_id},#{card_id},#{chklist_id},#{chklist_txt},'0')
+	</insert>
+	<select id="checkselect" parameterType="String" resultType="checklist">
+		select * from TB_CHKLIST where BOARD_ID = #{board_id}
+	</select>
+	<update id="checkstate" parameterType="checklist">
+		update TB_CHKLIST set CHKLIST_ST = '1' where CARD_ID = #{card_id} and CHKLIST_ID = #{chklist_id}
+	</update>
+	
 </mapper>

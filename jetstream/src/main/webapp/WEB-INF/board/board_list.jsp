@@ -6,12 +6,98 @@
 
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<style type="text/css">
+.ready {
+	font-size: 1.5em;
+}
+
+.ui-progressbar-value {
+	background: lightblue;
+}
+
+.progressbar-container {
+	position: relative;
+	width: 350px;
+}
+
+.progressbar-bar {
+	height: 25px;
+	margin: 10px 0;
+	border-radius: 7px;
+}
+
+.progressbar-label {
+	position: relative;
+	top: 2px;
+	left: 0%;
+	z-index: 2;
+}
+</style>
 <script type="text/javascript">
+	function checklistadd(myform, board_id, list_id, card_id) {
+		//, board_id, list_id, card_id
+		chklist_txt = myform.checkName.value
+		alert(chklist_txt)
+
+		if (chklist_txt != "") {
+			$.ajax({
+				type : 'POST',
+				data : "chklist_txt=" + chklist_txt + "&board_id=" + board_id
+						+ "&list_id=" + list_id + "&card_id=" + card_id,
+				dataType : 'text',
+				url : 'checkcreate.do',
+				success : function(msg) {
+					$("#listshow").html(msg);
+				},
+				error : function(xhr, status, e) {
+					alert(e);
+				}
+			});
+
+		} else {
+			alert("아이디를 입력해주세요.");
+
+		}
+
+	}
+	function changeState(card_id, chklist_id){
+		alert(chklist_id)
+		$.ajax({
+			type : 'POST',
+			data : "chklist_id=" + chklist_id + "&card_id=" + card_id,
+			dataType : 'text',
+			url : 'checkstate.do',
+			success : function(msg) {
+
+			},
+			error : function(xhr, status, e) {
+				alert(e);
+			}
+		});
+	}
+	
 	$(document).ready(function() {
 		$("#add-pack-form").hide();
 		$(".add-card-form").hide();
+		$('input:checkbox[name="chkbox"]').on("change", function() {
+			card_id = 'chkbox-' + $(this).val()
+			$('.' + card_id + ':checked').each(function() {
+				if (this.checked == true) {
+					checked = $('.' + card_id + ':checked').length
+					sum = $('.' + card_id).length
+					percent = (checked * 100) / sum
+					$("#percent-"+$(this).val()).html(percent + ' %')
+					$("#progressbar-bar-"+$(this).val()).progressbar({
+						value : percent
+					});
+				} else {
+
+				}
+			});
+		})
 	});
 
 	$(function() {
@@ -121,51 +207,78 @@
 											<textarea class="form-control" id="card-txt-${card.card_id}"
 												name="card_txt">${card.card_txt}</textarea>
 										</div>
+										
+										
+										<!-- file attachment -->
 										<div class="form-group col-md-12">
 											<label class="control-label"
 												for="card-attach-${card.card_id}">File Attachment</label>
 											<ul id="card-attach-${card.card_id}">
 												<c:forEach var="file" items="${fileList}">
-													<c:set var="card_id" value="${card.card_id}"/>
-													<c:set var="file_card_id" value="${file.card_id}"/>
+													<c:set var="card_id" value="${card.card_id}" />
+													<c:set var="file_card_id" value="${file.card_id}" />
 													<c:if test="${card_id eq file_card_id}">
-															<li>
-															<a href="attachdownload.do?board_id=${card.board_id}&card_id=${card.card_id}&file_path=${file.file_path}">
-															${file.file_nm}</a>
-															<a href="attachdelete.do?board_id=${card.board_id}&card_id=${card.card_id}&file_path=${file.file_path}"> x</a>
-															</li>
+														<li><a
+															href="attachdownload.do?board_id=${card.board_id}&card_id=${card.card_id}&file_path=${file.file_path}">
+																${file.file_nm}</a> <a
+															href="attachdelete.do?board_id=${card.board_id}&card_id=${card.card_id}&file_path=${file.file_path}">
+																x</a></li>
 													</c:if>
 												</c:forEach>
 											</ul>
-											<form action="list/attach.do" method="post" enctype="multipart/form-data">
-												<input type="file" name="file" size="20"> 
-												<input type="hidden" name="card_id" value="${card.card_id}" size="50">
-												<input type="hidden" name="board_id" value="${card.board_id}" size="50">
+											<form action="list/attach.do" method="post"
+												enctype="multipart/form-data">
+												<input type="file" name="file" size="20"> <input
+													type="hidden" name="card_id" value="${card.card_id}"
+													size="50"> <input type="hidden" name="board_id"
+													value="${card.board_id}" size="50">
 												<button type="submit">업로드</button>
-											</form>											
+											</form>
 										</div>
+
+										
+										<!-- checklist -->
+
 										<div class="form-group col-md-12">
-											<label class="control-label" for="checklist-${card.card_id}">Check
-												List : 33%</label>
-											<div id="checklist-${card.card_id}" class="progress"
-												style="height: 5px;">
-												<div class="progress-bar" role="progressbar"
-													style="width: 33%; height: 5px;"></div>
+											<div class="progressbar-container">
+												<label class="control-label"
+													for="card-chklist-${card.card_id}">CheckList: <span
+													id="percent-${card.card_id}">0%</span></label> <span id="progressbar-label"></span>
+												<div id="progressbar-bar-${card.card_id}" class="progressbar-bar"></div>
+
 											</div>
-											<div class="checkbox">
-												<label><input type="checkbox">Remember me</label>
+											<div id="listshow" name="listshow">
+												<c:forEach var="chklist" items="${checkList}">
+													<c:set var="card_id" value="${card.card_id}" />
+													<c:set var="chk_card_id" value="${chklist.card_id}" />
+													<c:if test="${card_id eq chk_card_id}">
+														<div id="chklist-${chklist.chklist_id}">
+															${chklist.chklist_txt}
+															<input type="checkbox" name="chkbox" id="chkbox"
+																class="chkbox-${card.card_id}" value="${card.card_id}" />
+														</div>
+													</c:if>
+												</c:forEach>
 											</div>
+											<div>
+												<input type="text" id="checkName" name="checkName" /> 
+												<input type="button" value="ok" id="btnSave"
+													onclick="checklistadd(this.form,'${card.board_id}','${card.list_id}','${card.card_id}')" />
+												<input type="button" value="save" id="btnsubmit" onclick="changeState('${card.card_id}','${chklist.chklist_id}')" >
+											</div>
+
 										</div>
+										<!-- comment -->
+										<table class="table table-bordered table-condensed">
+											<tbody>
+												<tr>
+													<td>dddd</td>
+													<td>dddd</td>
+													<td>dddd</td>
+												</tr>
+											</tbody>
+										</table>
 									</div>
-									<table class="table table-bordered table-condensed">
-										<tbody>
-											<tr>
-												<td>dddd</td>
-												<td>dddd</td>
-												<td>dddd</td>
-											</tr>
-										</tbody>
-									</table>
 								</div>
 							</div>
 						</c:if>
