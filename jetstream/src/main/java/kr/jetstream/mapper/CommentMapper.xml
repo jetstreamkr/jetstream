@@ -14,7 +14,8 @@
 	<!-- 댓글 보기 -->
 	<select id="viewComment" parameterType="String" resultType="comment">
 		select c.*, m.MEMBER_NM MEMBER_NM, m.PHOTO PHOTO, m.MEMBER_INIT MEMBER_INIT from TB_COMMENT c, TB_MEMBER m 
-		where c.MEMBER_ID = m.MEMBER_ID and c.CARD_ID = #{card_id} order by c.COMMENT_ID ASC
+		where c.MEMBER_ID = m.MEMBER_ID and c.CARD_ID = #{card_id} and c.COMMENT_ST = 'O' 
+		order by c.COMMENT_ID ASC
 	</select>
 
 	<!-- 댓글 클로즈 -->
@@ -25,6 +26,6 @@
 	<!-- 댓글 이름, 내용 수정 -->
 	<update id="setComment" parameterType="comment">
 		update TB_COMMENT set COMMENT_TXT = #{comment_txt}, COMMENT_DT = sysdate 
-		from TB_COMMENT where COMMENT_ID = #{comment_id}
+		where COMMENT_ID = #{comment_id}
 	</update>
 </mapper>

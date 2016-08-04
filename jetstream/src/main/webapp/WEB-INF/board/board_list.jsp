@@ -30,6 +30,12 @@
 	$(document).ready(function() {
 		$("#add-pack-form").hide();
 		$(".add-card-form").hide();
+		
+		// 카드번호가 get으로 넘어왔을 경우 자동으로 해당 카드를 띄움
+		if("${card_id}" != "" && "${card_id}" != "none") {
+			ajaxCard("${card_id}")
+		}
+		
 	});
 	
 	// ajax 모달 호출
@@ -42,11 +48,6 @@
 				
 				// card_view.jsp 삽입
 				$("#modal-card-view").html(data);
-
-				// 날짜선택 폼 붙이기
-				$(".datepicker1, .datepicker2").datepicker({
-					dateFormat : 'yy-mm-dd'
-				});
 				
 				$("#modal-card").modal();
 			}

@@ -31,7 +31,8 @@ public class BoardListController {
 	CardService cardService;
 	
 	@RequestMapping(value="/board/board_list.do", method=RequestMethod.GET)
-	public ModelAndView boardList(HttpSession session, String board_id) {
+	public ModelAndView boardList(HttpSession session, String board_id,
+			@RequestParam(value="card_id", defaultValue="none") String card_id) {
 		ModelAndView mav = new ModelAndView();
 
 		BoardDTO board = new BoardDTO();
@@ -41,7 +42,6 @@ public class BoardListController {
 		// 로그인이 안되어 있으면 그냥 보드 보기
 		if (session.getAttribute("member") == null) {
 			board = boardService.viewBoard(board_id);
-			System.out.println("아무것도");
 			
 		// 로그인이 되어있으면 세션에서 아이디 받음
 		} else {
@@ -52,19 +52,23 @@ public class BoardListController {
 			dto.setBoard_id(board_id);
 			dto.setMember_id(member_id);
 			board = boardService.viewMyBoard(dto);
-			System.out.println("여기임");
 			
+			// 로그인한 상태지만 내 보드가 아닐 경우 그냥 보드 보기
 			if(board == null) {
 				board = boardService.viewBoard(board_id);
-				System.out.println("여기까지옴");
 			} else {
 				set_ok = "Y";
 			}
 		}
 
-		
 		List<PackDTO> packList = packService.packList(board_id);
 		List<CardDTO> cardList = cardService.cardList(board_id, "list");
+		
+		// 카드 아이디를 받아왔을 경우 카드 정보를 넘겨서 모달 자동으로 띄우기
+		if (!card_id.equals("none")) {
+			mav.addObject("card_id", card_id);
+		}
+		
 		
 		mav.addObject("board", board);
 		mav.addObject("set_ok", set_ok);

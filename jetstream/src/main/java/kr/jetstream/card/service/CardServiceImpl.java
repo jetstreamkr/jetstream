@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.jetstream.card.dao.CardDAO;
+import kr.jetstream.card.dto.AssignDTO;
 import kr.jetstream.card.dto.CardDTO;
 @Service
 public class CardServiceImpl implements CardService {
@@ -47,10 +48,53 @@ public class CardServiceImpl implements CardService {
 		return dao.viewCard(card_id);
 	}
 	
-	// 카드 수정
-	@Override
-	public void setCard(CardDTO card) {
-		dao.setCard(card);
+// 카드 수정
+	// 카드 시작일 수정
+	public void setCardStart(CardDTO card) {
+		dao.setCardStart(card);
 	}
+	
+	// 카드 종료일 수정
+	public void setCardDue(CardDTO card) {
+		dao.setCardDue(card);
+	}
+	
+	// 카드 제목 수정
+	public void setCardNm(CardDTO card) {
+		dao.setCardNm(card);
+	}
+	
+	// 카드 내용 수정
+	public void setCardTxt(CardDTO card) {
+		dao.setCardTxt(card);
+	}
+	
+	// 카드 내용 수정
+	public void setCardOrder(CardDTO card) {
+		dao.setCardOrder(card);
+	}
+	
+// 담당자
+	// 담당자 조회
+	public List<AssignDTO> viewAssign(String card_id) {
+		System.out.println("SER"+card_id);
+		return dao.viewAssign(card_id);
+	}
+	
+	// 담당자 추가
+	public void addAssign(AssignDTO assign) {
+		dao.addAssign(assign);
+	}
+	
+	// 담당자 삭제
+	public void closeAssign(AssignDTO assign) {
+		dao.closeAssign(assign);
+	}
+	
+	// 담당자 체크
+	public void chkAssign(AssignDTO assign) {
+		dao.chkAssign(assign);
+	}
+
 
 }

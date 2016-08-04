@@ -15,8 +15,14 @@ public class CommentSetController {
 	
 	
 	@RequestMapping(value="/board/comment_set.do", method=RequestMethod.POST)
-	public String creatComment(CommentDTO comment) {
-		commentService.createComment(comment);
-		return "redirect:/board/board_list.do?board_id=" + comment.getBoard_id();
+	public String setComment(String comment_id, String comment_txt, String card_id) {
+		
+		CommentDTO comment = new CommentDTO();
+		comment.setComment_id(comment_id);
+		comment.setComment_txt(comment_txt);
+		
+		commentService.setComment(comment);
+		
+		return "redirect:/board/card_view.do?card_id=" + card_id;
 	}
 }

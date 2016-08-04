@@ -15,8 +15,7 @@
 
 	<!-- 카드 클로즈 -->
 	<update id="closeCard">
-		update TB_CARD set CART_ST = 'C' where CARD_ID =
-		#{card_id}
+		update TB_CARD set CARD_ST = 'C' where CARD_ID = #{card_id}
 	</update>
 
 	<!-- 카드 목록 조회 -->
@@ -36,12 +35,6 @@
 		</choose>
 	</select>
 
-	<!-- 카드 이름, 내용 수정 -->
-	<update id="updateCard">
-		update TB_CARD set CARD_NM = #{card_nm}, CARD_TXT =
-		#{card_txt} from TB_CARD where CARD_ID = #{card_id}
-	</update>
-
 	<!-- 카드 검색 -->
 	<select id="searchCard" parameterType="String" resultType="card">
 		select c.*
@@ -58,11 +51,53 @@
 		select * from TB_CARD where CARD_ID = #{card_id}
 	</select>
 	
-	<!-- 카드 수정 -->
-	<update id="setCard" parameterType="card">
-		update TB_CARD set CARD_NM = #{card_nm}, CARD_TXT = #{card_txt}, CARD_START = #{card_start}, CARD_DUE = #{card_due} where CARD_ID = #{card_id}
+<!-- 카드 수정 -->
+	<!-- 시작일 수정 -->
+	<update id="setCardStart" parameterType="card">
+		update TB_CARD set CARD_START = #{card_start} where CARD_ID = #{card_id}
+	</update>
+	
+	<!-- 종료일 수정 -->
+	<update id="setCardDue" parameterType="card">
+		update TB_CARD set CARD_DUE = #{card_due} where CARD_ID = #{card_id}
+	</update>
+	
+	<!-- 제목 수정 -->
+	<update id="setCardNm" parameterType="card">
+		update TB_CARD set CARD_NM = #{card_nm} where CARD_ID = #{card_id}
+	</update>
+
+	<!-- 내용 수정 -->
+	<update id="setCardTxt" parameterType="card">
+		update TB_CARD set CARD_TXT = #{card_txt} where CARD_ID = #{card_id}
+	</update>
+	
+	<!-- 오더 수정 -->
+	<update id="setCardOrder" parameterType="card">
+		update TB_CARD set CARD_ORDER = #{card_order} where CARD_ID = #{card_id}
 	</update>
 	
 	
+<!-- 담당자 -->
+	<!-- 담당자 조회 -->
+	<select id="viewAssign" parameterType="assign" resultType="assign">
+		select a.*, m.MEMBER_NM member_nm, m.EMAIL email, m.PHOTO photo, m.MEMBER_INIT member_init
+		from TB_CARD_ASSIGN a, TB_MEMBER m where a.MEMBER_ID = m.MEMBER_ID and a.CARD_ID = #{card_id}
+	</select>
+	
+	<!-- 담당자 추가 -->
+	<insert id="addAssign" parameterType="assign">
+		insert into TB_CARD_ASSIGN values(#{card_id}, #{member_id}, 'O')
+	</insert>
+	
+	<!-- 담당자 삭제 -->
+	<delete id="closeAssign" parameterType="assign">
+		delete from TB_CARD_ASSIGN where CARD_ID = #{card_id} and MEMBER_ID = #{member_id} 
+	</delete>
+	
+	<!-- 담당자 체크 -->
+	<update id="chkAssign" parameterType="assign">
+		update TB_CARD_ASSIGN set ASSIGN_CHK = 'C' where CARD_ID = #{card_id} and MEMBER_ID = #{member_id}
+	</update>
 	
 </mapper>

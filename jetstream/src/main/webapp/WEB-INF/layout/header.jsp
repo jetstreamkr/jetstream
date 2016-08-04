@@ -56,10 +56,6 @@
   }
 </style>
 
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-<script src="/jetstream/resources/js/json2.js"></script>
-
 <script type="text/javascript">
 
 var aa ;
