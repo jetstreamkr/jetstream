@@ -7,6 +7,11 @@
 	<!-- 보드정보 시작 -->
 	<div class="col-md-12">
 		<h1>${board.board_nm}</h1>
+		<ol class="list-inline lead">
+              <li>시작일 : ${board.board_start}</li>
+              <li>종료일 : ${board.board_due}</li>
+              <li>Three</li>
+            </ol>
 		<div class="progress">
 			<div class="progress-bar progress-bar-success" role="progressbar"
 				style="width: 40%">Free Space</div>
