@@ -82,7 +82,7 @@
 	<!-- 보드 멤버 보기 -->
 	<select id="viewBoardMember" parameterType="String" resultType="member">
 		select m.*, d.BOARD_ID, d.MEMBER_PERMIT from TB_DASHBOARD d, TB_MEMBER m where d.MEMBER_ID = m.MEMBER_ID 
-		and d.BOARD_ID = #{board_id} and d.MEMBER_PERMIT != 'C' and m.MEMBER_ST != 'C'
+		and d.BOARD_ID = #{board_id} and d.MEMBER_PERMIT != 'C' and m.MEMBER_ST != 'C' order by d.MEMBER_PERMIT ASC
 	</select>
 	
 	<!-- 보드 멤버 추가를 위한 멤버 검색 -->
@@ -98,7 +98,7 @@
 	
 	<!-- 보드 멤버 권한 수정, 삭제 -->
 	<update id="setBoardMember" parameterType="board">
-		update TB_DASHBOARD set MEMBER_PERMIT = #{member_permit} where MEMBER_ID = #{member_id}
+		update TB_DASHBOARD set MEMBER_PERMIT = #{member_permit} where MEMBER_ID = #{member_id} and BOARD_ID = #{board_id}
 	</update>
 
 </mapper>

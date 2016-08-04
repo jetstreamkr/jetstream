@@ -20,7 +20,7 @@
 	<!-- 보드정보 끝 -->
 
 	<!-- 내 카드 목록 시작 -->
-	<div class="col-md-8">
+	<div class="col-md-6">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title">
@@ -56,11 +56,11 @@
 		</div>
 	</div>
 	<!-- 카드 목록 끝 -->
-	<!-- 옆에서 클릭한 카드 디테일 시작 -->
-	<div class="col-md-4">
+	<!-- 리스트 목록 시작 -->
+	<div class="col-md-6">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title">카드제목</h3>
+				<h3 class="panel-title">리스트 목록</h3>
 			</div>
 			<div id="test" class="panel-body">카드내용</div>
 		</div>
