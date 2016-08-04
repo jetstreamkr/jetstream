@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset='utf-8' />
+
 <link href='/jetstream/resources/common/fullcalendar.css' rel='stylesheet' />
 <link href='/jetstream/resources/common/fullcalendar.print.css' rel='stylesheet' media='print' />
 <script src='/jetstream/resources/common/lib/moment.min.js'></script>
