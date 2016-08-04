@@ -26,8 +26,8 @@ public class CardServiceImpl implements CardService {
 	
 	// 카드 목록 조회
 	@Override
-	public List<CardDTO> cardList(String board_id) {
-		return dao.cardList(board_id);
+	public List<CardDTO> cardList(String board_id, String option) {
+		return dao.cardList(board_id, option);
 	}
 	
 	//카드 이름, 내용 수정
@@ -39,6 +39,18 @@ public class CardServiceImpl implements CardService {
 	@Override
 	public CardDTO searchCard(String member_id, String card_nm) {
 		return dao.searchCard(member_id, card_nm);
+	}
+
+	// 카드 보기
+	@Override
+	public CardDTO viewCard(String card_id) {
+		return dao.viewCard(card_id);
+	}
+	
+	// 카드 수정
+	@Override
+	public void setCard(CardDTO card) {
+		dao.setCard(card);
 	}
 
 }

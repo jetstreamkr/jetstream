@@ -6,6 +6,22 @@
 		select * from TB_MEMBER where EMAIL = #{email, jdbcType=VARCHAR} and PASSWORD = #{password, jdbcType=VARCHAR}
 	</select>
 	<insert id="insert" parameterType="member">
-		insert into TB_MEMBER values( 'M'||to_char(SEQ_MEMBER.NEXTVAL), '0', #{email}, #{password}, #{member_nm}, 'default')
+		insert into TB_MEMBER(member_id, member_st, email, password, member_nm,
+		photo, member_dt) values( 'M'||to_char(SEQ_MEMBER.NEXTVAL), 'O',
+		#{email}, #{password}, #{member_nm}, 'default.png', sysdate)
 	</insert>
+	<update parameterType="member" id="update"> 
+	update TB_MEMBER set member_nm=#{member_nm}, password=#{password}, photo = #{photo} where EMAIL=#{email} 
+	</update>
+	<select id="findMember" parameterType="string" resultType="string">
+		select MEMBER_NM from TB_MEMBER
+		where MEMBER_NM LIKE '%'|| #{searchData}||'%'
+	</select>
+	<select id="checkId" parameterType="String" resultType="member">
+		select * from TB_MEMBER where EMAIL=#{email,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="findPass" resultType="member" parameterType="String">
+		select * from TB_MEMBER where EMAIL = #{email}
+	</select>
 </mapper>

@@ -2,6 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="jetstream.board">
+
+<!-- 대시보드 -->
 	<!-- 대시보드 조회 -->
 	<select id="dashboard" parameterType="String" resultType="board">
 		select b.*, d.MEMBER_PERMIT, d.BOARD_FAV from TB_DASHBOARD d, TB_BOARD b
@@ -15,7 +17,7 @@
 		</selectKey>
 		insert all
 		into TB_BOARD(BOARD_ID, MEMBER_ID, BOARD_NM, BOARD_ST) values(BOARD_ID, #{member_id}, #{board_nm}, 'O')
-		into TB_DASHBOARD values(BOARD_ID, #{member_id}, '0', 'N')
+		into TB_DASHBOARD values(BOARD_ID, #{member_id}, 'A', 'N')
 		select #{board_id} as BOARD_ID from dual
 	</insert>
 	
@@ -26,9 +28,16 @@
 	
 	<!-- 보드 보기 -->
 	<select id="viewBoard" parameterType="String" resultType="board">
-		select b.*, d.MEMBER_PERMIT, d.BOARD_FAV from TB_DASHBOARD d, TB_BOARD b
-    	where d.BOARD_ID = b.BOARD_ID and d.BOARD_ID = #{board_id}
+		select * from TB_BOARD where BOARD_ST != 'C' and BOARD_ID = #{board_id}
 	</select>
+	
+	<!-- 내 보드 보기 -->
+	<select id="viewMyBoard" parameterType="board" resultType="board">
+		select b.*, d.MEMBER_PERMIT, d.BOARD_FAV from TB_DASHBOARD d, TB_BOARD b 
+    	where d.BOARD_ID = b.BOARD_ID and b.BOARD_ST != 'C' 
+    	and d.BOARD_ID = #{board_id} and d.MEMBER_ID = #{member_id}
+	</select>
+
 	
 	<!-- 보드 닫기 -->
 	<update id="closeBoard">
@@ -39,4 +48,70 @@
 	<update id="renameBoard">
 		update TB_BOARD set BOARD_NM = #{board_nm} where BOARD_ID = #{board_id}
 	</update>
+	
+		<!--  -->
+	<select id="findBoardfav" parameterType="String" resultType="String">
+		select BOARD_FAV from TB_DASHBOARD where BOARD_ID = #{board_id}	
+	</select>
+	
+	<update id="setBoardfavToY">
+		update TB_DASHBOARD set BOARD_FAV = 'Y' where BOARD_ID = #{board_id}
+	</update>
+	
+	<update id="setBoardfavToN">
+		update TB_DASHBOARD set BOARD_FAV = 'N' where BOARD_ID = #{board_id}
+	</update>
+	
+	<select id="favdashboard" parameterType="String" resultType="board">
+		select b.*, d.MEMBER_PERMIT, d.BOARD_FAV from TB_DASHBOARD d, TB_BOARD b
+    	where d.BOARD_ID = b.BOARD_ID and d.MEMBER_ID = #{member_id} and b.BOARD_ST = 'O' and d.BOARD_FAV ='Y'
+	</select>
+	
+	
+<!-- 대시보드 끝 -->
+
+
+<!-- 보드세팅 -->
+	<!-- 보드 정보 수정 -->
+	<update id="setBoard" parameterType="board">
+		update TB_BOARD
+		set BOARD_NM = #{board_nm}, BOARD_PERMIT = #{board_permit}, BOARD_START = #{board_start}, BOARD_DUE = #{board_due}
+		where BOARD_ID = #{board_id}
+	</update>
+
+	<!-- 보드 멤버 보기 -->
+	<select id="viewBoardMember" parameterType="String" resultType="member">
+		select m.*, d.BOARD_ID, d.MEMBER_PERMIT from TB_DASHBOARD d, TB_MEMBER m where d.MEMBER_ID = m.MEMBER_ID 
+		and d.BOARD_ID = #{board_id} and d.MEMBER_PERMIT != 'C' and m.MEMBER_ST != 'C'
+	</select>
+	
+	<!-- 보드 멤버 추가를 위한 멤버 검색 -->
+	<select id="searchBoardMember" parameterType="String" resultType="member">
+		select * from TB_MEMBER where MEMBER_ST != 'C'
+				and (EMAIL like '%'||#{keyword}||'%' or MEMBER_NM like '%'||#{keyword}||'%')
+	</select>
+	
+	<!-- 보드 멤버 추가 -->
+	<insert id="addBoardMember" parameterType="board">
+		insert into TB_DASHBOARD values(#{board_id}, #{member_id}, 'O', 'N')
+	</insert>
+	
+	<!-- 보드 멤버 권한 수정, 삭제 -->
+	<update id="setBoardMember" parameterType="board">
+		update TB_DASHBOARD set MEMBER_PERMIT = #{member_permit} where MEMBER_ID = #{member_id}
+	</update>
+	
+	<!-- Calendar 카드 select 하기 -->
+   <select id="selectCard" parameterType="String" resultType="card">
+      select CARD_NM, CARD_START, CARD_DUE
+      from TB_CARD
+      where board_id = #{board_id} and card_start is not null and card_due is not null
+   </select>
+   
+<!-- 오늘 날짜 받아오기 -->
+   <select id="selectToday" resultType="String">
+      select to_char(sysdate, 'YYYY-MM-DD') from dual
+   </select>
+   
+
 </mapper>

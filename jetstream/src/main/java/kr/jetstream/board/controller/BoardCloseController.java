@@ -12,7 +12,7 @@ public class BoardCloseController {
 	@Autowired
 	BoardService service;
 	
-	@RequestMapping(value="/board/board_close.do", method=RequestMethod.GET)
+	@RequestMapping(value="/board/board_close.do", method=RequestMethod.POST)
 	public String closeBoard(String board_id){
 		service.closeBoard(board_id);
 		return "redirect:/dashboard.do";

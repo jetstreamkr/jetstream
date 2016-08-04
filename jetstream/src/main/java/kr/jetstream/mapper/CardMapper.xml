@@ -2,13 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="jetstream.card">
-		<!-- 카드 생성 -->
+	<!-- 카드 생성 -->
 	<insert id="createCard" parameterType="card">
 		<selectKey keyProperty="card_id" resultType="String" order="BEFORE">
 			SELECT 'C'||to_char(SEQ_CARD.NEXTVAL) AS card_id FROM DUAL
 		</selectKey>
-		insert into TB_CARD(BOARD_ID, LIST_ID, CARD_ID, CARD_ST, CARD_NM)
-		values (#{board_id}, #{list_id}, #{card_id}, 'O', #{card_nm})
+		insert into TB_CARD(BOARD_ID, LIST_ID, CARD_ID, MEMBER_ID, CARD_ST,
+		CARD_ORDER, CARD_NM)
+		values (#{board_id}, #{list_id}, #{card_id},
+		#{member_id}, 'O', '2', #{card_nm})
 	</insert>
 
 	<!-- 카드 클로즈 -->
@@ -16,12 +18,25 @@
 		update TB_CARD set CART_ST = 'C' where CARD_ID =
 		#{card_id}
 	</update>
-	
+
 	<!-- 카드 목록 조회 -->
-	<select id="cardList" parameterType="String" resultType="card">
-		select c.* from TB_CARD c, TB_BOARD b where c.BOARD_ID = b.BOARD_ID and c.BOARD_ID = #{board_id}
+	<select id="cardList" parameterType="hashmap" resultType="card">
+		select c.*, l.LIST_NM from TB_CARD c, TB_LIST l, TB_BOARD b where
+		c.BOARD_ID = b.BOARD_ID
+		and c.LIST_ID = l.LIST_ID and l.BOARD_ID =
+		b.BOARD_ID
+		and c.BOARD_ID = #{board_id} and c.CARD_ST = 'O'
+		<choose>
+			<when test="option == 'list'">
+				order by c.CARD_ORDER ASC
+			</when>
+			<when test="option == 'main'">
+				order by c.CARD_DUE ASC, c.CARD_ORDER ASC
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
 	</select>
-	
 
 	<!-- 카드 이름, 내용 수정 -->
 	<update id="updateCard">
@@ -35,6 +50,74 @@
 		from TB_DASHBOARD d, TB_BOARD b, TB_CARD c
 		where c.MEMBER_ID
 		= #{member_id} or (d.MEMBER_ID = #{member_id} and
-		d.BOARD_ID = c.BOARD_ID and c.CARD_NM = #{card_nm}
+		d.BOARD_ID =
+		c.BOARD_ID and c.CARD_NM = #{card_nm}
 	</select>
+
+
+	<!-- 카드 보기 -->
+	<select id="viewCard" parameterType="String" resultType="card">
+		select *
+		from TB_CARD where CARD_ID = #{card_id}
+	</select>
+
+	<!-- 카드 수정 -->
+	<update id="setCard" parameterType="card">
+		update TB_CARD set CARD_NM =
+		#{card_nm}, CARD_TXT = #{card_txt}, CARD_START = #{card_start},
+		CARD_DUE = #{card_due} where CARD_ID = #{card_id}
+	</update>
+
+
+
+	<!-- attachment -->
+
+	<insert id="fileupload" parameterType="attach">
+		insert into TB_ATTACHMENT values
+		(#{board_id},#{card_id},#{file_path},#{file_nm})
+	</insert>
+
+	<select id="filelist" parameterType="String" resultType="attach">
+		select * from TB_ATTACHMENT where CARD_ID = #{card_id}
+	</select>
+
+	<delete id="filedelete" parameterType="attach">
+		delete from TB_ATTACHMENT where CARD_ID=#{card_id} and
+		FILE_PATH=#{file_path}
+	</delete>
+
+
+	<!-- 체크 리스트 -->
+
+	<insert parameterType="checklist" id="checkcreate">
+
+		<selectKey order="BEFORE" resultType="String" keyProperty="chklist_id">
+			SELECT 'CH'||to_char(SEQ_CHKLIST.NEXTVAL) AS chklist_id FROM DUAL
+		</selectKey>
+		insert into TB_CHKLIST values
+		(#{board_id},#{list_id},#{card_id},#{chklist_id},#{chklist_txt},'C')
+	</insert>
+
+	<!-- 체크리스트 리스트 -->
+
+
+	<select parameterType="String" id="checkselect" resultType="checklist">
+		select * from TB_CHKLIST where CARD_ID = #{card_id} </select>
+
+	<!-- 체크리스트 상태 변경 -->
+
+
+	<update parameterType="checklist" id="checkstate"> update TB_CHKLIST set
+		CHKLIST_ST = 'O' where CARD_ID = #{card_id, jdbcType=VARCHAR} and
+		CHKLIST_ID = #{chklist_id, jdbcType=VARCHAR} </update>
+
+	<update parameterType="checklist" id="checkstate2"> update TB_CHKLIST set
+		CHKLIST_ST = 'C' where CARD_ID = #{card_id, jdbcType=VARCHAR} and
+		CHKLIST_ID = #{chklist_id, jdbcType=VARCHAR} </update>
+
+	<delete parameterType="String" id="checkdelete"> delete from TB_CHKLIST where
+		CHKLIST_ID = #{chklist_id, jdbcType=VARCHAR} </delete>
+
+	<!-- 체크리스트 끝 -->
+
 </mapper>

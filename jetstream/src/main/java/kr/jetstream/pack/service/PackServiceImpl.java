@@ -25,8 +25,8 @@ public class PackServiceImpl implements PackService{
 	}
 
 	@Override
-	public void delete(String pack_id) {
-		dao.delete(pack_id);
+	public void closePack(String pack_id) {
+		dao.closePack(pack_id);
 		
 	}
 

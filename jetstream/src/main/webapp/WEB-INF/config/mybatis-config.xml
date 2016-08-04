@@ -9,6 +9,11 @@
 		<typeAlias alias="pack" type="kr.jetstream.pack.dto.PackDTO"/>
 		<typeAlias alias="card" type="kr.jetstream.card.dto.CardDTO" />
 		<typeAlias alias="comment" type="kr.jetstream.comment.dto.CommentDTO" />
+		<typeAlias alias="label" type="kr.jetstream.label.dto.LabelDTO" />
+		<typeAlias alias="chart" type="kr.jetstream.admin.dto.ChartDTO" />
+		<typeAlias alias="attach" type="kr.jetstream.attach.dto.FileDTO"/>
+		<typeAlias alias="labelcard" type="kr.jetstream.label.dto.LabelCardDTO"/>
+		<typeAlias type="kr.jetstream.checklist.dto.CheckListDTO" alias="checklist"/>
 	</typeAliases>
 
 	<mappers>
@@ -17,5 +22,7 @@
 		<mapper resource="kr/jetstream/mapper/PackMapper.xml"/>
 		<mapper resource="kr/jetstream/mapper/CardMapper.xml"/>
 		<mapper resource="kr/jetstream/mapper/CommentMapper.xml"/>
+		<mapper resource="kr/jetstream/mapper/LabelMapper.xml"/>
+		<mapper resource="kr/jetstream/mapper/AdminMapper.xml"/>
 	</mappers>
 </configuration>

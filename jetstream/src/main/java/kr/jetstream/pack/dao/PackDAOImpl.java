@@ -26,11 +26,17 @@ public class PackDAOImpl implements PackDAO{
 		
 	}
 
-	//리스트 삭제
+	//리스트 클로즈
 	@Override
-	public void delete(String pack_id) {
-		sqlsession.insert("jetstream.pack.deletePack", pack_id);
+	public void closePack(String pack_id) {
+		sqlsession.insert("jetstream.pack.closePack", pack_id);
+		sqlsession.insert("jetstream.pack.closePack_Card", pack_id);
 		
+		/*List<String> list = sqlsession.selectList("jetstream.pack.closePack_CardList", pack_id);
+		for(int i=0 ; i<list.size() ; i++){
+			sqlsession.insert("jetstream.card.closeCardComment",list.get(i));
+		}
+		System.out.println(list);*/
 	}
 
 	//리스트 목록

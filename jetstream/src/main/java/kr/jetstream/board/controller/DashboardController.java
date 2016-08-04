@@ -32,8 +32,11 @@ public class DashboardController {
 			MemberDTO member = (MemberDTO)session.getAttribute("member");
 			String member_id = member.getMember_id();
 			List<BoardDTO> boardList = service.dashboard(member_id);
-			
+			List<BoardDTO> favBoardList = service.favdashboard(member_id);
+
 			mav.addObject("boardList", boardList);
+			mav.addObject("favBoardList", favBoardList);
+
 		}
 		
 		mav.setViewName(ref);
