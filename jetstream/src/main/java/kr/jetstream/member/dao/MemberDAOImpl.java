@@ -39,5 +39,27 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlsession.selectList("jetstream.member.findMember", searchData);
 	}
 	
+	//중복체크 
+	@Override
+	public boolean CheckId(String email) {
+		boolean result = false;
+		
+		MemberDTO dto= sqlsession.selectOne("jetstream.member.checkId",email);
+		if(dto==null){
+			result = true;
+			System.out.println("데이터 없어요 0");
+		}else{
+			result = false;
+			System.out.println("데이터 있어요 1");
+		}
+		return result;
+	}
+
+	@Override
+	public MemberDTO findPass(String email) {
+		return sqlsession.selectOne("jetstream.member.findPass", email);
+	}
+
+
 }
 

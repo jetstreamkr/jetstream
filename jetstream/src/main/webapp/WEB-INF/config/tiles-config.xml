@@ -49,6 +49,7 @@
 		<put-attribute name="content" value="/WEB-INF/board/board_list.jsp" />
 	</definition>
 
+
 	<!-- 보드 캘린더 -->
 	<definition name="board/calendar" extends="boardTemplate">
 		<put-attribute name="content" value="/WEB-INF/board/board_calendar.jsp" />
@@ -71,6 +72,28 @@
 	<definition name="error/login" extends="mainTemplate">
 		<put-attribute name="content" value="/WEB-INF/error/loginfail.jsp" />
 	</definition>
-
+	
+	<!-- admin 페이지 관련 -->
+	<definition name="admin/index" extends="mainTemplate">
+		<put-attribute name="content"
+			value="/WEB-INF/admin/admin_index.jsp" />
+	</definition>
+	<definition name="admin/update" extends="mainTemplate">
+		<put-attribute name="content"
+			value="/WEB-INF/admin/admin_update.jsp" />
+	</definition>
+	
+	<!-- 달력 -->
+	
+	<definition name="calendar" extends="boardTemplate">
+      <put-attribute name="content" value="/WEB-INF/calendar/calendar_view.jsp" />
+   </definition>
+   
+   
+   
+   <!-- 비밀번호 찾기 -->
+	<definition name="findPass" extends="mainTemplate">
+		<put-attribute name="content" value="/WEB-INF/member/findPass.jsp" />
+	</definition>
 
 </tiles-definitions>

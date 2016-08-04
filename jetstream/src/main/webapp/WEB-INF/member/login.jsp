@@ -30,8 +30,8 @@
 						</form>
 						<div class="col-sm-offset-4 col-sm-8">
 							<ul>
-								<li>비밀번호를 잊으셨으면 <a href="#">비밀번호 찾기</a></li>
-								<li>계정이 없으시다면 <a href="insert.do">회원가입</a></li>
+								<li>비밀번호를 잊으셨으면 <a href="/jetstream/find_pass.do">비밀번호 찾기</a></li>
+								<li>계정이 없으시다면 <a href="/jetstream/signin.do">회원가입</a></li>
 							</ul>
 						</div>
 					</div>

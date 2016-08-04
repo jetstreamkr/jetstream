@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.jetstream.mail.controller.AmazonSES;
 import kr.jetstream.member.dto.MemberDTO;
 import kr.jetstream.member.service.MemberService;
 
@@ -15,6 +16,9 @@ import kr.jetstream.member.service.MemberService;
 public class MemberCreateController {
 	@Autowired
 	MemberService service;
+	
+	@Autowired
+	AmazonSES sendEmail;
 
 	@RequestMapping(value = "/signin.do", method = RequestMethod.GET)
 	public ModelAndView insertForm(HttpSession session) {
@@ -33,6 +37,13 @@ public class MemberCreateController {
 	public String runInsert(String email, String password, String member_nm) {
 		MemberDTO member = new MemberDTO(email, password, member_nm);
 		service.insert(member);
+		
+		try {
+			sendEmail.sendmail(email, member_nm,"welcome");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "redirect:/index.do";
 	}
 }

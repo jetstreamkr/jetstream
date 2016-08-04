@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.jetstream.board.dao.BoardDAO;
 import kr.jetstream.board.dto.BoardDTO;
+import kr.jetstream.card.dto.CardDTO;
 import kr.jetstream.member.dto.MemberDTO;
 
 @Service
@@ -111,4 +112,17 @@ public class BoardServiceImpl implements BoardService {
 		dao.setBoardMember(board);
 	}
 
+	   //service for calendar
+    //뿌려질 카드네임, 기간 받아오기
+	 @Override
+    public List<CardDTO> selectCard(String board_id){
+       return dao.selectCard(board_id);
+    }
+
+    //캘린더에 디폴트할 오늘 날짜 받아오기
+    @Override
+    public String selectToday() {
+       return dao.selectToday();
+    }
+    
 }

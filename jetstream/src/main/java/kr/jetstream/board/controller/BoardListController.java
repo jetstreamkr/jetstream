@@ -15,6 +15,9 @@ import kr.jetstream.board.dto.BoardDTO;
 import kr.jetstream.board.service.BoardService;
 import kr.jetstream.card.dto.CardDTO;
 import kr.jetstream.card.service.CardService;
+import kr.jetstream.label.dto.LabelCardDTO;
+import kr.jetstream.label.dto.LabelDTO;
+import kr.jetstream.label.service.LabelService;
 import kr.jetstream.member.dto.MemberDTO;
 import kr.jetstream.pack.dto.PackDTO;
 import kr.jetstream.pack.service.PackService;
@@ -69,12 +72,17 @@ public class BoardListController {
 			mav.addObject("card_id", card_id);
 		}
 		
+				List<LabelDTO> lableList = labelService.getLabelList(board_id);
+		List<LabelCardDTO> labelCardList = labelService.getLabelCardList(board_id);
 		
 		mav.addObject("board", board);
 		mav.addObject("set_ok", set_ok);
 		mav.addObject("packList", packList);
 		mav.addObject("cardList", cardList);
+		mav.addObject("lableList", lableList);
+		mav.addObject("labelCardList", labelCardList);
 		mav.setViewName("board/list");
+
 		return mav;
 	}
 	

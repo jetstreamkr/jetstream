@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.jetstream.board.dto.BoardDTO;
+import kr.jetstream.card.dto.CardDTO;
 import kr.jetstream.member.dto.MemberDTO;
 
 @Repository("boarddao")
@@ -82,7 +83,7 @@ public class BoardDAOImpl implements BoardDAO {
 
 // 보드 세팅
 	
-	// 보드 정보 수
+	// 보드 정보 수정
 	@Override
 	public void setBoard(BoardDTO board) {
 		sqlsession.update("jetstream.board.setBoard", board);
@@ -111,6 +112,20 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public void setBoardMember(BoardDTO board) {
 		sqlsession.insert("jetstream.board.setBoardMember", board);
+	}
+	// service for calendar
+	// 뿌려질 카드네임, 기간 받아오기
+	@Override
+	public List<CardDTO> selectCard(String board_id) {
+		// TODO Auto-generated method stub
+		return sqlsession.selectList("jetstream.board.selectCard", board_id);
+	}
+
+	// 캘린더에 디폴트할 오늘 날짜 받아오기
+	@Override
+	public String selectToday() {
+		// TODO Auto-generated method stub
+		return sqlsession.selectOne("jetstream.board.selectToday");
 	}
 
 

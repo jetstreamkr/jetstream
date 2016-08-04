@@ -15,27 +15,32 @@ public class MemberLoginController {
 
 	@Autowired
 	MemberService service;
-	
+
 	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
 	public String showpage() {
 		return "member/login";
 	}
-	
+
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	public String login(HttpSession session, String email, String password) {
 		MemberDTO member = service.login(email, password);
 		if (member != null) {
 			session.setAttribute("member", member);
 			session.setAttribute("initial", member.getMember_nm().substring(0, 1));
+			System.out.println(member.getMember_st());
+			if (member.getMember_st().equals("A")) {
+				return "redirect:/admin/index.do";
+			}
 			return "redirect:/dashboard.do";
-		}else{
+		} else {
 			return "error/login";
 		}
 	}
+
 	@RequestMapping("/logout.do")
 	public String logout(HttpSession session) {
 		session.removeAttribute("member");
 		return "redirect:/index.do";
 	}
-	
+
 }

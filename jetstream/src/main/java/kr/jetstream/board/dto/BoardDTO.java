@@ -12,8 +12,18 @@ public class BoardDTO {
 	private int board_prog;
 	private String member_permit;
 	private String board_fav;
+	private String board_dt;
 	
 	public BoardDTO(){}
+
+	// board_set.do 보드 소속 멤버 조회용
+	public BoardDTO(String board_id, String member_id, String member_permit, String board_fav) {
+		super();
+		this.board_id = board_id;
+		this.member_id = member_id;
+		this.member_permit = member_permit;
+		this.board_fav = board_fav;
+	}
 
 	// board_set.do 보드 소속 멤버 조회용
 	public BoardDTO(String board_id, String member_id, String member_permit, String board_fav) {
@@ -39,6 +49,25 @@ public class BoardDTO {
 		this.board_prog = board_prog;
 		this.member_permit = member_permit;
 		this.board_fav = board_fav;
+	}
+	
+
+	public BoardDTO(String board_id, String member_id, String board_nm, String board_uri, String board_permit,
+			String board_st, String board_start, String board_due, int board_prog, String member_permit,
+			String board_fav, String board_dt) {
+		super();
+		this.board_id = board_id;
+		this.member_id = member_id;
+		this.board_nm = board_nm;
+		this.board_uri = board_uri;
+		this.board_permit = board_permit;
+		this.board_st = board_st;
+		this.board_start = board_start;
+		this.board_due = board_due;
+		this.board_prog = board_prog;
+		this.member_permit = member_permit;
+		this.board_fav = board_fav;
+		this.board_dt = board_dt;
 	}
 
 	public String getBoard_id() {
@@ -128,14 +157,26 @@ public class BoardDTO {
 	public void setBoard_fav(String board_fav) {
 		this.board_fav = board_fav;
 	}
+	
+	
+
+	public String getBoard_dt() {
+		return board_dt;
+	}
+
+	public void setBoard_dt(String board_dt) {
+		this.board_dt = board_dt;
+	}
 
 	@Override
 	public String toString() {
 		return "BoardDTO [board_id=" + board_id + ", member_id=" + member_id + ", board_nm=" + board_nm + ", board_uri="
 				+ board_uri + ", board_permit=" + board_permit + ", board_st=" + board_st + ", board_start="
 				+ board_start + ", board_due=" + board_due + ", board_prog=" + board_prog + ", member_permit="
-				+ member_permit + ", board_fav=" + board_fav + "]";
+				+ member_permit + ", board_fav=" + board_fav + ", board_dt=" + board_dt + "]";
 	}
+	
+	
 
 
 }

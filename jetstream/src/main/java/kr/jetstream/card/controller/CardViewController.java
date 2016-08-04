@@ -23,7 +23,15 @@ public class CardViewController {
 	
 	@Autowired
 	BoardService boardService;
+
+	@Autowired
+	LabelService labelService;
 	
+	@Autowired
+	AttachService attachService;
+	
+	@Autowired
+	CheckListService checkservice;
 	
 	@Autowired
 	CommentService commentService;
@@ -39,8 +47,39 @@ public class CardViewController {
 		List<CommentDTO> commentList = commentService.viewComment(card_id);
 		
 		// 체크리스트
+		List<CheckListDTO> checkList = checkservice.showlist(card_id);
+		int count=0;
+		int percent=0;
+	      int sum = checkList.size();
+	      
+	      for(int i=0;i<checkList.size();i++){
+	         CheckListDTO check = checkList.get(i);
+	         if(check.getChklist_st().equals("O")){
+	            count++;
+	         }
+	      }
+	      if(count==0){
+	    	   percent = 0;
+	      }else{
+	    	   percent = (count*100)/sum;
+	      }
+	      
+		
+		// 파일 업로드
+		List<FileDTO> fileList = attachService.list(card_id);
+		System.out.println("card_id"+fileList.toString());
+		//
+		
 		
 		// 라벨
+		List<LabelDTO> labelList = labelService.getLabelList(card.getBoard_id());
+		System.out.println("labelList="+labelList.size());
+		ArrayList<LabelDTO> addedlabelListDTO = new ArrayList<LabelDTO>();
+		List<String> addedlabelList = labelService.getAddedlabelList(card_id);
+		for(int i=0; i<addedlabelList.size();i++){
+			addedlabelListDTO.add(labelService.getLabelDTO(addedlabelList.get(i)));
+		}
+
 		
 		// 담당자
 		List<AssignDTO> assignList = cardService.viewAssign(card_id);
@@ -51,7 +90,12 @@ public class CardViewController {
 		List<MemberDTO> boardMemberList = boardService.viewBoardMember(card.getBoard_id());
 		
 		mav.addObject("card", card);
+		mav.addObject("checkList", checkList);
+		mav.addObject("percent", percent);
 		mav.addObject("commentList", commentList);
+		mav.addObject("labelList", labelList);
+		mav.addObject("addedlabelListDTO", addedlabelListDTO);
+		mav.addObject("fileList", fileList);
 		mav.addObject("assignList", assignList);
 		mav.addObject("boardMemberList", boardMemberList);
 		mav.setViewName("card/card_view");

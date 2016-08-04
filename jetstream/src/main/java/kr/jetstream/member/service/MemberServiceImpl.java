@@ -35,4 +35,14 @@ public class MemberServiceImpl implements MemberService {
 	public List<String> findMember(String searchData) {
 		return dao.findMember(searchData);
 	}
+
+	@Override
+	public boolean CheckId(String email) {
+		return dao.CheckId(email);
+	}
+
+	@Override
+	public MemberDTO findPass(String email) {
+		return dao.findPass(email);
+	}
 }

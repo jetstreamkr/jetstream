@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jetstream.label">
+	<insert id="createLabel1" parameterType="String">
+      		insert into TB_LABEL values(#{board_id}, 'LA'||to_char(SEQ_LABEL.NEXTVAL),null,'red', 1)
+	</insert>
+	<insert id="createLabel2" parameterType="String">
+      		insert into TB_LABEL values(#{board_id}, 'LA'||to_char(SEQ_LABEL.NEXTVAL),null,'yellow', 2)
+	</insert>
+	<insert id="createLabel3" parameterType="String">
+      		insert into TB_LABEL values(#{board_id}, 'LA'||to_char(SEQ_LABEL.NEXTVAL),null,'green', 3)
+	</insert>
+	<insert id="createLabel4" parameterType="String">
+      		insert into TB_LABEL values(#{board_id}, 'LA'||to_char(SEQ_LABEL.NEXTVAL),null,'blue', 4)
+	</insert>
+	<insert id="createLabel5" parameterType="String">
+      		insert into TB_LABEL values(#{board_id}, 'LA'||to_char(SEQ_LABEL.NEXTVAL),null,'gray', 5)
+	</insert>
+	<insert id="createLabel6" parameterType="String">
+      		insert into TB_LABEL values(#{board_id}, 'LA'||to_char(SEQ_LABEL.NEXTVAL),null,'black', 6)
+	</insert>
+	
+	<select id="getLabelList" parameterType="String" resultType="label">
+		select * from TB_LABEL where BOARD_ID = #{board_id}
+	</select>
+	
+	<select id="getCardDTO" parameterType="String" resultType="card">
+		select * from TB_CARD where CARD_ID = #{card_id}
+	</select>
+	
+	<insert id="setLabel" parameterType="hashmap">
+		insert into TB_LABEL_CARD values(#{label_id},#{board_id},#{card_id},#{list_id})
+	</insert>
+	
+	<select id="getAddedlabelList" parameterType="String" resultType="String">
+		select LABEL_ID from TB_LABEL_CARD where CARD_ID=#{card_id} 
+	</select>
+	
+	<select id="getLabelDTO" parameterType="String" resultType="label">
+		select * from TB_LABEL where LABEL_ID=#{label_id} 
+	</select>
+	
+	<select id="getLabelCardList" parameterType="String" resultType="labelcard">
+		select * from TB_LABEL_CARD where BOARD_ID = #{board_id}
+	</select>
+	
+	<delete id="deleteLabel" parameterType="hashmap">
+		delete from TB_LABEL_CARD 
+		where label_id = #{label_id} AND board_id = #{board_id} AND card_id = #{card_id} AND list_id=#{list_id}
+	</delete>
+</mapper>

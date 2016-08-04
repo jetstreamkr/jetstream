@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jetstream.admin">
+	<!-- 멤버조회 -->
+	<select id="readMember" resultType="member">
+		select *
+		from TB_MEMBER
+	</select>
+	
+	<!-- 보드조회 -->
+	<select id="readBoard" resultType="board">
+		select *
+		from TB_BOARD
+	</select>
+	
+	<select id="dateMember" parameterType="String" resultType="int">
+		select nvl(max(count(member_id)), 0)
+		from TB_MEMBER
+		where to_char(member_dt,'MMDD') = #{chart_day}
+		group by to_char(member_dt,'MMDD')
+	</select>
+	
+		<select id="dateBoard" parameterType="String" resultType="int">
+		select nvl(max(count(board_id)), 0)
+		from TB_BOARD
+		where to_char(board_dt,'MMDD') = #{chart_day}
+		group by to_char(board_dt,'MMDD')
+	</select>
+	
+	<!-- 멤버수정 -->
+	<select id="detailMember" parameterType="String" resultType="member">
+		select * from TB_MEMBER WHERE member_id = #{member_id, jdbcType=VARCHAR}
+	</select>
+	<update id="updateMember">
+		update TB_MEMBER
+		set MEMBER_NM = #{member_nm}, PASSWORD = #{password}, MEMBER_ST = #{member_st}
+		where MEMBER_ID = #{member_id}
+	</update>
+	
+</mapper>

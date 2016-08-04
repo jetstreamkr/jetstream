@@ -100,5 +100,18 @@
 	<update id="setBoardMember" parameterType="board">
 		update TB_DASHBOARD set MEMBER_PERMIT = #{member_permit} where MEMBER_ID = #{member_id} and BOARD_ID = #{board_id}
 	</update>
+	
+		<!-- Calendar 카드 select 하기 -->
+   <select id="selectCard" parameterType="String" resultType="card">
+      select CARD_NM, CARD_START, CARD_DUE
+      from TB_CARD
+      where board_id = #{board_id} and card_start is not null and card_due is not null
+   </select>
+   
+<!-- 오늘 날짜 받아오기 -->
+   <select id="selectToday" resultType="String">
+      select to_char(sysdate, 'YYYY-MM-DD') from dual
+   </select>
+	
 
 </mapper>

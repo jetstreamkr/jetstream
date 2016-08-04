@@ -4,6 +4,44 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<style>
+.ready {
+   font-size: 1.5em;
+}
+
+.ui-progressbar-value {
+   background: lightblue;
+}
+
+.progressbar-container {
+   position: relative;
+   width: 350px;
+}
+
+.progressbar-bar {
+   height: 25px;
+   margin: 10px 0;
+   border-radius: 7px;
+}
+
+.progressbar-label {
+   position: relative;
+   top: 2px;
+   left: 0%;
+   z-index: 2;
+}
+
+.label-xs {
+	float: left;
+	height: 8px;
+	margin: 0px 3px 15px 0px;
+	padding: 0;
+	width: 75px;
+	line-height: 30pt;
+	overflow: hidden;
+}
+</style>
+
 <script type="text/javascript">
 
 
@@ -329,6 +367,259 @@
 			}
 		}
 	}
+	
+	// 라벨 추가
+	function setLabel(card_id, board_id, label_id, label_nm, label_color,
+			label_order) {
+
+		var param = {
+			"card_id" : card_id,
+			"board_id" : board_id,
+			"label_id" : label_id,
+			"label_nm" : label_nm,
+			"label_color" : label_color,
+			"label_order" : label_order
+		};
+
+		$.ajax({
+			"url" : "../label/SetLabel.do",
+			"type" : "POST",
+			"data" : param,
+			//"datatype":"html",
+			"success" : function(data) {
+				var html = $.parseHTML(data)
+				var la = $(html).find('#addedLabel')
+				$("#addedLabel").html(la)
+			}
+
+		});
+	}
+
+	// 파일업로드 ajax
+
+	/* $("#upload").click(function() {
+		var formData = new FormData();
+		formData.append("file", $("input[name=file]")[0].files[0]);
+		formData.append("card_id", $("input[name=card_id]").val());
+		formData.append("board_id", $("input[name=board_id]").val());
+
+		$.ajax({
+			url : '/jetstream/attach/attach.do',
+			data : formData,
+			processData : false,
+			contentType : false,
+			type : 'POST',
+			success : function(data) {
+				var html = $.parseHTML(data);
+				var list = $(html).find('#fileupload1')
+				alert(list)
+				$("#fileupload1").html(list)
+			}
+		});
+	}); */
+	
+	
+	/*  체크리스트 */
+	
+	   
+   //체크리스트 추가
+   function checklistadd(myform, board_id, list_id, card_id) {
+      //, board_id, list_id, card_id
+      chklist_txt = myform.checkName.value
+      alert(chklist_txt)
+      if (chklist_txt != "") {
+         $.ajax({
+            type : 'POST',
+            data : "chklist_txt=" + chklist_txt + "&board_id=" + board_id
+                  + "&list_id=" + list_id + "&card_id=" + card_id,
+            dataType : 'text',
+            url : 'checkcreate.do',
+            success : function(msg) {
+               $("#listshow").html(msg);
+               $('input:checkbox[name="chkbox"]').on("change",function() {
+
+                  arr = $(this).val().split(',')
+                  card_id = 'chkbox-' + arr[0]
+                  chk_id = 'chkbox-' + arr[1]
+                  
+                  //체크됐을 때         
+                     if (this.checked == true){
+                        checked = $('.'+ card_id+ ':checked').length
+                        sum = $('.'+ card_id).length
+                        percent = parseInt((checked * 100)/ sum)
+                        $("#percent-"+ $(this).val()).html(percent+ ' %')
+                        $("#progressbar-bar-"+ $(this).val()).progressbar({
+                           value : percent
+                        });
+                        $.ajax({
+                           type : 'POST',
+                           data : "card_id="+ arr[0]+ "&chklist_id="+ arr[1]+ "&state=1",
+                           dataType : 'text',
+                           url : 'checkstate.do',
+                           success : function(msg) {
+
+                           },
+                           error : function(xhr,status,e) {
+                              alert(e);
+                           }
+                        });
+                     }else{
+                        //check 해제됐을 때
+                        checked = $('.'+ card_id+ ':checked').length
+                        sum = $('.'+ card_id).length
+                        percent = parseInt((checked * 100)/ sum)
+                        $("#percent-"+ $(this).val()).html(percent + ' %')
+                        $("#progressbar-bar-"+ $(this).val()).progressbar({
+                           value : percent
+                        });
+                        $.ajax({
+                           type : 'POST',
+                           data : "card_id="+ arr[0]+ "&chklist_id="+ arr[1]+ "&state=0",
+                           dataType : 'text',
+                           url : 'checkstate.do',
+                           success : function(msg) {
+
+                           },
+                           error : function(xhr,status,e) {
+                              alert(e);
+                           }
+                        });
+                     }
+               });
+            },
+            error : function(xhr, status, e) {
+               alert(e);
+            }
+         });
+
+      } else {
+         alert("아이디를 입력해주세요.");
+
+      }
+
+   }
+   //체크리스트 삭제
+   function deleteCheck(card_id, chklist_id){
+	 
+      $.ajax({
+         type : 'GET',
+         data : "card_id="+card_id+"&chklist_id="+ chklist_id,
+         dataType : 'text',
+         url : 'checkdelete.do',
+         success : function(msg) {
+            $("#listshow").html(msg);
+            $('input:checkbox[name="chkbox"]').on("change",function() {
+
+               arr = $(this).val().split(',')
+               card_id = 'chkbox-' + arr[0]
+               chk_id = 'chkbox-' + arr[1]
+               
+               //체크됐을 때         
+                  if (this.checked == true){
+                     checked = $('.'+ card_id+ ':checked').length
+                     sum = $('.'+ card_id).length
+                     percent = parseInt((checked * 100)/ sum)
+                     $("#percent-"+ $(this).val()).html(percent+ ' %')
+                     $("#progressbar-bar-"+ $(this).val()).progressbar({
+                        value : percent
+                     });
+                     $.ajax({
+                        type : 'POST',
+                        data : "card_id="+ arr[0]+ "&chklist_id="+ arr[1]+ "&state=1",
+                        dataType : 'text',
+                        url : 'checkstate.do',
+                        success : function(msg) {
+
+                        },
+                        error : function(xhr,status,e) {
+                           alert(e);
+                        }
+                     });
+                  }else{
+                     //check 해제됐을 때
+                     checked = $('.'+ card_id+ ':checked').length
+                     sum = $('.'+ card_id).length
+                     percent = parseInt((checked * 100)/ sum)
+                     $("#percent-"+ $(this).val()).html(percent + ' %')
+                     $("#progressbar-bar-"+ $(this).val()).progressbar({
+                        value : percent
+                     });
+                     $.ajax({
+                        type : 'POST',
+                        data : "card_id="+ arr[0]+ "&chklist_id="+ arr[1]+ "&state=0",
+                        dataType : 'text',
+                        url : 'checkstate.do',
+                        success : function(msg) {
+
+                        },
+                        error : function(xhr,status,e) {
+                           alert(e);
+                        }
+                     });
+                  }
+            });
+         },
+         error : function(xhr,status,e) {
+            alert(e);
+         }
+      });
+   }
+   //check
+   $(document).ready(function() {
+      
+      $('input:checkbox[name="chkbox"]').on("change",function() {
+
+         arr = $(this).val().split(',')
+         card_id = 'chkbox-' + arr[0]
+         chk_id = 'chkbox-' + arr[1]
+         
+         //체크됐을 때         
+            if (this.checked == true){
+               checked = $('.'+ card_id+ ':checked').length
+               sum = $('.'+ card_id).length
+               percent = parseInt((checked * 100)/ sum)
+               $("#percent-"+ $(this).val()).html(percent+ ' %')
+               $("#progressbar-bar-"+ $(this).val()).progressbar({
+                  value : percent
+               });
+               $.ajax({
+                  type : 'POST',
+                  data : "card_id="+ arr[0]+ "&chklist_id="+ arr[1]+ "&state=1",
+                  dataType : 'text',
+                  url : 'checkstate.do',
+                  success : function(msg) {
+
+                  },
+                  error : function(xhr,status,e) {
+                     alert(e);
+                  }
+               });
+            }else{
+               //check 해제됐을 때
+               checked = $('.'+ card_id+ ':checked').length
+               sum = $('.'+ card_id).length
+               percent = parseInt((checked * 100)/ sum)
+               $("#percent-"+ $(this).val()).html(percent + ' %')
+               $("#progressbar-bar-"+ $(this).val()).progressbar({
+                  value : percent
+               });
+               $.ajax({
+                  type : 'POST',
+                  data : "card_id="+ arr[0]+ "&chklist_id="+ arr[1]+ "&state=0",
+                  dataType : 'text',
+                  url : 'checkstate.do',
+                  success : function(msg) {
+
+                  },
+                  error : function(xhr,status,e) {
+                     alert(e);
+                  }
+               });
+            }
+      });
+   });
+	
+
 </script>
 
 <!-- 카드 뷰 모달 시작 -->
@@ -390,6 +681,40 @@
 					<fmt:parseDate var="cardDue" value="${card.card_due}" pattern="yyyy-MM-dd HH:mm:ss" />
 					<fmt:formatDate var="cardStartDate" value="${cardStart}" type="date" pattern="yyyy-MM-dd" />
 					<fmt:formatDate var="cardDueDate" value="${cardDue}" type="date" pattern="yyyy-MM-dd" />
+
+					<!--라벨  -->
+
+					<div class="form-group col-md-12">
+						<div class="dropdown col-md-4">
+							<button class="btn btn-default dropdown-toggle" type="button"
+								id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+								Label <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu"
+								aria-labelledby="dropdownMenu1">
+
+								<c:forEach var="label" items="${labelList}">
+									<li role="presentation"><a
+										onclick="setLabel('${card.card_id}','${label.board_id}','${label.label_id}','${label.label_nm}','${label.label_color}','${label.label_order}');">
+											<span class="labal-size label"
+											style="background-color: ${label.label_color}">color</span>
+									</a></li>
+								</c:forEach>
+
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div id="addedLabel">
+							<c:forEach var="addedlabel" items="${addedlabelListDTO}">
+								<span class="label labal-size label-default label-xs"
+									style="background-color: ${addedlabel.label_color}"> <a>${addedlabel.label_color}</a>
+								</span>
+							</c:forEach>
+						</div>
+					</div>
+
+					<!-- 라벨 끝 -->
 
 					<!-- 담당자 시작 -->
 					<div class="form-group col-md-6">
@@ -480,27 +805,81 @@
 						</div>
 					</div>
 					<!-- 카드 내용 끝 -->
-					
-					<!-- 첨부파일 시작 -->
+					<!-- 파일 업로드 -->
+
 					<div class="form-group col-md-12">
 						<label class="control-label" for="card-attach-${card.card_id}">File
 							Attachment</label>
 						<ul id="card-attach-${card.card_id}">
-							<li><a href="#">파일명</a></li>
-							<li><a href="#">파일명</a></li>
+							<c:forEach var="file" items="${fileList}">
+								<li><a
+									href="attachdownload.do?board_id=${card.board_id}&card_id=${card.card_id}&file_path=${file.file_path}">
+										${file.file_nm}</a> <a
+									href="attachdelete.do?board_id=${card.board_id}&card_id=${card.card_id}&file_path=${file.file_path}">
+										x</a></li>
+							</c:forEach>
 						</ul>
+						<form action="/jetstream/attach.do" method="post"
+							enctype="multipart/form-data">
+							<input type="file" name="file" size="20"> <input
+								type="hidden" name="card_id" value="${card.card_id}" size="50">
+							<input type="hidden" name="board_id" value="${card.board_id}"
+								size="50">
+							<button type="submit">업로드</button>
+						</form>
 					</div>
-					<!-- 첨부파일 끝 -->
-					
+
+					<!-- 파일 업로드 끝-->
+
 					<!-- 체크리스트 시작 -->
 					<div class="form-group col-md-12">
-						<label class="control-label" for="checklist-${card.card_id}">Check
-							List : 33%</label>
-						<div id="checklist-${card.card_id}" class="progress"
-							style="height: 5px;">
-							<div class="progress-bar" role="progressbar"
-								style="width: 33%; height: 5px;"></div>
+						<!--프로그래스바-->
+						<div class="progressbar-container">
+							<label class="control-label" for="card-chklist-${card.card_id}">
+								CheckList: <span id="percent-${card.card_id}">${percent}
+									%</span>
+							</label> <span id="progressbar-label"></span>
+							<div id="progressbar-bar-${card.card_id}" class="progressbar-bar"></div>
 						</div>
+						<!-- 체크리스트 뿌려주는 곳 -->
+						<div id="listshow" name="listshow">
+							<c:forEach var="chklist" items="${checkList}">
+								<c:set var="card_id" value="${card.card_id}" />
+								<c:set var="chk_card_id" value="${chklist.card_id}" />
+								<c:set var="chk_st" value="${chklist.chklist_st}" />
+								<c:if test="${card_id eq chk_card_id}">
+									<div id="chklist-${chklist.chklist_id}">
+										${chklist.chklist_txt}
+										<c:choose>
+											<c:when test="${chk_st == 'O'}">
+												<input type="checkbox" name="chkbox" id="chkbox"
+													class="chkbox-${card.card_id}"
+													value="${card.card_id},${chklist.chklist_id}" checked />
+											</c:when>
+											<c:when test="${chk_st == 'C'}">
+												<input type="checkbox" name="chkbox"
+													id="chkbox-${chklist.chklist_id}"
+													class="chkbox-${card.card_id}"
+													value="${card.card_id},${chklist.chklist_id}" />
+											</c:when>
+											<c:otherwise>
+											</c:otherwise>
+										</c:choose>
+										<input type="button" value="x"
+											onclick="deleteCheck('${card.card_id}','${chklist.chklist_id}')">
+									</div>
+								</c:if>
+							</c:forEach>
+						</div>
+						<!-- 체크리스트 생성 하는 곳-->
+						<form>
+							<div>
+								<input type="text" id="checkName" name="checkName" /> <input
+									type="button" value="ok" id="btnSave"
+									onclick="checklistadd(this.form,'${card.board_id}','${card.list_id}','${card.card_id}')" />
+							</div>
+						</form>
+
 					</div>
 					<!-- 체크리스트 끝 -->
 					

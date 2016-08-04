@@ -9,12 +9,23 @@ public class MemberDTO{
 	private String password;
 	private String member_nm;
 	private String photo;
+	private String member_dt;
 	private String member_init;
 	private String board_id;
 	private String member_permit;
 	
+	
+	
 	public MemberDTO(){}
 	
+	
+	public MemberDTO(String email, String password) {
+		super();
+		this.email = email;
+		this.password = password;
+	}
+
+	//회원가입
 	public MemberDTO(String email, String password, String member_nm) {
 		this.email = email;
 		this.password = password;
@@ -27,6 +38,15 @@ public class MemberDTO{
 		this.password = password;
 		this.member_nm = member_nm;
 	}
+	
+	//내가 추가한 것
+	public MemberDTO(String member_nm, String password, String photo, String email, String member_init){
+		this.email = email;
+		this.photo = photo;
+		this.password = password;
+		this.member_nm = member_nm;
+		this.member_init = member_init;
+	}
 
 	public MemberDTO(String member_id, String member_st, String email, String password, String member_nm,
 			String photo) {
@@ -38,39 +58,7 @@ public class MemberDTO{
 		this.member_nm = member_nm;
 		this.photo = photo;
 	}
-
 	
-	
-	public String getMember_init() {
-		return member_init;
-	}
-
-	public void setMember_init(String member_init) {
-		this.member_init = member_init;
-	}
-
-	public MemberDTO(String member_id, String member_st, String email, String password, String member_nm, String photo,
-			String member_init, String board_id, String member_permit) {
-		super();
-		this.member_id = member_id;
-		this.member_st = member_st;
-		this.email = email;
-		this.password = password;
-		this.member_nm = member_nm;
-		this.photo = photo;
-		this.member_init = member_init;
-		this.board_id = board_id;
-		this.member_permit = member_permit;
-	}
-
-	public String getBoard_id() {
-		return board_id;
-	}
-
-	public void setBoard_id(String board_id) {
-		this.board_id = board_id;
-	}
-
 	public MemberDTO(String member_id, String member_st, String email, String password, String member_nm, String photo,
 			String board_id, String member_permit) {
 		super();
@@ -82,6 +70,40 @@ public class MemberDTO{
 		this.photo = photo;
 		this.board_id = board_id;
 		this.member_permit = member_permit;
+	}
+	
+	
+
+	public MemberDTO(String member_id, String member_st, String email, String password, String member_nm, String photo,
+			String board_id, String member_permit, String member_dt, String member_init) {
+		super();
+		this.member_id = member_id;
+		this.member_st = member_st;
+		this.email = email;
+		this.password = password;
+		this.member_nm = member_nm;
+		this.photo = photo;
+		this.board_id = board_id;
+		this.member_permit = member_permit;
+		this.member_dt = member_dt;
+		this.member_init = member_init;
+	}
+	
+
+	public String getBoard_id() {
+		return board_id;
+	}
+
+	public void setBoard_id(String board_id) {
+		this.board_id = board_id;
+	}
+
+	public String getMember_init() {
+		return member_init;
+	}
+
+	public void setMember_init(String member_init) {
+		this.member_init = member_init;
 	}
 
 	public String getMember_permit() {
@@ -139,17 +161,21 @@ public class MemberDTO{
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
+	
+	public String getMember_dt() {
+		return member_dt;
+	}
+
+	public void setMember_dt(String member_dt) {
+		this.member_dt = member_dt;
+	}
 
 	@Override
 	public String toString() {
 		return "MemberDTO [member_id=" + member_id + ", member_st=" + member_st + ", email=" + email + ", password="
-				+ password + ", member_nm=" + member_nm + ", photo=" + photo + ", member_init=" + member_init
-				+ ", board_id=" + board_id + ", member_permit=" + member_permit + "]";
+				+ password + ", member_nm=" + member_nm + ", photo=" + photo + ", member_dt=" + member_dt
+				+ ", member_init=" + member_init + ", board_id=" + board_id + ", member_permit=" + member_permit + "]";
 	}
-
-	
-
-	
 	
 }
 

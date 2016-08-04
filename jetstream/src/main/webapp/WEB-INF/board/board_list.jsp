@@ -5,6 +5,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <style>
+
+.label-xsa{
+	float: left;
+	height: 8px;
+	margin: 5px 3px 15px 5px;
+	padding: 0;
+	width: 35px;
+	line-height: 30pt;
+	overflow: hidden;
+}
+
 .sortable li {
 	padding: 0.4em;
 }
@@ -105,11 +116,11 @@
 	<!-- Pack loop Start -->
 	<c:forEach var="pack" items="${packList}">
 		<div class="col-md-4 column">
-			<div class="panel panel-default">
+			<div class="panel panel-default" id="listID-${pack.list_id}">
 				<div class="panel-heading portlet-header">
-					<button type="button" class="close">
-						<span class="fa fa-fw fa-gear"></span>
-					</button>
+					<a type="button" class="close" href="/jetstream/board/pack_close.do?pack_id=${pack.list_id}&board_id=${board.board_id}" >
+						<span class="fa fa-fw fa-close"></span>
+					</a>
 					<span class="panel-title">${pack.list_nm}</span>
 				</div>
 
@@ -137,6 +148,24 @@
 													</c:otherwise>
 												</c:choose>
 												&nbsp;${card.card_nm}
+												<!-- 리스트에 라벨 -->
+												<div>
+													<c:forEach var="labelCard" items="${labelCardList}">
+														 <c:forEach var="label" items="${lableList}">
+														 	<%-- <a>card:${card.card_id}</a><br>
+														 	<a>labelCard:${labelCard.card_id}</a><br> --%>
+	
+														 		<c:if test="${labelCard.card_id eq card.card_id}">
+    																<c:if test="${labelCard.label_id eq label.label_id}">
+    																	<span class="label labal-size label-default label-xsa" style="background-color:${label.label_color}">
+																			<a>aa</a>
+																		</span>
+																	</c:if>
+																</c:if>
+														</c:forEach>
+													</c:forEach>	
+												</div>
+												<!-- 리스트에 라벨 끝 -->
 											</p>
 										</div>
 									</div>

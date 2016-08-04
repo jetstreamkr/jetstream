@@ -15,8 +15,15 @@ public class CardDTO {
 	private String card_nm;
 	private String list_nm;
 
-	public CardDTO(){
-		
+	public CardDTO() {
+
+	}
+
+	public CardDTO(String card_start, String card_due, String card_nm) {
+		super();
+		this.card_start = card_start;
+		this.card_due = card_due;
+		this.card_nm = card_nm;
 	}
 
 	public CardDTO(String board_id, String list_id, String card_id, String member_id, int card_loc, String card_st,

@@ -25,6 +25,7 @@ public interface CardDAO {
 	// 카드 보기(card_view.do)
 	public CardDTO viewCard(String card_id);
 	
+<<<<<<< HEAD
 // 카드 수정
 	// 카드 시작일 수정
 	public void setCardStart(CardDTO card);
@@ -56,4 +57,8 @@ public interface CardDAO {
 	public void chkAssign(AssignDTO assign);
 
 	
+=======
+	// 카드 수정
+	public void setCard(CardDTO card);
+>>>>>>> refs/remotes/origin/jisung
 }

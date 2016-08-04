@@ -85,4 +85,21 @@
 	</beans:bean>
 	<mongo:repositories base-package="kr.jetstream.board.dto"></mongo:repositories>
 
+	<!-- 로그인 인터셉터 -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/board/*" />
+			<beans:bean class="kr.jetstream.index.controller.LoginCheckInterceptor" />
+		</interceptor>
+	</interceptors>
+	<!-- admin 인터셉터 -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/admin/*" />
+			<beans:bean class="kr.jetstream.index.controller.AdminInterceptor" />
+		</interceptor>
+	</interceptors>
+
+
+
 </beans:beans>

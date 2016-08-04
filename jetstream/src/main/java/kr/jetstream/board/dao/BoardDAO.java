@@ -3,6 +3,7 @@ package kr.jetstream.board.dao;
 import java.util.List;
 
 import kr.jetstream.board.dto.BoardDTO;
+import kr.jetstream.card.dto.CardDTO;
 import kr.jetstream.member.dto.MemberDTO;
 
 public interface BoardDAO {
@@ -53,5 +54,11 @@ public interface BoardDAO {
 	
 	// 보드 멤버 권한 수정, 삭제
 	public void setBoardMember(BoardDTO board);
-	
+
+//service for calendar
+   //뿌려질 카드네임, 기간 받아오기
+   public List<CardDTO> selectCard(String board_id);
+
+   //캘린더에 디폴트할 오늘 날짜 받아오기
+   public String selectToday();	
 }
