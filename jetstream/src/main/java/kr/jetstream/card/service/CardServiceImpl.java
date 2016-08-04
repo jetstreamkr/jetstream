@@ -48,7 +48,6 @@ public class CardServiceImpl implements CardService {
 		return dao.viewCard(card_id);
 	}
 	
-<<<<<<< HEAD
 // 카드 수정
 	// 카드 시작일 수정
 	public void setCardStart(CardDTO card) {
@@ -96,13 +95,5 @@ public class CardServiceImpl implements CardService {
 	public void chkAssign(AssignDTO assign) {
 		dao.chkAssign(assign);
 	}
-
-=======
-	// 카드 수정
-	@Override
-	public void setCard(CardDTO card) {
-		dao.setCard(card);
-	}
->>>>>>> refs/remotes/origin/jisung
 
 }

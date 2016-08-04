@@ -28,7 +28,7 @@ public class AttachDownloadController {
 			res.setContentType("application/octet-stream");
 			res.setContentLength(fileByte.length);
 			res.setHeader("Content-Disposition",
-					"attachment; fileName=\"" + URLEncoder.encode(file_path, "UTF-8") + "\";");
+					"attachment; fileName=‚"" + URLEncoder.encode(file_path, "UTF-8") + "‚";");
 			res.setHeader("Content-Transfer-Encoding", "binary");
 			res.getOutputStream().write(fileByte);
 			

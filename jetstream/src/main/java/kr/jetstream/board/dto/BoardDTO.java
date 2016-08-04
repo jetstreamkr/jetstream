@@ -25,15 +25,6 @@ public class BoardDTO {
 		this.board_fav = board_fav;
 	}
 
-	// board_set.do 보드 소속 멤버 조회용
-	public BoardDTO(String board_id, String member_id, String member_permit, String board_fav) {
-		super();
-		this.board_id = board_id;
-		this.member_id = member_id;
-		this.member_permit = member_permit;
-		this.board_fav = board_fav;
-	}
-
 	public BoardDTO(String board_id, String member_id, String board_nm, String board_uri, String board_permit,
 			String board_st, String board_start, String board_due, int board_prog, String member_permit,
 			String board_fav) {

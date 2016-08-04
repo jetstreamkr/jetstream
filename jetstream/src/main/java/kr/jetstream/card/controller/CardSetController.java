@@ -15,7 +15,6 @@ public class CardSetController {
 	CardService cardService;
 	
 	@RequestMapping(value="/board/card_set.do", method=RequestMethod.POST)
-<<<<<<< HEAD
 	public ModelAndView cardSet(String card_id, String card_start, String card_due, String card_txt, String card_nm, String card_order, String option){
 		ModelAndView mav = new ModelAndView();
 
@@ -45,15 +44,6 @@ public class CardSetController {
 		
 		
 		mav.setViewName("redirect:/board/card_view.do?card_id=" + card.getCard_id());
-=======
-	public ModelAndView cardSet(CardDTO card){
-		ModelAndView mav = new ModelAndView();
-
-		cardService.setCard(card);
-		
-		mav.addObject("card", card);
-		mav.setViewName("card/card_view");
->>>>>>> refs/remotes/origin/jisung
 		return mav;
 	}
 	

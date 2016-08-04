@@ -54,7 +54,6 @@ public class CardDAOImpl implements CardDAO {
 		return sqlsession.selectOne("viewCard", card_id);
 	}
 	
-<<<<<<< HEAD
 // 카드 수정
 	// 카드 시작일 수정
 	public void setCardStart(CardDTO card) {
@@ -105,12 +104,4 @@ public class CardDAOImpl implements CardDAO {
 	public void chkAssign(AssignDTO assign) {
 		sqlsession.update("chkAssign", assign);
 	}
-=======
-	// 카드 수정
-	@Override
-	public void setCard(CardDTO card) {
-		sqlsession.update("setCard", card);
-	}
-
->>>>>>> refs/remotes/origin/jisung
 }

@@ -33,6 +33,9 @@ public class BoardListController {
 	@Autowired
 	CardService cardService;
 	
+	@Autowired
+	LabelService labelService;
+	
 	@RequestMapping(value="/board/board_list.do", method=RequestMethod.GET)
 	public ModelAndView boardList(HttpSession session, String board_id,
 			@RequestParam(value="card_id", defaultValue="none") String card_id) {

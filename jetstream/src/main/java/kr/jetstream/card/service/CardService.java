@@ -25,7 +25,6 @@ public interface CardService {
 	// 카드 조회
 	public CardDTO viewCard(String card_id);
 
-<<<<<<< HEAD
 // 카드 수정
 	// 카드 시작일 수정
 	public void setCardStart(CardDTO card);
@@ -54,9 +53,5 @@ public interface CardService {
 	
 	// 담당자 체크
 	public void chkAssign(AssignDTO assign);
-=======
-	// 카드 수정
-	public void setCard(CardDTO card);
->>>>>>> refs/remotes/origin/jisung
 
 }

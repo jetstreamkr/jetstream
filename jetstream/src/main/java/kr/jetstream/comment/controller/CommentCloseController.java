@@ -15,15 +15,10 @@ public class CommentCloseController {
 	
 	
 	@RequestMapping(value="/board/comment_close.do", method=RequestMethod.POST)
-<<<<<<< HEAD
 	public String closeComment(String comment_id, String card_id) {
 		commentService.closeComment(comment_id);
 		
 		return "redirect:/board/card_view.do?card_id=" + card_id;
-=======
-	public String closeComment(String comment_id) {
-		commentService.closeComment(comment_id);
-		return "redirect:/board/board_list.do?board_id=";
->>>>>>> refs/remotes/origin/jisung
+
 	}
 }
