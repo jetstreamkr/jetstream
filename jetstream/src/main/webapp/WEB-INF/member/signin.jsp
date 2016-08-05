@@ -59,18 +59,15 @@
 								<input type="email" class="form-control" id="email" name="email" onkeyup="test()"
 									placeholder="Email">
 							</div>
-							<div class="col-sm-8">
-								<span id="checkId"></span>
-							</div>
+							
 
 						</div>
 						<div class="form-group">
-							<!-- <div class="col-sm-4 text-right">
-								<button type="button" onclick="idCheck()">중복체크</button>
-							</div> -->
-							<!-- <div class="col-sm-8">
+							<div class="col-sm-4 text-right">
+							</div> 
+							<div class="col-sm-8">
 								<span id="checkId"></span>
-							</div> -->
+							</div> 
 						</div>
 
 						<div class="form-group">
