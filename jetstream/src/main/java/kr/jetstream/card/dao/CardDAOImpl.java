@@ -104,4 +104,17 @@ public class CardDAOImpl implements CardDAO {
 	public void chkAssign(AssignDTO assign) {
 		sqlsession.update("chkAssign", assign);
 	}
+	
+	// 담당자가 모두 완료했을 경우 카드 상태 변경하기 위한 검사
+	@Override
+	public int chkAssignDone(String card_id) {
+		return sqlsession.selectOne("chkAssignDone", card_id);
+	}
+	
+	// 모두 완료됐을 경우 카드 상태 변경
+	@Override
+	public void chkAssignSet(String card_id) {
+		sqlsession.update("chkAssignSet", card_id);
+	}
+	
 }

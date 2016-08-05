@@ -3,6 +3,7 @@ package kr.jetstream.board.service;
 import java.util.List;
 
 import kr.jetstream.board.dto.BoardDTO;
+import kr.jetstream.board.dto.ProgressDTO;
 import kr.jetstream.card.dto.CardDTO;
 import kr.jetstream.member.dto.MemberDTO;
 
@@ -55,11 +56,14 @@ public interface BoardService {
 	// 보드 멤버 권한 수정, 삭제
 	public void setBoardMember(BoardDTO board);
 	
-	//service for calendar
-	   //뿌려질 카드네임, 기간 받아오기
-	   public List<CardDTO> selectCard(String board_id);
+//service for calendar
+   //뿌려질 카드네임, 기간 받아오기
+   public List<CardDTO> selectCard(String board_id);
 
-	   //캘린더에 디폴트할 오늘 날짜 받아오기
-	   public String selectToday();
+   //캘린더에 디폴트할 오늘 날짜 받아오기
+   public String selectToday();
+   
+// 보드메인 통계용
+   public List<ProgressDTO> progress(String board_id);
 	
 }

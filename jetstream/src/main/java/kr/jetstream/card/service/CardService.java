@@ -54,4 +54,10 @@ public interface CardService {
 	// 담당자 체크
 	public void chkAssign(AssignDTO assign);
 
+	// 담당자가 모두 완료했을 경우 카드 상태 변경하기 위한 검사
+	public int chkAssignDone(String card_id);
+	
+	// 모두 완료됐을 경우 카드 상태 변경
+	public void chkAssignSet(String card_id);
+
 }

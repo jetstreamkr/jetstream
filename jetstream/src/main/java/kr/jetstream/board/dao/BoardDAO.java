@@ -3,6 +3,7 @@ package kr.jetstream.board.dao;
 import java.util.List;
 
 import kr.jetstream.board.dto.BoardDTO;
+import kr.jetstream.board.dto.ProgressDTO;
 import kr.jetstream.card.dto.CardDTO;
 import kr.jetstream.member.dto.MemberDTO;
 
@@ -61,4 +62,8 @@ public interface BoardDAO {
 
    //캘린더에 디폴트할 오늘 날짜 받아오기
    public String selectToday();	
+   
+// 보드메인 통계용
+   public List<ProgressDTO> progress(String board_id);
+   
 }

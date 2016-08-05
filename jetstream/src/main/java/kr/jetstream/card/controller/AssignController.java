@@ -55,6 +55,11 @@ public class AssignController {
 		
 		service.chkAssign(assign);
 		
+		int assignChk = service.chkAssignDone(card_id);
+		if(assignChk == 0) {
+			service.chkAssignSet(card_id);
+		}
+		
 		mav.setViewName("redirect:/board/card_view.do?card_id=" + assign.getCard_id());
 		return mav;
 	}

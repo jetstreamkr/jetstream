@@ -74,6 +74,7 @@ public class BoardCalendarController {
 		mav.setViewName("calendar");
 		/*mav.addObject("object_today", service.selectToday());*/
 			
+		mav.addObject("board", board);
 		mav.addObject("object_today", object_today);
 		mav.addObject("set_ok", set_ok);
 		mav.addObject("datalist", datalist);

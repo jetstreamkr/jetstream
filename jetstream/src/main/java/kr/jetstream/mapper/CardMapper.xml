@@ -39,10 +39,8 @@
 	<select id="searchCard" parameterType="String" resultType="card">
 		select c.*
 		from TB_DASHBOARD d, TB_BOARD b, TB_CARD c
-		where c.MEMBER_ID
-		= #{member_id} or (d.MEMBER_ID = #{member_id} and
-		d.BOARD_ID =
-		c.BOARD_ID and c.CARD_NM = #{card_nm}
+		where c.MEMBER_ID = #{member_id} or (d.MEMBER_ID = #{member_id} and
+		d.BOARD_ID = c.BOARD_ID and c.CARD_NM = #{card_nm}
 	</select>
 	
 	
@@ -98,6 +96,16 @@
 	<!-- 담당자 체크 -->
 	<update id="chkAssign" parameterType="assign">
 		update TB_CARD_ASSIGN set ASSIGN_CHK = 'C' where CARD_ID = #{card_id} and MEMBER_ID = #{member_id}
+	</update>
+	
+	<!-- 담당자가 모두 완료했을 경우 카드 상태 변경하기 위한 검사 -->
+	<select id="chkAssignDone" parameterType="String" resultType="int">
+		select count(MEMBER_ID) from TB_CARD_ASSIGN where CARD_ID = #{card_id} and ASSIGN_CHK = 'O'
+	</select>
+	
+	<!-- 모두 완료됐을 경우 카드 상태 변경 -->
+	<update id="chkAssignSet" parameterType="String">
+		update TB_CARD set CARD_LOC = 1 where CARD_ID = #{card_id}
 	</update>
 	
 	<!-- attachment -->

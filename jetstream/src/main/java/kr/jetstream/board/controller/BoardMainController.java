@@ -8,19 +8,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.jetstream.board.dto.BoardDTO;
+import kr.jetstream.board.dto.ProgressDTO;
 import kr.jetstream.board.service.BoardService;
 import kr.jetstream.card.dto.CardDTO;
 import kr.jetstream.card.service.CardService;
 import kr.jetstream.member.dto.MemberDTO;
+import kr.jetstream.pack.dto.PackDTO;
+import kr.jetstream.pack.service.PackService;
 
 @Controller
 public class BoardMainController {
 	@Autowired
 	BoardService boardService;
+	
+	@Autowired
+	PackService packService;
 	
 	@Autowired
 	CardService cardService;
@@ -57,10 +62,19 @@ public class BoardMainController {
 			}
 		}
 		
+		// Ελ°θΏλ
+		List<ProgressDTO> progressList = boardService.progress(board_id);
+		
+		List<PackDTO> packList = packService.packList(board_id); 
+		
 		List<CardDTO> cardList = cardService.cardList(board_id, "main");
 
+		
+		
 		mav.addObject("board", board);
 		mav.addObject("set_ok", set_ok);
+		mav.addObject("packList", packList);
+		mav.addObject("progressList", progressList);
 		mav.addObject("cardList", cardList);
 		mav.setViewName("board/main");
 		return mav;

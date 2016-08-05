@@ -5,25 +5,25 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import kr.jetstream.member.dto.MemberDTO;
+
 public class AdminInterceptor extends HandlerInterceptorAdapter {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		boolean masterFlag = false;
 		System.out.println("Admininterceptor");
-		if(request.getSession(false).getAttribute("member")!=null &&
-				 	request.getSession().getAttribute("member_st")=="A"){
-
-			response.sendRedirect("/jetstream/login.do");
-			masterFlag = true;
-		} else {
+		MemberDTO member = new MemberDTO(); 
+		member = (MemberDTO) request.getSession(false).getAttribute("member");
+		if(request.getRequestURI().equals(request.getContextPath()+"/admin/index.do")&&member!=null&&member.getMember_st().equals("A")){
+				return true;
 			
-			response.sendRedirect(request.getContextPath()+"/dashboard.do");
-			masterFlag = false;
 		}
-		
-		
-		return masterFlag;
+
+		else {
+			System.out.println("ø§Ω∫∞°ø‰√ªµ ");
+			response.sendRedirect(request.getContextPath()+"/dashboard.do");
+			return false;
+		}
 	}
 }

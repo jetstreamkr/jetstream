@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.jetstream.board.dao.BoardDAO;
 import kr.jetstream.board.dto.BoardDTO;
+import kr.jetstream.board.dto.ProgressDTO;
 import kr.jetstream.card.dto.CardDTO;
 import kr.jetstream.member.dto.MemberDTO;
 
@@ -124,5 +125,11 @@ public class BoardServiceImpl implements BoardService {
     public String selectToday() {
        return dao.selectToday();
     }
+    
+// 보드메인 통계용
+	@Override
+	public List<ProgressDTO> progress(String board_id) {
+		return dao.progress(board_id);
+	}
     
 }

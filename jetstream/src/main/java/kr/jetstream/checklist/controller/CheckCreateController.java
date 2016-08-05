@@ -39,17 +39,16 @@ public class CheckCreateController {
 			System.out.println(chk_st);
 
 			if (chk_st.equals("O")) {
-				pw.print("<div>" + chk_txt + "  <input type='checkbox' name='chkbox' id='chkbox-" + chk_id
+				pw.print("<div><input type='checkbox' name='chkbox' id='chkbox-" + chk_id
 						+ "' class='chkbox-" + card_id + "' value='" + card_id + "," + chk_id
-						+ "' checked/><input type='button' value='x' onclick='deleteCheck(&#39;" + card_id + "&#39;,&#39;" + chk_id
-						+ "')&#39;></div>");
+						+ "' checked/> " + chk_txt + " <button type='button' class='btn btn-default btn-xs' onclick='deleteCheck(&#39;" + card_id + "&#39;,&#39;" + chk_id
+						+ "')&#39;><span class='fa fa-close'></span></button></div>");
 			} else {
-				pw.print("<div>" + chk_txt + "  <input type='checkbox' name='chkbox' id='chkbox-" + chk_id
+				pw.print("<div><input type='checkbox' name='chkbox' id='chkbox-" + chk_id
 						+ "' class='chkbox-" + card_id + "' value='" + card_id + "," + chk_id
-						+ "'/><input type='button' value='x' onclick='deleteCheck(&#39;" + card_id + "&#39;,&#39;" + chk_id
-						+ "&#39;)'></div>");
+						+ "'/> " + chk_txt + " <button type='button' class='btn btn-default btn-xs' onclick='deleteCheck(&#39;" + card_id + "&#39;,&#39;" + chk_id
+						+ "')&#39;><span class='fa fa-close'></span></button></div>");
 			}
-
 		}
 
 	}

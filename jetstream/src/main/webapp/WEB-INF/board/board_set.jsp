@@ -258,17 +258,4 @@
 		</div>		
 	</div>
 	<!-- set 멤버 끝 -->	
-
-	<!-- set 라벨 시작 -->
-	<div class="col-md-4">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<span class="panel-title">라벨 설정</span>
-			</div>
-			<div class="panel-body">
-			</div>
-		</div>		
-	</div>
-	<!-- set 멤버 끝 -->	
-
 </div>

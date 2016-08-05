@@ -16,7 +16,7 @@
 			SELECT 'B'||to_char(SEQ_BOARD.NEXTVAL) AS board_id FROM DUAL
 		</selectKey>
 		insert all
-		into TB_BOARD(BOARD_ID, MEMBER_ID, BOARD_NM, BOARD_ST) values(BOARD_ID, #{member_id}, #{board_nm}, 'O')
+		into TB_BOARD(BOARD_ID, MEMBER_ID, BOARD_NM, BOARD_ST, BOARD_DT) values(BOARD_ID, #{member_id}, #{board_nm}, 'O', sysdate)
 		into TB_DASHBOARD values(BOARD_ID, #{member_id}, 'A', 'N')
 		select #{board_id} as BOARD_ID from dual
 	</insert>
@@ -39,17 +39,25 @@
 	</select>
 
 	
-	<!-- 보드 닫기 -->
-	<update id="closeBoard">
-		update TB_BOARD set BOARD_ST = 'C' where BOARD_ID = #{board_id}
-	</update>
-	
+<!-- 보드 닫기 -->
+   <update id="closeBoard">
+      update TB_BOARD set BOARD_ST = 'C' where BOARD_ID = #{board_id}
+   </update>
+   
+   <update id="closeBoard_withPack">
+      update TB_LIST set LIST_ST = 'C' where BOARD_ID = #{board_id}
+   </update>
+   
+   <update id="closeBoard_withCard">
+      update TB_CARD set CARD_ST = 'C' where BOARD_ID = #{board_id}
+   </update>
+   	
 	<!-- 보드 이름 바꾸기 -->
 	<update id="renameBoard">
 		update TB_BOARD set BOARD_NM = #{board_nm} where BOARD_ID = #{board_id}
 	</update>
 	
-		<!--  -->
+		<!-- 즐겨찾기 -->
 	<select id="findBoardfav" parameterType="String" resultType="String">
 		select BOARD_FAV from TB_DASHBOARD where BOARD_ID = #{board_id}	
 	</select>
@@ -105,7 +113,7 @@
    <select id="selectCard" parameterType="String" resultType="card">
       select CARD_NM, CARD_START, CARD_DUE
       from TB_CARD
-      where board_id = #{board_id} and card_start is not null and card_due is not null
+      where board_id = #{board_id} and card_start is not null and card_due is not null and CARD_ST = 'O'
    </select>
    
 <!-- 오늘 날짜 받아오기 -->
@@ -113,5 +121,21 @@
       select to_char(sysdate, 'YYYY-MM-DD') from dual
    </select>
 	
+<!-- 보드메인 통계자료용 -->
+	<select id="progress" parameterType="String" resultType="progress">
+		select w.LIST_ID, w.LIST_NM, e.done, w.total from
+		(select l.LIST_ID, l.LIST_NM, count(a.CARD_ID) done from TB_CARD_ASSIGN a, TB_CARD c, TB_LIST l
+		where a.CARD_ID = c.CARD_ID and c.LIST_ID = l.LIST_ID
+		and c.CARD_LOC = 1 and c.CARD_ST = 'O' and l.LIST_ST = 'O' and c.BOARD_ID = #{board_id}
+		group by l.LIST_ID, l.LIST_NM) e,
+		
+		(select q.LIST_ID, q.LIST_NM, count(q.CARD_ID) total
+		from (select DISTINCT l.LIST_ID, l.LIST_NM, a.CARD_ID
+		from TB_CARD_ASSIGN a, TB_CARD c, TB_LIST l
+		where a.CARD_ID = c.CARD_ID and c.LIST_ID = l.LIST_ID
+		and c.CARD_ST = 'O' and l.LIST_ST = 'O' and c.BOARD_ID = #{board_id}) q
+		group by q.LIST_ID, q.LIST_NM) w
+		where e.LIST_ID = w.LIST_ID
+	</select>
 
 </mapper>

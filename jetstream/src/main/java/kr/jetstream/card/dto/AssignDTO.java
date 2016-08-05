@@ -11,6 +11,13 @@ public class AssignDTO {
 	private String member_permit;
 	
 	public AssignDTO(){}
+	
+	public AssignDTO(String card_id, String member_id, String assign_chk) {
+		super();
+		this.card_id = card_id;
+		this.member_id = member_id;
+		this.assign_chk = assign_chk;
+	}
 
 	public AssignDTO(String card_id, String member_id, String assign_chk,
 			String member_nm, String email, String photo, String member_init, String member_permit) {

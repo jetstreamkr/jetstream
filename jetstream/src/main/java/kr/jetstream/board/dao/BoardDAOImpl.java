@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.jetstream.board.dto.BoardDTO;
+import kr.jetstream.board.dto.ProgressDTO;
 import kr.jetstream.card.dto.CardDTO;
 import kr.jetstream.member.dto.MemberDTO;
 
@@ -47,10 +48,12 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	// 보드 삭제
-	@Override
-	public void closeBoard(String board_id) {
-		sqlsession.update("jetstream.board.closeBoard", board_id);
-	}
+	   @Override
+	   public void closeBoard(String board_id) {
+	      sqlsession.update("jetstream.board.closeBoard", board_id);
+	      sqlsession.update("jetstream.board.closeBoard_withPack", board_id);
+	      sqlsession.update("jetstream.board.closeBoard_withCard", board_id);
+	   }
 
 	// 보드 리네임
 	@Override
@@ -126,6 +129,12 @@ public class BoardDAOImpl implements BoardDAO {
 	public String selectToday() {
 		// TODO Auto-generated method stub
 		return sqlsession.selectOne("jetstream.board.selectToday");
+	}
+
+// 보드메인 통계용
+	@Override
+	public List<ProgressDTO> progress(String board_id) {
+		return sqlsession.selectList("jetstream.board.progress", board_id); 
 	}
 
 

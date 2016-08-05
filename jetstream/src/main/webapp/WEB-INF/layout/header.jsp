@@ -88,7 +88,7 @@ $(document).ready(function() {
 function searchAjax() {
 	     
 	 $.ajax({
-	       url : "member/board_search.do",
+	       url : "/jetstream/member/board_search.do",
 	       type:"POST",
 	       datatype:"json",
 	       data : { searchData : $("#autoValue").val() },

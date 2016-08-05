@@ -15,6 +15,7 @@
 		<typeAlias alias="attach" type="kr.jetstream.attach.dto.FileDTO"/>
 		<typeAlias alias="labelcard" type="kr.jetstream.label.dto.LabelCardDTO"/>
 		<typeAlias alias="checklist" type="kr.jetstream.checklist.dto.CheckListDTO"/>
+		<typeAlias alias="progress" type="kr.jetstream.board.dto.ProgressDTO"/>
 	</typeAliases>
 
 	<mappers>

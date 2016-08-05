@@ -15,11 +15,11 @@
 
 .progressbar-container {
    position: relative;
-   width: 350px;
+   width: 100%;
 }
 
 .progressbar-bar {
-   height: 25px;
+   height: 10px;
    margin: 10px 0;
    border-radius: 7px;
 }
@@ -69,7 +69,6 @@
 			</c:if>
 		});
 
-		
 		//
 		<c:forEach var="assignMember" items="${assignList}">
 				var assignVal = "<li><a href=\"javascript:closeAssign(\'${assignMember.member_id}\')\">"
@@ -79,6 +78,7 @@
 				$("#card-assign-add-${assignMember.member_id}").html(assignVal);
 		</c:forEach>
 		
+        
 		// 날짜선택 폼 붙이기
 		$("#card-start, #card-due").datepicker({
 			dateFormat : 'yy-mm-dd'
@@ -426,7 +426,6 @@
    function checklistadd(myform, board_id, list_id, card_id) {
       //, board_id, list_id, card_id
       chklist_txt = myform.checkName.value
-      alert(chklist_txt)
       if (chklist_txt != "") {
          $.ajax({
             type : 'POST',
@@ -493,7 +492,7 @@
          });
 
       } else {
-         alert("아이디를 입력해주세요.");
+         alert("내용을 입력해주세요.");
 
       }
 
@@ -685,13 +684,13 @@
 					<!--라벨  -->
 
 					<div class="form-group col-md-12">
-						<div class="dropdown col-md-4">
-							<button class="btn btn-default dropdown-toggle" type="button"
-								id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-								Label <span class="caret"></span>
+					<div class="dropdown">
+						<label class="control-label" for="card-label">라벨</label>
+						
+							<button class="btn btn-default dropdown-toggle btn-xs" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+							라벨추가 <span class="caret"></span>
 							</button>
-							<ul class="dropdown-menu" role="menu"
-								aria-labelledby="dropdownMenu1">
+							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 
 								<c:forEach var="label" items="${labelList}">
 									<li role="presentation"><a
@@ -700,9 +699,8 @@
 											style="background-color: ${label.label_color}">color</span>
 									</a></li>
 								</c:forEach>
-
 							</ul>
-						</div>
+						</div>						
 					</div>
 					<div class="col-md-12">
 						<div id="addedLabel">
@@ -788,8 +786,7 @@
 					<!-- 카드 내용 시작 -->
 					<div class="form-group col-md-12">
 						<div id="card-txt">
-							<label class="control-label" for="card-txt-form">Description
-								<span id="card-txt-btn">
+							<label class="control-label" for="card-txt-form">내용<span id="card-txt-btn">
 									<c:choose>
 										<c:when test="${card.card_txt eq null}">
 											<a id="card-txt-btn-add" class="btn btn-primary btn-xs" href="javascript:setTxt('add')">작성</a>
@@ -808,8 +805,7 @@
 					<!-- 파일 업로드 -->
 
 					<div class="form-group col-md-12">
-						<label class="control-label" for="card-attach-${card.card_id}">File
-							Attachment</label>
+						<label class="control-label" for="card-attach-${card.card_id}">첨부파일</label>
 						<ul id="card-attach-${card.card_id}">
 							<c:forEach var="file" items="${fileList}">
 								<li><a
@@ -819,13 +815,11 @@
 										x</a></li>
 							</c:forEach>
 						</ul>
-						<form action="/jetstream/attach.do" method="post"
-							enctype="multipart/form-data">
-							<input type="file" name="file" size="20"> <input
-								type="hidden" name="card_id" value="${card.card_id}" size="50">
-							<input type="hidden" name="board_id" value="${card.board_id}"
-								size="50">
-							<button type="submit">업로드</button>
+						<form action="/jetstream/attach.do" method="post" enctype="multipart/form-data">
+							<input type="hidden" name="card_id" value="${card.card_id}">
+							<input type="hidden" name="board_id" value="${card.board_id}">
+							<input type="file" name="file" size="20">
+							<button class="btn btn-info btn-xs" type="submit">업로드</button>
 						</form>
 					</div>
 
@@ -836,20 +830,19 @@
 						<!--프로그래스바-->
 						<div class="progressbar-container">
 							<label class="control-label" for="card-chklist-${card.card_id}">
-								CheckList: <span id="percent-${card.card_id}">${percent}
+								체크리스트 : <span id="percent-${card.card_id}">${percent}
 									%</span>
 							</label> <span id="progressbar-label"></span>
 							<div id="progressbar-bar-${card.card_id}" class="progressbar-bar"></div>
 						</div>
 						<!-- 체크리스트 뿌려주는 곳 -->
-						<div id="listshow" name="listshow">
+						<div class="col-md-12" id="listshow" name="listshow">
 							<c:forEach var="chklist" items="${checkList}">
 								<c:set var="card_id" value="${card.card_id}" />
 								<c:set var="chk_card_id" value="${chklist.card_id}" />
 								<c:set var="chk_st" value="${chklist.chklist_st}" />
 								<c:if test="${card_id eq chk_card_id}">
 									<div id="chklist-${chklist.chklist_id}">
-										${chklist.chklist_txt}
 										<c:choose>
 											<c:when test="${chk_st == 'O'}">
 												<input type="checkbox" name="chkbox" id="chkbox"
@@ -865,18 +858,21 @@
 											<c:otherwise>
 											</c:otherwise>
 										</c:choose>
-										<input type="button" value="x"
-											onclick="deleteCheck('${card.card_id}','${chklist.chklist_id}')">
+										&nbsp;${chklist.chklist_txt}&nbsp;
+										<button type="button" class="btn btn-default btn-xs" onclick="deleteCheck('${card.card_id}','${chklist.chklist_id}')">
+										<span class="fa fa-close"></span>
+										</button>
 									</div>
 								</c:if>
 							</c:forEach>
 						</div>
 						<!-- 체크리스트 생성 하는 곳-->
 						<form>
-							<div>
-								<input type="text" id="checkName" name="checkName" /> <input
-									type="button" value="ok" id="btnSave"
-									onclick="checklistadd(this.form,'${card.board_id}','${card.list_id}','${card.card_id}')" />
+							<div class="input-group">
+								<input type="text" class="form-control" id="checkName" name="checkName" placeholder="체크리스트 이름" />
+								<span class="input-group-btn">
+								<button type="button" class="btn btn-info" id="btnSave" onclick="checklistadd(this.form,'${card.board_id}','${card.list_id}','${card.card_id}')">
+								만들기</button></span>
 							</div>
 						</form>
 

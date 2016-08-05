@@ -23,7 +23,7 @@ public class BoardCreateController {
 		String member_id = board.getMember_id();
 		String board_id = service.getBoardId(member_id);
 		labelSevice.createLabel(board.getBoard_id());
-		return "redirect:/board/board_main.do?board_id=" + board_id;
+		return "redirect:/board/board_set.do?board_id=" + board_id;
 	}
 
 }
